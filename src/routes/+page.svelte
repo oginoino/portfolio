@@ -1,0 +1,20 @@
+<script lang="ts">
+	import Hero from '$lib/components/Hero.svelte';
+	import About from '$lib/components/About.svelte';
+	import Skills from '$lib/components/Skills.svelte';
+	import Experience from '$lib/components/Experience.svelte';
+	import Projects from '$lib/components/Projects.svelte';
+	import Contact from '$lib/components/Contact.svelte';
+</script>
+
+<svelte:head>
+	<title>Ginaldo Laranjeiras Junior - Desenvolvedor Full Stack</title>
+	<meta name="description" content="Portfólio de Ginaldo Laranjeiras Junior - Desenvolvedor Full Stack especializado em TypeScript, React, Node.js e tecnologias modernas." />
+</svelte:head>
+
+<Hero />
+<About />
+<Skills />
+<Experience />
+<Projects />
+<Contact />
