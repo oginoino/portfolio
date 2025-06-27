@@ -941,6 +941,7 @@
 		font-size: inherit;
 		color: inherit;
 		display: block;
+		isolation: isolate;
 	}
 
 	.story-card:focus {
@@ -959,6 +960,7 @@
 		transform: scaleY(0);
 		transform-origin: top;
 		transition: var(--transition);
+		border-radius: 0 0 0 var(--border-radius-large);
 	}
 
 	.story-card.visible {
@@ -990,6 +992,8 @@
 			rgba(16, 185, 129, 0.05) 100%
 		);
 		border-left: 4px solid var(--success-color, #10b981);
+		border-top-left-radius: var(--border-radius-large);
+		border-bottom-left-radius: var(--border-radius-large);
 	}
 
 	.story-card.next {
@@ -1000,6 +1004,8 @@
 			rgba(245, 158, 11, 0.05) 100%
 		);
 		border-left: 4px solid var(--warning-color, #f59e0b);
+		border-top-left-radius: var(--border-radius-large);
+		border-bottom-left-radius: var(--border-radius-large);
 		animation: nextCardPulse 2s ease-in-out infinite;
 	}
 
@@ -1027,6 +1033,7 @@
 		box-shadow: var(--shadow-light);
 		border: 2px solid var(--border-light);
 		transition: var(--transition);
+		z-index: 2;
 	}
 
 	.status-completed {
@@ -1115,6 +1122,8 @@
 		font-size: 1.5rem;
 		border: 2px solid var(--border-light);
 		transition: var(--transition);
+		position: relative;
+		z-index: 1;
 	}
 
 	.card-icon.pulsing {
@@ -1142,6 +1151,7 @@
 		box-shadow: var(--shadow);
 		animation: hintBounce 2s ease-in-out infinite;
 		pointer-events: none;
+		z-index: 2;
 	}
 
 	.section-progress {
@@ -1151,12 +1161,13 @@
 		background: rgba(66, 66, 66, 0.9);
 		color: var(--text-white);
 		padding: 0.25rem 0.75rem;
-		border-radius: var(--border-radius-large);
+		border-radius: var(--border-radius);
 		font-size: 0.75rem;
 		font-weight: 600;
 		box-shadow: var(--shadow-light);
 		pointer-events: none;
 		backdrop-filter: blur(10px);
+		z-index: 2;
 	}
 
 	.progress-text {
@@ -1193,7 +1204,7 @@
 		background: var(--primary-color);
 		color: var(--text-white);
 		padding: 0.25rem 0.75rem;
-		border-radius: var(--border-radius-small);
+		border-radius: var(--border-radius);
 		font-size: 0.875rem;
 		font-weight: 600;
 	}
