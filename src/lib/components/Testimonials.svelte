@@ -1233,11 +1233,13 @@
 
 		.category-filters {
 			gap: 0.5rem;
+			padding: 0 1rem;
 		}
 
 		.category-btn {
-			padding: 0.5rem 1rem;
-			font-size: 0.9rem;
+			padding: 0.75rem 1.25rem;
+			font-size: 1rem;
+			min-height: 44px;
 		}
 
 		.category-name {
@@ -1247,54 +1249,91 @@
 		.testimonial-card {
 			flex: 0 0 100%;
 			margin-right: 1rem;
+			padding: 2rem 1.5rem;
+			min-height: 400px;
+			max-height: none;
 		}
 
 		.carousel-nav {
-			width: 40px;
-			height: 40px;
+			width: 44px;
+			height: 44px;
 		}
 
 		.carousel-nav.prev {
-			left: -20px;
+			left: -22px;
 		}
 
 		.carousel-nav.next {
-			right: -20px;
-		}
-
-		.testimonial-card {
-			padding: 1.5rem;
-			min-height: 350px;
-			max-height: 500px;
+			right: -22px;
 		}
 
 		.card-header {
 			flex-direction: column;
 			text-align: center;
-			gap: 0.75rem;
+			gap: 1rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.author-name {
+			font-size: 1.25rem;
+		}
+
+		.author-role {
+			font-size: 1rem;
 		}
 
 		.author-meta {
 			align-items: center;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.company, .date {
+			font-size: 0.95rem;
 		}
 
 		.quote-mark {
 			position: static;
 			margin-bottom: 1rem;
+			font-size: 2.5rem;
 		}
 
 		.testimonial-text {
-			-webkit-line-clamp: 5;
-			max-height: 8.5em;
-			font-size: 1rem;
+			-webkit-line-clamp: 4;
+			max-height: 7em;
+			font-size: 1.1rem;
+			line-height: 1.6;
+		}
+
+		.testimonial-text.expanded {
+			-webkit-line-clamp: unset;
+			max-height: none;
+		}
+
+		.read-more-controls {
+			margin-top: 1.5rem;
+			padding-top: 1.5rem;
+		}
+
+		.expand-btn {
+			width: 44px;
+			height: 44px;
+			border-width: 2px;
+		}
+
+		.highlight-tag {
+			padding: 0.5rem 1rem;
+			font-size: 0.9rem;
 		}
 
 		.highlight-text {
-			max-width: 100px;
+			max-width: 120px;
 		}
 
 		.highlights {
 			justify-content: center;
+			gap: 0.75rem;
+			flex-wrap: wrap;
 		}
 
 		.stats-grid {
@@ -1305,6 +1344,57 @@
 
 		.stat-number {
 			font-size: 2rem;
+		}
+
+		/* Modal responsivo */
+		.modal-overlay {
+			padding: 1rem;
+		}
+
+		.modal-content {
+			max-height: 95vh;
+			margin: 0;
+		}
+
+		.modal-header {
+			padding: 1.5rem 1.5rem 1rem;
+			flex-direction: column;
+			text-align: center;
+			gap: 1rem;
+		}
+
+		.modal-avatar {
+			width: 70px;
+			height: 70px;
+			font-size: 1.25rem;
+		}
+
+		.modal-author-name {
+			font-size: 1.25rem;
+		}
+
+		.modal-author-role {
+			font-size: 1rem;
+		}
+
+		.modal-body {
+			padding: 1.5rem;
+		}
+
+		.modal-testimonial-text {
+			font-size: 1.1rem;
+			line-height: 1.7;
+		}
+
+		.modal-footer {
+			padding: 1rem 1.5rem 1.5rem;
+		}
+
+		.modal-close {
+			top: 0.75rem;
+			right: 0.75rem;
+			width: 44px;
+			height: 44px;
 		}
 	}
 
