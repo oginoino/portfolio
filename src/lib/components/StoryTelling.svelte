@@ -831,7 +831,7 @@
 		height: 48px;
 		border-radius: 50%;
 		border: 2px solid var(--border-light);
-		background: white;
+		background: rgba(255, 255, 255, 0.8);
 		cursor: pointer;
 		transition: all 0.3s ease;
 		display: flex;
@@ -854,7 +854,7 @@
 
 	.timeline-dot.active {
 		border-color: var(--primary-color);
-		background: var(--primary-color);
+		background: rgba(59, 130, 246, 0.9);
 		color: var(--text-white);
 		box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
 		transform: scale(1.1);
@@ -862,7 +862,7 @@
 
 	.timeline-dot.completed {
 		border-color: #22c55e;
-		background: #22c55e;
+		background: rgba(34, 197, 94, 0.8);
 		color: var(--text-white);
 		box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
 	}
