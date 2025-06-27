@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Code, Coffee, Lightbulb, Users } from 'lucide-svelte';
+	import { Target, Coffee, Lightbulb, Users } from 'lucide-svelte';
 	
 	let aboutElement: HTMLElement;
 	
@@ -28,42 +28,44 @@
 	<div class="container">
 		<div class="section-title">
 			<h2>Sobre Mim</h2>
-			<p>Conheça um pouco mais sobre minha jornada e paixão pela tecnologia</p>
+			<p>Conheça um pouco mais sobre minha jornada e paixão por produtos digitais</p>
 		</div>
 		
 		<div class="about-content">
 			<div class="about-text">
 				<div class="text-content">
-					<h3>Desenvolvedor Full Stack Apaixonado</h3>
+					<h3>Product Manager Estratégico</h3>
 					<p>
-						Sou um desenvolvedor full stack com experiência sólida em tecnologias modernas 
-						como TypeScript, React, Node.js e muito mais. Minha paixão pela programação 
-						começou há alguns anos e desde então tenho me dedicado a criar soluções 
-						inovadoras e eficientes.
+						Sou um Product Manager com experiência sólida em gestão de produtos digitais, 
+						estratégia de negócios e inovação tecnológica. Minha paixão por produtos 
+						começou através da combinação entre visão técnica e entendimento de mercado, 
+						sempre focando em criar soluções que geram valor real para usuários e negócios.
 					</p>
 					<p>
-						Acredito que a tecnologia tem o poder de transformar vidas e negócios. 
-						Por isso, estou sempre em busca de novos desafios e oportunidades para 
-						aplicar meus conhecimentos e continuar aprendendo.
+						Acredito que produtos excepcionais nascem da intersecção entre tecnologia, 
+						design e estratégia de negócios. Por isso, estou sempre em busca de novos 
+						desafios para aplicar metodologias ágeis, análise de dados e visão estratégica 
+						na criação de produtos inovadores.
 					</p>
 					<p>
-						Quando não estou codificando, gosto de compartilhar conhecimento através 
-						de artigos no Medium e contribuir para projetos open source no GitHub.
+						Quando não estou desenvolvendo estratégias de produto, gosto de compartilhar 
+						insights sobre gestão de produtos no Medium e contribuir para a comunidade 
+						de Product Management através de projetos e discussões no GitHub.
 					</p>
 				</div>
 				
 				<div class="stats">
 					<div class="stat-item">
-						<div class="stat-number">3+</div>
+						<div class="stat-number">5+</div>
 						<div class="stat-label">Anos de Experiência</div>
 					</div>
 					<div class="stat-item">
-						<div class="stat-number">50+</div>
-						<div class="stat-label">Projetos Concluídos</div>
+						<div class="stat-number">30+</div>
+						<div class="stat-label">Produtos Lançados</div>
 					</div>
 					<div class="stat-item">
-						<div class="stat-number">15+</div>
-						<div class="stat-label">Tecnologias</div>
+						<div class="stat-number">10+</div>
+						<div class="stat-label">Metodologias</div>
 					</div>
 				</div>
 			</div>
@@ -71,34 +73,34 @@
 			<div class="about-features">
 				<div class="feature-card">
 					<div class="feature-icon">
-						<Code size={32} />
+						<Target size={32} />
 					</div>
-					<h4>Código Limpo</h4>
-					<p>Escrevo código limpo, bem documentado e seguindo as melhores práticas da indústria.</p>
+					<h4>Visão Estratégica</h4>
+					<p>Desenvolvo estratégias de produto alinhadas aos objetivos de negócio e necessidades dos usuários.</p>
 				</div>
 				
 				<div class="feature-card">
 					<div class="feature-icon">
 						<Lightbulb size={32} />
 					</div>
-					<h4>Soluções Inovadoras</h4>
-					<p>Busco sempre encontrar soluções criativas e eficientes para problemas complexos.</p>
+					<h4>Inovação de Produtos</h4>
+					<p>Identifico oportunidades de mercado e transformo ideias em produtos digitais de sucesso.</p>
 				</div>
 				
 				<div class="feature-card">
 					<div class="feature-icon">
 						<Users size={32} />
 					</div>
-					<h4>Trabalho em Equipe</h4>
-					<p>Colaboro efetivamente em equipes multidisciplinares e valorizo a comunicação clara.</p>
+					<h4>Liderança de Equipes</h4>
+					<p>Lidero equipes multidisciplinares, facilitando a colaboração entre design, desenvolvimento e negócios.</p>
 				</div>
 				
 				<div class="feature-card">
 					<div class="feature-icon">
 						<Coffee size={32} />
 					</div>
-					<h4>Aprendizado Contínuo</h4>
-					<p>Estou sempre aprendendo novas tecnologias e me mantendo atualizado com as tendências.</p>
+					<h4>Análise de Dados</h4>
+					<p>Utilizo métricas e análise de dados para tomar decisões informadas e otimizar produtos.</p>
 				</div>
 			</div>
 		</div>
