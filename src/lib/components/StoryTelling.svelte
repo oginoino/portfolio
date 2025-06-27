@@ -487,7 +487,6 @@
 					style="--dot-index: {index}"
 				>
 					<span class="dot-year">{section.year.split('-')[0]}</span>
-					<span class="dot-icon">{section.icon}</span>
 					{#if index < currentSection}
 						<div class="completion-indicator">✓</div>
 					{/if}
@@ -911,17 +910,11 @@
 		color: var(--text-secondary);
 	}
 
-	.dot-icon {
-		font-size: 1.1rem;
-	}
-
-	.timeline-dot.active .dot-year,
-	.timeline-dot.active .dot-icon {
+	.timeline-dot.active .dot-year {
 		color: white;
 	}
 
-	.timeline-dot.completed .dot-year,
-	.timeline-dot.completed .dot-icon {
+	.timeline-dot.completed .dot-year {
 		color: white;
 	}
 
@@ -1622,9 +1615,7 @@
 			font-size: 0.65rem;
 		}
 
-		.dot-icon {
-			font-size: 1rem;
-		}
+
 
 		.story-card {
 			padding: 1.5rem;
