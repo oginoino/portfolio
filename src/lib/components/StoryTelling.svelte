@@ -438,18 +438,7 @@
 	on:mouseleave={handleMouseLeave}
 >
 	<div class="container">
-		<!-- Progress Indicators -->
-		<div class="progress-container" class:visible={isVisible}>
-			<div class="overall-progress">
-				<div class="progress-bar" style="width: {$progress}%"></div>
-			</div>
-			<div class="progress-info">
-				<span class="progress-text">{currentSection + 1} de {sections.length}</span>
-				<div class="reading-progress">
-					<div class="reading-bar" style="width: {$readingProgress}%"></div>
-				</div>
-			</div>
-		</div>
+
 
 		<div class="section-header">
 			<h2 class="section-title">A Jornada de Ginaldo Laranjeiras</h2>
@@ -610,78 +599,7 @@
 		pointer-events: none;
 	}
 
-	/* Progress Indicators */
-	.progress-container {
-		position: fixed;
-		top: 80px; /* Offset to avoid navbar */
-		left: 0;
-		right: 0;
-		z-index: 100; /* Lower z-index than navbar */
-		background: rgba(255, 255, 255, 0.95);
-		backdrop-filter: blur(10px);
-		padding: 0.75rem 1rem;
-		border-bottom: 1px solid var(--border-light);
-		border-radius: 0 0 var(--border-radius) var(--border-radius);
-		box-shadow: var(--shadow-light);
-		opacity: 0;
-		transform: translateY(-100%);
-		transition: var(--transition-slow);
-	}
 
-	.progress-container.visible {
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	.overall-progress {
-		height: 4px;
-		background: var(--border-light);
-		border-radius: 2px;
-		overflow: hidden;
-		margin-bottom: 0.5rem;
-	}
-
-	.progress-bar {
-		height: 100%;
-		background: var(--gradient-dark);
-		border-radius: 2px;
-		transition: width 0.3s ease;
-		position: relative;
-	}
-
-	.progress-bar::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 20px;
-		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
-		animation: shimmer 2s infinite;
-	}
-
-	.progress-info {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		font-size: 0.875rem;
-		color: var(--text-secondary);
-	}
-
-	.reading-progress {
-		width: 100px;
-		height: 2px;
-		background: var(--border-light);
-		border-radius: 1px;
-		overflow: hidden;
-	}
-
-	.reading-bar {
-		height: 100%;
-		background: var(--primary-color);
-		border-radius: 1px;
-		transition: width 0.1s ease;
-	}
 
 	.section-header {
 		text-align: center;
@@ -857,17 +775,14 @@
 		transform: translateY(-50%);
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 0.75rem;
 		z-index: 50;
-		background: rgba(255, 255, 255, 0.98);
-		backdrop-filter: blur(20px) saturate(180%);
-		padding: 1.5rem 1rem;
-		border-radius: 2rem;
-		box-shadow: 
-			0 20px 40px rgba(0, 0, 0, 0.08),
-			0 8px 16px rgba(0, 0, 0, 0.04),
-			inset 0 1px 0 rgba(255, 255, 255, 0.8);
-		border: 1px solid rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.9);
+		backdrop-filter: blur(10px);
+		padding: 1rem 0.75rem;
+		border-radius: 12px;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.3);
 		max-height: 80vh;
 		overflow-y: auto;
 		scrollbar-width: none;
@@ -892,247 +807,122 @@
 		left: 50%;
 		top: 0;
 		bottom: 0;
-		width: 3px;
-		background: linear-gradient(180deg, 
-			rgba(200, 200, 200, 0.3) 0%, 
-			rgba(200, 200, 200, 0.6) 50%, 
-			rgba(200, 200, 200, 0.3) 100%);
+		width: 2px;
+		background: var(--border-light);
 		transform: translateX(-50%);
-		z-index: 0;
-		border-radius: 2px;
-		box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+		border-radius: 1px;
+		z-index: -1;
 	}
 
 	.timeline-progress {
-		width: 100%;
-		background: linear-gradient(180deg, 
-			var(--primary-color) 0%, 
-			rgba(66, 66, 66, 0.8) 50%, 
-			var(--primary-color) 100%);
-		border-radius: 2px;
-		transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-		position: relative;
-		box-shadow: 
-			0 0 10px rgba(66, 66, 66, 0.3),
-			inset 0 1px 0 rgba(255, 255, 255, 0.2);
-		overflow: hidden;
-	}
-
-	.timeline-progress::before {
-		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
-		right: 0;
-		bottom: 0;
-		background: linear-gradient(90deg, 
-			transparent 0%, 
-			rgba(255, 255, 255, 0.3) 50%, 
-			transparent 100%);
-		animation: progressShimmer 2s ease-in-out infinite;
+		width: 100%;
+		background: var(--primary-color);
+		border-radius: 1px;
+		transition: height 0.4s ease;
 	}
 
-	.timeline-progress::after {
-		content: '';
-		position: absolute;
-		top: -4px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 10px;
-		height: 10px;
-		background: radial-gradient(circle, var(--primary-color) 0%, rgba(66, 66, 66, 0.8) 100%);
-		border-radius: 50%;
-		box-shadow: 
-			0 0 15px var(--primary-color),
-			0 0 25px rgba(66, 66, 66, 0.4),
-			inset 0 1px 0 rgba(255, 255, 255, 0.3);
-		animation: progressPulse 2.5s ease-in-out infinite;
-		border: 2px solid rgba(255, 255, 255, 0.8);
-	}
+
 
 	.timeline-dot {
 		position: relative;
-		width: 80px;
-		height: 80px;
+		width: 48px;
+		height: 48px;
 		border-radius: 50%;
-		border: 3px solid var(--border-light);
-		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(255, 255, 255, 0.9) 100%);
+		border: 2px solid var(--border-light);
+		background: white;
 		cursor: pointer;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: all 0.3s ease;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: 0.25rem;
 		z-index: 1;
-		box-shadow: 
-			0 8px 16px rgba(0, 0, 0, 0.06),
-			0 4px 8px rgba(0, 0, 0, 0.04),
-			inset 0 1px 0 rgba(255, 255, 255, 0.8);
-		backdrop-filter: blur(10px);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 		overflow: hidden;
 	}
 
-	.timeline-dot::before {
-		content: '';
-		position: absolute;
-		top: -3px;
-		left: -3px;
-		right: -3px;
-		bottom: -3px;
-		border-radius: 50%;
-		background: linear-gradient(45deg, transparent, rgba(66, 66, 66, 0.1), transparent);
-		opacity: 0;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		z-index: -1;
-	}
+
 
 	.timeline-dot:hover {
-		transform: scale(1.1) translateY(-2px);
-		box-shadow: 
-			0 12px 24px rgba(0, 0, 0, 0.1),
-			0 6px 12px rgba(0, 0, 0, 0.06),
-			0 0 0 1px rgba(66, 66, 66, 0.1);
+		transform: scale(1.05);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		border-color: var(--primary-color);
-		background: linear-gradient(135deg, rgba(66, 66, 66, 0.05) 0%, var(--bg-white) 100%);
-	}
-
-	.timeline-dot:hover::before {
-		opacity: 1;
-		animation: rotateGlow 2s linear infinite;
 	}
 
 	.timeline-dot.active {
 		border-color: var(--primary-color);
-		background: linear-gradient(135deg, var(--primary-color) 0%, rgba(66, 66, 66, 0.9) 100%);
+		background: var(--primary-color);
 		color: var(--text-white);
-		box-shadow: 
-			0 16px 32px rgba(66, 66, 66, 0.15),
-			0 8px 16px rgba(66, 66, 66, 0.1),
-			0 0 0 1px var(--primary-color),
-			0 0 20px rgba(66, 66, 66, 0.2);
-		transform: scale(1.15) translateY(-3px);
-		animation: activeGlow 3s ease-in-out infinite;
+		box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+		transform: scale(1.1);
 	}
 
 	.timeline-dot.completed {
-		border-color: var(--success-color, #10b981);
-		background: linear-gradient(135deg, var(--success-color, #10b981) 0%, rgba(16, 185, 129, 0.8) 100%);
+		border-color: #22c55e;
+		background: #22c55e;
 		color: var(--text-white);
-		transform: scale(1.05) translateY(-1px);
-		box-shadow: 
-			0 12px 24px rgba(16, 185, 129, 0.15),
-			0 6px 12px rgba(16, 185, 129, 0.1),
-			0 0 0 1px var(--success-color, #10b981);
-		animation: completedPulse 4s ease-in-out infinite;
+		box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
 	}
 
 	.timeline-dot.next {
-		border-color: var(--warning-color, #f59e0b);
-		background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
-		box-shadow: 
-			0 8px 16px rgba(245, 158, 11, 0.1),
-			0 4px 8px rgba(245, 158, 11, 0.06),
-			0 0 0 1px rgba(245, 158, 11, 0.2);
-		animation: nextPulse 2s ease-in-out infinite;
+		border-color: #a855f7;
+		background: rgba(168, 85, 247, 0.1);
 	}
 
 	.completion-indicator {
 		position: absolute;
-		top: -8px;
-		right: -8px;
-		width: 24px;
-		height: 24px;
-		background: linear-gradient(135deg, var(--success-color, #10b981) 0%, rgba(16, 185, 129, 0.8) 100%);
+		top: -6px;
+		right: -6px;
+		width: 20px;
+		height: 20px;
+		background: #10b981;
 		color: white;
 		border-radius: 50%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 0.8rem;
-		font-weight: 800;
-		box-shadow: 
-			0 4px 12px rgba(16, 185, 129, 0.3),
-			0 2px 6px rgba(16, 185, 129, 0.2),
-			inset 0 1px 0 rgba(255, 255, 255, 0.3);
-		border: 2px solid rgba(255, 255, 255, 0.9);
-		animation: completionBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-		backdrop-filter: blur(5px);
+		font-size: 10px;
+		font-weight: 600;
+		box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+		border: 2px solid white;
+		z-index: 2;
 	}
 
 	.pulse-ring {
 		position: absolute;
-		top: -15px;
-		left: -15px;
-		right: -15px;
-		bottom: -15px;
-		border: 3px solid var(--primary-color);
+		top: -8px;
+		left: -8px;
+		right: -8px;
+		bottom: -8px;
+		border: 2px solid var(--primary-color);
 		border-radius: 50%;
-		opacity: 0;
-		animation: pulseRing 2.5s ease-out infinite;
-		background: radial-gradient(circle, rgba(66, 66, 66, 0.1) 0%, transparent 70%);
-	}
-
-	.pulse-ring::before {
-		content: '';
-		position: absolute;
-		top: -5px;
-		left: -5px;
-		right: -5px;
-		bottom: -5px;
-		border: 2px solid rgba(66, 66, 66, 0.3);
-		border-radius: 50%;
-		animation: pulseRing 2.5s ease-out infinite 0.3s;
-	}
-
-	.pulse-ring::after {
-		content: '';
-		position: absolute;
-		top: 5px;
-		left: 5px;
-		right: 5px;
-		bottom: 5px;
-		border: 1px solid rgba(66, 66, 66, 0.2);
-		border-radius: 50%;
-		animation: pulseRing 2.5s ease-out infinite 0.6s;
+		opacity: 0.4;
+		animation: pulseRing 2s ease-in-out infinite;
+		pointer-events: none;
 	}
 
 	.dot-year {
-		font-size: 0.75rem;
-		font-weight: 700;
-		line-height: 1;
-		letter-spacing: 0.5px;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		font-size: 0.7rem;
+		font-weight: 600;
+		color: var(--text-secondary);
 	}
 
 	.dot-icon {
-		font-size: 1.25rem;
-		line-height: 1;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-	}
-
-	.timeline-dot:hover .dot-year {
-		transform: scale(1.05);
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-	}
-
-	.timeline-dot:hover .dot-icon {
-		transform: scale(1.1) rotate(5deg);
-		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+		font-size: 1.1rem;
 	}
 
 	.timeline-dot.active .dot-year,
-	.timeline-dot.completed .dot-year {
-		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-		font-weight: 800;
+	.timeline-dot.active .dot-icon {
+		color: white;
 	}
 
-	.timeline-dot.active .dot-icon,
+	.timeline-dot.completed .dot-year,
 	.timeline-dot.completed .dot-icon {
-		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-		animation: iconFloat 3s ease-in-out infinite;
+		color: white;
 	}
 
 	.story-content {
@@ -1714,6 +1504,10 @@
 	/* Micro-interações sofisticadas */
 	.timeline-dot {
 		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		animation: dotSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+		animation-delay: calc(var(--dot-index, 0) * 0.1s);
+		opacity: 0;
+		transform: translateX(-20px) scale(0.8);
 	}
 
 	.timeline-dot:active {
@@ -1736,14 +1530,6 @@
 			inset 0 1px 0 rgba(255, 255, 255, 0.3);
 	}
 
-	/* Efeitos de entrada escalonados */
-	.timeline-dot {
-		animation: dotSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-		animation-delay: calc(var(--dot-index, 0) * 0.1s);
-		opacity: 0;
-		transform: translateX(-20px) scale(0.8);
-	}
-
 	.timeline-nav.visible .timeline-dot {
 		opacity: 1;
 		transform: translateX(0) scale(1);
@@ -1756,20 +1542,7 @@
 			padding-top: 8rem; /* Account for navbar + progress bar */
 		}
 
-		.progress-container {
-			padding: 0.5rem 1rem;
-			top: 60px; /* Smaller offset for mobile navbar */
-		}
 
-		.progress-info {
-			flex-direction: column;
-			gap: 0.5rem;
-			align-items: flex-start;
-		}
-
-		.reading-progress {
-			width: 100%;
-		}
 
 		.controls-container {
 			gap: 1rem;
@@ -1900,8 +1673,6 @@
 		.autoplay-btn,
 		.card-icon,
 		.card-status,
-		.progress-bar,
-		.reading-bar,
 		.timeline-progress,
 		.interaction-hint {
 			animation: none !important;
@@ -1930,8 +1701,6 @@
 
 	/* High Contrast Mode Support */
 	@media (prefers-contrast: high) {
-		.progress-bar,
-		.reading-bar,
 		.timeline-progress {
 			background: var(--text-primary);
 		}
@@ -1948,7 +1717,6 @@
 
 	/* Print Styles */
 	@media print {
-		.progress-container,
 		.controls-container,
 		.timeline-nav,
 		.interaction-hint {
