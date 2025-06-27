@@ -1295,10 +1295,6 @@
 		.card-status {
 			border: 2px solid var(--text-primary);
 		}
-
-		.filter-btn.active {
-			border: 2px solid var(--text-primary);
-		}
 	}
 
 	/* Print Styles */
