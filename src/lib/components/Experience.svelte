@@ -19,64 +19,111 @@
 	const experiences: Experience[] = [
 		{
 			id: 1,
-			title: 'Desenvolvedor Full Stack Sênior',
-			company: 'Tech Solutions Inc.',
-			location: 'São Paulo, SP',
-			period: '2022 - Presente',
-			description: 'Lidero o desenvolvimento de aplicações web escaláveis utilizando tecnologias modernas. Responsável pela arquitetura de sistemas e mentoria de desenvolvedores juniores.',
-			technologies: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'AWS', 'Docker'],
+			title: 'Product Manager',
+			company: 'Tá no Plano',
+			location: 'Remoto',
+			period: 'Ago 2021 - Presente',
+			description: 'Liderança no desenvolvimento de plataforma inovadora que transforma como micro e pequenas empresas desenvolvem estratégias de negócios.',
+			technologies: ['Product Analytics', 'Growth Hacking', 'A/B Testing', 'User Research', 'Figma', 'Google Cloud Platform', 'Flutter'],
 			achievements: [
-				'Reduziu tempo de carregamento das aplicações em 40%',
-				'Implementou arquitetura de microserviços',
-				'Liderou equipe de 5 desenvolvedores'
+				'Desenvolvimento de solução SaaS adaptada ao cotidiano de PMEs',
+				'Implementação de metodologias ágeis e práticas centradas no usuário',
+				'Gestão completa do ciclo de vida do produto desde discovery até entrega',
+				'Liderança técnica e estratégica em startup de consultoria digitalizada'
 			],
 			type: 'work'
 		},
+		
 		{
 			id: 2,
-			title: 'Desenvolvedor Full Stack',
-			company: 'Digital Innovations',
-			location: 'Rio de Janeiro, RJ',
-			period: '2020 - 2022',
-			description: 'Desenvolvimento de aplicações web e mobile para diversos clientes. Foco em performance, usabilidade e experiência do usuário.',
-			technologies: ['JavaScript', 'Vue.js', 'Express', 'MongoDB', 'React Native'],
+			title: 'Product Manager',
+			company: 'FinanZero',
+			location: 'São Paulo, SP',
+			period: 'Mar 2023 - Dez 2023',
+			description: 'Liderei a estratégia e desenvolvimento de produtos digitais no setor financeiro. Responsável por roadmaps de produto, análise de métricas e coordenação de equipes multidisciplinares para entregar soluções que impactam milhares de usuários.',
+			technologies: ['Product Analytics', 'OKRs', 'Scrum', 'Design Thinking', 'SQL', 'Python'],
 			achievements: [
-				'Desenvolveu 15+ aplicações web',
-				'Implementou sistema de pagamentos online',
-				'Otimizou performance de APIs em 60%'
+				'Certificação AML (Anti-Money Laundering) - Mar 2023',
+				'Implementou framework de OKRs para alinhamento estratégico',
+				'Liderou descoberta contínua de produtos com metodologias ágeis'
 			],
 			type: 'work'
 		},
 		{
 			id: 3,
-			title: 'Desenvolvedor Frontend',
-			company: 'StartupXYZ',
-			location: 'Belo Horizonte, MG',
-			period: '2019 - 2020',
-			description: 'Primeiro emprego como desenvolvedor, focado em criar interfaces modernas e responsivas. Aprendizado intensivo em tecnologias frontend.',
-			technologies: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Sass'],
+			title: 'Product Manager & Tech Lead',
+			company: 'Accenture',
+			location: 'São Paulo, SP',
+			period: 'Set 2020 - Fev 2023',
+			description: 'Atuei como Product Manager e líder técnico em projetos de transformação digital para grandes clientes. Combinei visão de produto com expertise técnica para entregar soluções escaláveis e centradas no usuário.',
+			technologies: ['Product Management', 'Python', 'AWS', 'Agile', 'UX Design', 'Quality Assurance'],
 			achievements: [
-				'Criou biblioteca de componentes reutilizáveis',
-				'Implementou design system da empresa',
-				'Melhorou acessibilidade das aplicações'
+				'Academia Accenture - Treinamento em QA (84h) - Nov 2020',
+				'Technical Support Fundamentals (Coursera) - Set 2020',
+				'Desenvolveu automação de infraestrutura com Python'
 			],
 			type: 'work'
 		},
 		{
 			id: 4,
-			title: 'Bacharelado em Ciência da Computação',
-			company: 'Universidade Federal de Minas Gerais',
-			location: 'Belo Horizonte, MG',
-			period: '2015 - 2019',
-			description: 'Formação sólida em fundamentos da computação, algoritmos, estruturas de dados e engenharia de software.',
-			technologies: ['Java', 'Python', 'C++', 'SQL', 'Git'],
+			title: 'Analista de Sistemas & Product Owner',
+			company: 'Startup de Tecnologia',
+			location: 'São Paulo, SP',
+			period: 'Jan 2019 - Ago 2020',
+			description: 'Início da transição para gestão de produtos, atuando como Product Owner e analista de sistemas. Foco em metodologias ágeis, experiência do usuário e desenvolvimento de funcionalidades orientadas por dados.',
+			technologies: ['Scrum', 'UX Foundations', 'Python', 'Design Sprint', 'Agile Methodologies'],
 			achievements: [
-				'Graduado com honras (CRA 8.5)',
-				'Projeto de TCC premiado',
-				'Monitor de Programação Orientada a Objetos'
+				'Foundations of User Experience (UX) Design (Coursera) - Mai 2021',
+				'Design Sprint 2.0 (Alura) - Abr 2021',
+				'Fundamentos do Scrum (LinkedIn Learning) - Jan 2019'
+			],
+			type: 'work'
+		},
+		{
+			id: 5,
+			title: 'Formação em Product Management',
+			company: 'Gama Academy',
+			location: 'Online',
+			period: 'Jan 2022',
+			description: 'Jornada intensiva de Product Manager com foco em estratégia de produto, discovery, roadmaps e métricas. Formação prática com projetos reais e mentoria especializada.',
+			technologies: ['Product Strategy', 'User Research', 'Data Analytics', 'Roadmapping', 'Stakeholder Management'],
+			achievements: [
+				'Jornada de Product Manager (18h) - Jan 2022',
+				'Projeto final com validação de hipóteses de produto',
+				'Aplicação prática de frameworks de discovery'
 			],
 			type: 'education'
-		}
+		},
+		{
+			id: 6,
+			title: 'Certificações Especializadas',
+			company: 'Múltiplas Instituições',
+			location: 'Online',
+			period: 'Jul 2021 - Ago 2023',
+			description: 'Formação contínua em Product Management, Agile e Liderança através de certificações reconhecidas no mercado.',
+			technologies: ['Product-Led Growth', 'Continuous Discovery', 'OKRs', 'Scrum', 'Leadership'],
+			achievements: [
+				'Product-led Certification (Pendo) - Ago 2023',
+				'Continuous Product Discovery Certification - Jun 2023',
+				'Scrum Fundamentals Certified (SCRUMstudy) - Jul 2021'
+			],
+			type: 'education'
+		},
+		{
+			id: 7,
+			title: 'Co-founder',
+			company: 'CONNAT Soluções',
+			location: 'São Paulo, SP',
+			period: 'Jan 2024 - Jul 2024',
+			description: 'Co-fundei uma startup de soluções tecnológicas para pequenas e médias empresas. Responsável pela estratégia de produto, desenvolvimento de MVP e validação de mercado. Liderou equipe técnica e definiu arquitetura de soluções.',
+			technologies: ['MVP Development', 'Market Validation', 'Team Leadership', 'Business Strategy', 'Python', 'React'],
+			achievements: [
+				'Desenvolveu e validou MVP com primeiros clientes',
+				'Estruturou processos de desenvolvimento ágil',
+				'Captou investimento inicial para desenvolvimento do produto'
+			],
+			type: 'work'
+		},
 	];
 	
 	let activeTab = 'work';
