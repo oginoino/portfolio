@@ -4,6 +4,10 @@
 	let currentCategory = 'all';
 	let isVisible = false;
 	let testimonialsRef;
+	let currentSlide = 0;
+	let autoplayInterval;
+	let isAutoplayPaused = false;
+	let carouselContainer;
 
 	const testimonials = [
 		{
@@ -98,12 +102,26 @@
 		? testimonials 
 		: testimonials.filter(t => t.category === currentCategory);
 
+	$: totalSlides = Math.ceil(filteredTestimonials.length / getItemsPerSlide());
+
+	function getItemsPerSlide() {
+		if (typeof window !== 'undefined') {
+			if (window.innerWidth < 768) return 1;
+			if (window.innerWidth < 1024) return 2;
+			return 3;
+		}
+		return 3;
+	}
+
 	onMount(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
 						isVisible = true;
+						startAutoplay();
+					} else {
+						stopAutoplay();
 					}
 				});
 			},
@@ -114,15 +132,63 @@
 			observer.observe(testimonialsRef);
 		}
 
+		// Reset slide when category changes
+		currentSlide = 0;
+
+		// Handle window resize
+		const handleResize = () => {
+			currentSlide = 0;
+		};
+		window.addEventListener('resize', handleResize);
+
 		return () => {
 			if (testimonialsRef) {
 				observer.unobserve(testimonialsRef);
 			}
+			stopAutoplay();
+			window.removeEventListener('resize', handleResize);
 		};
 	});
 
 	function setCategory(categoryId) {
 		currentCategory = categoryId;
+		currentSlide = 0;
+	}
+
+	function startAutoplay() {
+		if (autoplayInterval) return;
+		autoplayInterval = setInterval(() => {
+			if (!isAutoplayPaused && totalSlides > 1) {
+				nextSlide();
+			}
+		}, 4000);
+	}
+
+	function stopAutoplay() {
+		if (autoplayInterval) {
+			clearInterval(autoplayInterval);
+			autoplayInterval = null;
+		}
+	}
+
+	function pauseAutoplay() {
+		isAutoplayPaused = true;
+	}
+
+	function resumeAutoplay() {
+		isAutoplayPaused = false;
+	}
+
+	function nextSlide() {
+		currentSlide = (currentSlide + 1) % totalSlides;
+	}
+
+	function prevSlide() {
+		currentSlide = currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
+	}
+
+	function goToSlide(index) {
+		currentSlide = index;
 	}
 
 	function getAvatarColor(name) {
@@ -160,43 +226,120 @@
 			{/each}
 		</div>
 
-		<!-- Testimonials Grid -->
-		<div class="testimonials-grid" class:visible={isVisible}>
-			{#each filteredTestimonials as testimonial, index (testimonial.id)}
-				<div 
-					class="testimonial-card"
-					style="--delay: {index * 0.1}s; --avatar-color: {getAvatarColor(testimonial.name)}"
+		<!-- Testimonials Carousel -->
+		<div class="carousel-wrapper" class:visible={isVisible}>
+			<!-- Navigation Arrows -->
+			{#if totalSlides > 1}
+				<button 
+					class="carousel-nav prev" 
+					on:click={prevSlide}
+					aria-label="Depoimento anterior"
 				>
-					<div class="card-header">
-						<div class="avatar">
-							{testimonial.avatar}
-						</div>
-						<div class="author-info">
-							<h3 class="author-name">{testimonial.name}</h3>
-							<p class="author-role">{testimonial.role}</p>
-							<div class="author-meta">
-								<span class="company">{testimonial.company}</span>
-								<span class="date">{testimonial.date}</span>
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+				<button 
+					class="carousel-nav next" 
+					on:click={nextSlide}
+					aria-label="Próximo depoimento"
+				>
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+			{/if}
+
+			<!-- Carousel Container -->
+			<div 
+				class="carousel-container" 
+				bind:this={carouselContainer}
+				on:mouseenter={pauseAutoplay}
+				on:mouseleave={resumeAutoplay}
+				role="region"
+				aria-label="Carrossel de depoimentos"
+			>
+				<div 
+					class="testimonials-track"
+					style="transform: translateX(-{currentSlide * 100}%)"
+				>
+					{#each filteredTestimonials as testimonial, index (testimonial.id)}
+						<div 
+							class="testimonial-card"
+							style="--delay: {index * 0.1}s; --avatar-color: {getAvatarColor(testimonial.name)}"
+						>
+							<div class="card-header">
+								<div class="avatar">
+									{testimonial.avatar}
+								</div>
+								<div class="author-info">
+									<h3 class="author-name">{testimonial.name}</h3>
+									<p class="author-role">{testimonial.role}</p>
+									<div class="author-meta">
+										<span class="company">{testimonial.company}</span>
+										<span class="date">{testimonial.date}</span>
+									</div>
+								</div>
+								<div class="quote-mark">"</div>
+							</div>
+
+							<div class="card-content">
+								<blockquote class="testimonial-text">
+									{testimonial.testimonial}
+								</blockquote>
+							</div>
+
+							<div class="card-footer">
+								<div class="highlights">
+									{#each testimonial.highlights as highlight}
+										<span class="highlight-tag">{highlight}</span>
+									{/each}
+								</div>
 							</div>
 						</div>
-						<div class="quote-mark">"</div>
-					</div>
-
-					<div class="card-content">
-						<blockquote class="testimonial-text">
-							{testimonial.testimonial}
-						</blockquote>
-					</div>
-
-					<div class="card-footer">
-						<div class="highlights">
-							{#each testimonial.highlights as highlight}
-								<span class="highlight-tag">{highlight}</span>
-							{/each}
-						</div>
-					</div>
+					{/each}
 				</div>
-			{/each}
+			</div>
+
+			<!-- Carousel Indicators -->
+			{#if totalSlides > 1}
+				<div class="carousel-indicators">
+					{#each Array(totalSlides) as _, index}
+						<button 
+							class="indicator" 
+							class:active={currentSlide === index}
+							on:click={() => goToSlide(index)}
+							aria-label="Ir para slide {index + 1}"
+						></button>
+					{/each}
+				</div>
+			{/if}
+
+			<!-- Autoplay Control -->
+			{#if totalSlides > 1}
+				<div class="autoplay-control">
+					<button 
+						class="autoplay-btn" 
+						class:paused={isAutoplayPaused}
+						on:click={() => isAutoplayPaused ? resumeAutoplay() : pauseAutoplay()}
+						aria-label={isAutoplayPaused ? 'Retomar autoplay' : 'Pausar autoplay'}
+					>
+						{#if isAutoplayPaused}
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+								<polygon points="5,3 19,12 5,21" fill="currentColor"/>
+							</svg>
+						{:else}
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+								<rect x="6" y="4" width="4" height="16" fill="currentColor"/>
+								<rect x="14" y="4" width="4" height="16" fill="currentColor"/>
+							</svg>
+						{/if}
+					</button>
+					<span class="autoplay-text">
+						{isAutoplayPaused ? 'Pausado' : 'Autoplay'}
+					</span>
+				</div>
+			{/if}
 		</div>
 
 		<!-- Stats Section -->
@@ -320,10 +463,8 @@
 		font-size: 0.95rem;
 	}
 
-	.testimonials-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-		gap: 2rem;
+	.carousel-wrapper {
+		position: relative;
 		margin-bottom: 4rem;
 		opacity: 0;
 		transform: translateY(30px);
@@ -331,9 +472,124 @@
 		transition-delay: 0.2s;
 	}
 
-	.testimonials-grid.visible {
+	.carousel-wrapper.visible {
 		opacity: 1;
 		transform: translateY(0);
+	}
+
+	.carousel-container {
+		overflow: hidden;
+		border-radius: var(--border-radius-large);
+		position: relative;
+	}
+
+	.testimonials-track {
+		display: flex;
+		transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+		width: 100%;
+	}
+
+	.carousel-nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 10;
+		background: var(--bg-white);
+		border: 2px solid var(--border-light);
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: var(--transition);
+		color: var(--text-secondary);
+		box-shadow: var(--shadow);
+	}
+
+	.carousel-nav:hover {
+		background: var(--primary-color);
+		color: var(--text-white);
+		border-color: var(--primary-color);
+		transform: translateY(-50%) scale(1.1);
+		box-shadow: var(--shadow-hover);
+	}
+
+	.carousel-nav.prev {
+		left: -25px;
+	}
+
+	.carousel-nav.next {
+		right: -25px;
+	}
+
+	.carousel-indicators {
+		display: flex;
+		justify-content: center;
+		gap: 0.5rem;
+		margin-top: 2rem;
+	}
+
+	.indicator {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		border: 2px solid var(--border-light);
+		background: var(--bg-white);
+		cursor: pointer;
+		transition: var(--transition);
+	}
+
+	.indicator:hover {
+		border-color: var(--primary-color);
+		transform: scale(1.2);
+	}
+
+	.indicator.active {
+		background: var(--primary-color);
+		border-color: var(--primary-color);
+		transform: scale(1.3);
+	}
+
+	.autoplay-control {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	.autoplay-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		border: 1px solid var(--border-light);
+		background: var(--bg-white);
+		color: var(--text-secondary);
+		cursor: pointer;
+		transition: var(--transition);
+	}
+
+	.autoplay-btn:hover {
+		background: var(--primary-color);
+		color: var(--text-white);
+		border-color: var(--primary-color);
+	}
+
+	.autoplay-btn.paused {
+		background: var(--accent-color);
+		color: var(--text-white);
+		border-color: var(--accent-color);
+	}
+
+	.autoplay-text {
+		font-size: 0.85rem;
+		color: var(--text-tertiary);
+		font-weight: 500;
 	}
 
 	.testimonial-card {
@@ -345,10 +601,10 @@
 		transition: var(--transition);
 		position: relative;
 		overflow: hidden;
-		opacity: 0;
-		transform: translateY(20px);
-		animation: slideInUp 0.6s ease-out forwards;
-		animation-delay: var(--delay);
+		flex: 0 0 calc(100% / 3);
+		margin-right: 2rem;
+		opacity: 1;
+		transform: translateY(0);
 	}
 
 	.testimonial-card::before {
@@ -548,9 +804,22 @@
 			display: none;
 		}
 
-		.testimonials-grid {
-			grid-template-columns: 1fr;
-			gap: 1.5rem;
+		.testimonial-card {
+			flex: 0 0 100%;
+			margin-right: 1rem;
+		}
+
+		.carousel-nav {
+			width: 40px;
+			height: 40px;
+		}
+
+		.carousel-nav.prev {
+			left: -20px;
+		}
+
+		.carousel-nav.next {
+			right: -20px;
 		}
 
 		.testimonial-card {
@@ -580,6 +849,18 @@
 
 		.stat-number {
 			font-size: 2rem;
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 1023px) {
+		.testimonial-card {
+			flex: 0 0 calc(50% - 1rem);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.testimonial-card {
+			flex: 0 0 calc(33.333% - 1.333rem);
 		}
 	}
 </style>
