@@ -11,32 +11,36 @@
 	}
 	
 	const skills: Skill[] = [
-		// Frontend
-		{ name: 'TypeScript', level: 90, icon: '🔷', category: 'Frontend' },
-		{ name: 'React', level: 85, icon: '⚛️', category: 'Frontend' },
-		{ name: 'Svelte', level: 80, icon: '🧡', category: 'Frontend' },
-		{ name: 'Vue.js', level: 75, icon: '💚', category: 'Frontend' },
-		{ name: 'HTML5', level: 95, icon: '🌐', category: 'Frontend' },
-		{ name: 'CSS3', level: 90, icon: '🎨', category: 'Frontend' },
+		// Estratégia & Negócios
+		{ name: 'Product Strategy', level: 95, icon: '🎯', category: 'Estratégia' },
+		{ name: 'Market Research', level: 90, icon: '📊', category: 'Estratégia' },
+		{ name: 'Business Analysis', level: 85, icon: '💼', category: 'Estratégia' },
+		{ name: 'Competitive Analysis', level: 80, icon: '🔍', category: 'Estratégia' },
+		{ name: 'Product Roadmap', level: 90, icon: '🗺️', category: 'Estratégia' },
+		{ name: 'OKRs & KPIs', level: 85, icon: '📈', category: 'Estratégia' },
 		
-		// Backend
-		{ name: 'Node.js', level: 85, icon: '🟢', category: 'Backend' },
-		{ name: 'Express', level: 80, icon: '🚀', category: 'Backend' },
-		{ name: 'NestJS', level: 75, icon: '🔴', category: 'Backend' },
-		{ name: 'Python', level: 70, icon: '🐍', category: 'Backend' },
-		{ name: 'PostgreSQL', level: 80, icon: '🐘', category: 'Backend' },
-		{ name: 'MongoDB', level: 75, icon: '🍃', category: 'Backend' },
+		// UX & Design
+		{ name: 'User Research', level: 90, icon: '👥', category: 'UX & Design' },
+		{ name: 'User Journey Mapping', level: 85, icon: '🗺️', category: 'UX & Design' },
+		{ name: 'Wireframing', level: 80, icon: '📐', category: 'UX & Design' },
+		{ name: 'Prototyping', level: 75, icon: '🎨', category: 'UX & Design' },
+		{ name: 'A/B Testing', level: 85, icon: '🧪', category: 'UX & Design' },
+		{ name: 'Design Thinking', level: 90, icon: '💡', category: 'UX & Design' },
 		
-		// DevOps & Tools
-		{ name: 'Docker', level: 75, icon: '🐳', category: 'DevOps' },
-		{ name: 'Git', level: 90, icon: '📝', category: 'DevOps' },
-		{ name: 'AWS', level: 70, icon: '☁️', category: 'DevOps' },
-		{ name: 'Linux', level: 75, icon: '🐧', category: 'DevOps' }
+		// Dados & Ferramentas
+		{ name: 'Google Analytics', level: 90, icon: '📊', category: 'Dados & Ferramentas' },
+		{ name: 'Mixpanel', level: 80, icon: '📈', category: 'Dados & Ferramentas' },
+		{ name: 'Jira', level: 95, icon: '🎫', category: 'Dados & Ferramentas' },
+		{ name: 'Figma', level: 85, icon: '🎨', category: 'Dados & Ferramentas' },
+		{ name: 'Miro', level: 80, icon: '🧩', category: 'Dados & Ferramentas' },
+		{ name: 'SQL', level: 75, icon: '🗄️', category: 'Dados & Ferramentas' },
+		{ name: 'Power BI', level: 70, icon: '📊', category: 'Dados & Ferramentas' },
+		{ name: 'Notion', level: 85, icon: '📝', category: 'Dados & Ferramentas' }
 	];
 	
-	const categories = ['Frontend', 'Backend', 'DevOps'];
+	const categories = ['Estratégia', 'UX & Design', 'Dados & Ferramentas'];
 	
-	let activeCategory = 'Frontend';
+	let activeCategory = 'Estratégia';
 	
 	$: filteredSkills = skills.filter(skill => skill.category === activeCategory);
 	
@@ -74,8 +78,8 @@
 <section id="skills" class="section skills" bind:this={skillsElement}>
 	<div class="container">
 		<div class="section-title">
-			<h2>Habilidades Técnicas</h2>
-			<p>Tecnologias e ferramentas que domino para criar soluções completas</p>
+			<h2>Competências Profissionais</h2>
+			<p>Habilidades estratégicas e ferramentas que utilizo para criar produtos digitais de sucesso</p>
 		</div>
 		
 		<div class="skills-content">
@@ -116,24 +120,26 @@
 				<div class="summary-card">
 					<h3>Principais Competências</h3>
 					<ul>
-						<li>Desenvolvimento Full Stack com TypeScript</li>
-						<li>Arquitetura de aplicações escaláveis</li>
-						<li>APIs RESTful e GraphQL</li>
-						<li>Bancos de dados relacionais e NoSQL</li>
-						<li>DevOps e Deploy automatizado</li>
-						<li>Testes automatizados (Unit, Integration, E2E)</li>
+						<li>Gestão estratégica de produtos digitais</li>
+						<li>Análise de mercado e pesquisa de usuários</li>
+						<li>Definição de roadmaps e priorização</li>
 						<li>Metodologias Ágeis (Scrum, Kanban)</li>
+						<li>Design Thinking e UX Research</li>
+						<li>Análise de dados e métricas de produto</li>
+						<li>Liderança de equipes multidisciplinares</li>
 					</ul>
 				</div>
 				
 				<div class="summary-card">
 					<h3>Certificações & Cursos</h3>
 					<ul>
-						<li>AWS Certified Developer</li>
-						<li>React Advanced Patterns</li>
-						<li>Node.js Professional</li>
-						<li>TypeScript Deep Dive</li>
-						<li>Docker & Kubernetes</li>
+						<li>Product Management Fundamentals</li>
+						<li>Google Analytics Certified</li>
+						<li>Design Thinking Specialist</li>
+						<li>Agile Product Owner (CSPO)</li>
+						<li>Data Analysis for Product Managers</li>
+						<li>UX Research Methods</li>
+						<li>Digital Marketing Strategy</li>
 					</ul>
 				</div>
 			</div>
