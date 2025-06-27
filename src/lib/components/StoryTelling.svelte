@@ -806,11 +806,34 @@
 		left: 50%;
 		top: 0;
 		bottom: 0;
-		width: 2px;
-		background: var(--border-light);
+		width: 4px;
+		background: linear-gradient(180deg, 
+			rgba(229, 231, 235, 0.8) 0%, 
+			rgba(156, 163, 175, 0.6) 50%, 
+			rgba(229, 231, 235, 0.8) 100%);
 		transform: translateX(-50%);
-		border-radius: 1px;
+		border-radius: 2px;
 		z-index: -1;
+		box-shadow: 
+			0 0 10px rgba(0, 0, 0, 0.1),
+			inset 0 1px 2px rgba(255, 255, 255, 0.8),
+			inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+		position: relative;
+	}
+
+	.timeline-line::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 1px;
+		height: 100%;
+		background: linear-gradient(180deg, 
+			transparent 0%, 
+			rgba(255, 255, 255, 0.6) 50%, 
+			transparent 100%);
+		transform: translateX(-50%);
+		z-index: 1;
 	}
 
 	.timeline-progress {
@@ -818,9 +841,38 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		background: var(--primary-color);
-		border-radius: 1px;
-		transition: height 0.4s ease;
+		background: linear-gradient(180deg, 
+			#60a5fa 0%, 
+			var(--primary-color) 30%, 
+			#1d4ed8 70%, 
+			#1e40af 100%);
+		border-radius: 2px;
+		transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 
+			0 0 15px rgba(59, 130, 246, 0.4),
+			0 2px 8px rgba(59, 130, 246, 0.3),
+			inset 0 1px 2px rgba(255, 255, 255, 0.3);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.timeline-progress::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, 
+			transparent 0%, 
+			rgba(255, 255, 255, 0.4) 50%, 
+			transparent 100%);
+		animation: progressShimmer 2s ease-in-out infinite;
+	}
+
+	@keyframes progressShimmer {
+		0% { left: -100%; }
+		100% { left: 100%; }
 	}
 
 
