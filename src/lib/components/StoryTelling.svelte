@@ -714,8 +714,15 @@
 
 						<!-- Interaction Hints -->
 						{#if index === currentSection + 1}
-							<div class="interaction-hint">
+							<div class="interaction-hint" aria-hidden="true">
 								<span class="hint-text">Próxima →</span>
+							</div>
+						{/if}
+
+						<!-- Progress indicator for current section -->
+						{#if index === currentSection}
+							<div class="section-progress" aria-hidden="true">
+								<span class="progress-text">{index + 1} de {sections.length}</span>
 							</div>
 						{/if}
 					</button>
@@ -1137,6 +1144,27 @@
 		pointer-events: none;
 	}
 
+	.section-progress {
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		background: rgba(66, 66, 66, 0.9);
+		color: var(--text-white);
+		padding: 0.25rem 0.75rem;
+		border-radius: var(--border-radius-large);
+		font-size: 0.75rem;
+		font-weight: 600;
+		box-shadow: var(--shadow-light);
+		pointer-events: none;
+		backdrop-filter: blur(10px);
+	}
+
+	.progress-text {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
 	.hint-text {
 		display: flex;
 		align-items: center;
@@ -1493,6 +1521,14 @@
 			font-size: 0.8rem;
 		}
 
+		.autoplay-text {
+			display: none;
+		}
+
+		.autoplay-icon {
+			font-size: 1.1rem;
+		}
+
 		.story-container {
 			margin-left: 0;
 			padding-left: 0;
@@ -1535,6 +1571,23 @@
 
 		.final-quote blockquote {
 			padding: 2rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.controls-container {
+			gap: 0.75rem;
+		}
+
+		.filter-controls {
+			flex-direction: column;
+			width: 100%;
+			max-width: 300px;
+		}
+
+		.filter-btn {
+			width: 100%;
+			justify-content: center;
 		}
 	}
 
