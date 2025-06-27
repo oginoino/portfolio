@@ -21,9 +21,9 @@
 	let timelineRef: HTMLElement;
 	let storyCards: HTMLElement[] = [];
 	let isScrolling: boolean = false;
-	let scrollTimeout: NodeJS.Timeout;
+	let scrollTimeout: number;
 	let isAutoPlaying: boolean = false;
-	let autoPlayInterval: NodeJS.Timeout;
+	let autoPlayInterval: number | null;
 	let progressBar: HTMLElement;
 	let isHovering: boolean = false;
 	let touchStartY: number = 0;
