@@ -473,29 +473,7 @@
 			</div>
 		</div>
 
-		<!-- Enhanced Timeline Navigation (Fixed Position) -->
-		<div class="timeline-nav" class:visible={isVisible}>
-			{#each sections as section, index}
-				<button 
-					class="timeline-dot" 
-					class:active={currentSection === index}
-					class:completed={index < currentSection}
-					class:next={index === currentSection + 1}
-					on:click={() => setCurrentSectionEnhanced(index, 'timeline')}
-					title={section.title}
-					aria-label="Ir para seção {index + 1}: {section.title}"
-					style="--dot-index: {index}"
-				>
-					<span class="dot-year">{section.year.split('-')[0]}</span>
-					{#if index === currentSection}
-						<div class="pulse-ring"></div>
-					{/if}
-				</button>
-			{/each}
-			<div class="timeline-line">
-				<div class="timeline-progress" style="height: {($progress / 100) * 100}%"></div>
-			</div>
-		</div>
+
 
 		<div class="story-container" class:visible={isVisible}>
 			<!-- Enhanced Story Content -->
@@ -751,8 +729,8 @@
 
 	.story-container {
 		display: block;
-		margin-left: 200px;
-		padding-left: 2rem;
+		margin-left: 0;
+		padding-left: 0;
 		opacity: 0;
 		transform: translateY(30px);
 		transition: var(--transition-slow);
@@ -764,108 +742,21 @@
 		transform: translateY(0);
 	}
 
-	.timeline-nav {
-		position: fixed;
-		top: 50%;
-		left: 2rem;
-		transform: translateY(-50%);
-		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
-		z-index: 50;
-		background: rgba(255, 255, 255, 0.9);
-		backdrop-filter: blur(10px);
-		padding: 1rem 0.75rem;
-		border-radius: 12px;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-		border: 1px solid rgba(255, 255, 255, 0.3);
-		max-height: 80vh;
-		overflow-y: auto;
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-		opacity: 0;
-		transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-		transform: translateY(-50%) translateX(-20px) scale(0.95);
-	}
+
 
 	.timeline-nav::-webkit-scrollbar {
 		display: none;
 	}
 
-	.timeline-nav.visible {
-		opacity: 1;
-		transform: translateY(-50%) translateX(0) scale(1);
-		animation: timelineSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-	}
 
-	.timeline-line {
-		position: absolute;
-		left: 50%;
-		top: 0;
-		bottom: 0;
-		width: 4px;
-		background: linear-gradient(180deg, 
-			rgba(229, 231, 235, 0.8) 0%, 
-			rgba(156, 163, 175, 0.6) 50%, 
-			rgba(229, 231, 235, 0.8) 100%);
-		transform: translateX(-50%);
-		border-radius: 2px;
-		z-index: -1;
-		box-shadow: 
-			0 0 10px rgba(0, 0, 0, 0.1),
-			inset 0 1px 2px rgba(255, 255, 255, 0.8),
-			inset 0 -1px 2px rgba(0, 0, 0, 0.1);
-		position: relative;
-	}
 
-	.timeline-line::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 50%;
-		width: 1px;
-		height: 100%;
-		background: linear-gradient(180deg, 
-			transparent 0%, 
-			rgba(255, 255, 255, 0.6) 50%, 
-			transparent 100%);
-		transform: translateX(-50%);
-		z-index: 1;
-	}
 
-	.timeline-progress {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		background: linear-gradient(180deg, 
-			#60a5fa 0%, 
-			var(--primary-color) 30%, 
-			#1d4ed8 70%, 
-			#1e40af 100%);
-		border-radius: 2px;
-		transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 
-			0 0 15px rgba(59, 130, 246, 0.4),
-			0 2px 8px rgba(59, 130, 246, 0.3),
-			inset 0 1px 2px rgba(255, 255, 255, 0.3);
-		position: relative;
-		overflow: hidden;
-	}
 
-	.timeline-progress::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg, 
-			transparent 0%, 
-			rgba(255, 255, 255, 0.4) 50%, 
-			transparent 100%);
-		animation: progressShimmer 2s ease-in-out infinite;
-	}
+
+
+
+
+
 
 	@keyframes progressShimmer {
 		0% { left: -100%; }
@@ -874,95 +765,27 @@
 
 
 
-	.timeline-dot {
-		position: relative;
-		width: 48px;
-		height: 48px;
-		border-radius: 50%;
-		border: none;
-		background: rgba(255, 255, 255, 0.8);
-		cursor: pointer;
-		transition: all 0.3s ease;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 0.25rem;
-		z-index: 1;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		overflow: hidden;
-	}
 
 
 
-	.timeline-dot:hover {
-		transform: scale(1.05);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-		border-color: var(--primary-color);
-	}
 
-	.timeline-dot.active {
-		background: rgba(59, 130, 246, 0.9);
-		color: var(--text-white);
-		box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
-		transform: scale(1.1);
-	}
 
-	.timeline-dot.completed {
-		background: rgba(34, 197, 94, 0.8);
-		color: var(--text-white);
-		box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
-	}
 
-	.timeline-dot.next {
-		background: rgba(168, 85, 247, 0.1);
-	}
 
-	.completion-indicator {
-		position: absolute;
-		top: -6px;
-		right: -6px;
-		width: 20px;
-		height: 20px;
-		background: #10b981;
-		color: white;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 10px;
-		font-weight: 600;
-		box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
-		border: 2px solid white;
-		z-index: 2;
-	}
 
-	.pulse-ring {
-		position: absolute;
-		top: -8px;
-		left: -8px;
-		right: -8px;
-		bottom: -8px;
-		border: 2px solid var(--primary-color);
-		border-radius: 50%;
-		opacity: 0.4;
-		animation: pulseRing 2s ease-in-out infinite;
-		pointer-events: none;
-	}
 
-	.dot-year {
-		font-size: 0.7rem;
-		font-weight: 600;
-		color: var(--text-secondary);
-	}
 
-	.timeline-dot.active .dot-year {
-		color: white;
-	}
 
-	.timeline-dot.completed .dot-year {
-		color: white;
-	}
+
+
+
+
+
+
+
+
+
+
 
 	.story-content {
 		display: flex;
@@ -1349,19 +1172,7 @@
 		}
 	}
 
-	@keyframes timelineSlideIn {
-		0% {
-			opacity: 0;
-			transform: translateY(-50%) translateX(-30px) scale(0.9);
-		}
-		60% {
-			transform: translateY(-50%) translateX(5px) scale(1.02);
-		}
-		100% {
-			opacity: 1;
-			transform: translateY(-50%) translateX(0) scale(1);
-		}
-	}
+
 
 	@keyframes rotateGlow {
 		0% {
@@ -1452,23 +1263,7 @@
 		}
 	}
 
-	@keyframes pulseRing {
-		0% {
-			transform: scale(0.8);
-			opacity: 0.8;
-			border-width: 3px;
-		}
-		50% {
-			transform: scale(1.1);
-			opacity: 0.4;
-			border-width: 2px;
-		}
-		100% {
-			transform: scale(1.6);
-			opacity: 0;
-			border-width: 1px;
-		}
-	}
+
 
 	@keyframes nextCardPulse {
 		0%, 100% {
@@ -1524,19 +1319,7 @@
 		}
 	}
 
-	@keyframes dotSlideIn {
-		0% {
-			opacity: 0;
-			transform: translateX(-30px) scale(0.6);
-		}
-		60% {
-			transform: translateX(5px) scale(1.05);
-		}
-		100% {
-			opacity: 1;
-			transform: translateX(0) scale(1);
-		}
-	}
+
 
 
 
