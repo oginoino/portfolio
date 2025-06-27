@@ -38,6 +38,7 @@
 	<div class="container">
 		<nav class="nav">
 			<a href="/" class="logo" on:click={() => scrollToSection('hero')}>
+				<img src="/Profile.jpg" alt="Ginaldo" class="logo-avatar" />
 				<span class="logo-text">Ginaldo</span>
 			</a>
 			
@@ -94,11 +95,28 @@
 		color: var(--primary-color);
 		text-decoration: none;
 		transition: var(--transition);
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.logo-avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 2px solid var(--primary-color);
+		transition: var(--transition);
 	}
 	
 	.logo:hover {
 		color: var(--secondary-color);
 		transform: scale(1.05);
+	}
+
+	.logo:hover .logo-avatar {
+		border-color: var(--secondary-color);
+		transform: scale(1.1);
 	}
 	
 	.logo-text {
@@ -149,6 +167,15 @@
 	}
 	
 	@media (max-width: 768px) {
+		.logo-avatar {
+			width: 35px;
+			height: 35px;
+		}
+
+		.logo {
+			gap: 0.5rem;
+		}
+
 		.menu-toggle {
 			display: block;
 		}

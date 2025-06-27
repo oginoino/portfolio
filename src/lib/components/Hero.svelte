@@ -74,10 +74,8 @@
 			<div class="hero-image">
 				<div class="image-container">
 					<div class="profile-image">
-						<div class="image-placeholder">
-							<span>GL</span>
-						</div>
-					</div>
+					<img src="/Profile.jpg" alt="Ginaldo Laranjeiras Junior" class="profile-img" />
+				</div>
 					<div class="floating-elements">
 						<div class="floating-element element-1">💻</div>
 						<div class="floating-element element-2">🚀</div>
@@ -226,17 +224,11 @@
 		box-shadow: var(--shadow-strong);
 	}
 	
-	.image-placeholder {
+	.profile-img {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
-		background: var(--bg-white);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 4rem;
-		font-weight: 900;
-		color: var(--primary-color);
+		object-fit: cover;
 		border: 3px solid var(--bg-white);
 	}
 	
