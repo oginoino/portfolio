@@ -63,7 +63,7 @@
 	}
 	
 	.footer-section h3 {
-		color: var(--accent-color);
+		color: #f8f8f8;
 		margin-bottom: 1rem;
 		font-size: 1.5rem;
 	}
