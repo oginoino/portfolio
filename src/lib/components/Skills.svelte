@@ -5,56 +5,56 @@
 	
 	interface Skill {
 		name: string;
-		level: number;
+		description: string;
 		icon: string;
 		category: string;
 	}
 	
 	const skills: Skill[] = [
 		// Produtos
-		{ name: 'Product Strategy', level: 95, icon: '🎯', category: 'Produtos' },
-		{ name: 'Product Roadmap', level: 95, icon: '🗺️', category: 'Produtos' },
-		{ name: 'OKRs & KPIs', level: 90, icon: '📈', category: 'Produtos' },
-		{ name: 'Product Discovery', level: 90, icon: '🔍', category: 'Produtos' },
-		{ name: 'Product-Led Growth', level: 85, icon: '🚀', category: 'Produtos' },
-		{ name: 'Market Research', level: 85, icon: '📋', category: 'Produtos' },
-		{ name: 'Business Analysis', level: 85, icon: '💼', category: 'Produtos' },
-		{ name: 'Competitive Analysis', level: 80, icon: '🔎', category: 'Produtos' },
-		{ name: 'User Research', level: 80, icon: '👥', category: 'Produtos' },
-		{ name: 'A/B Testing', level: 75, icon: '🧪', category: 'Produtos' },
+		{ name: 'Product Strategy', description: 'Definição de visão, missão e estratégias de produto', icon: '🎯', category: 'Produtos' },
+		{ name: 'Product Roadmap', description: 'Planejamento e priorização de funcionalidades', icon: '🗺️', category: 'Produtos' },
+		{ name: 'OKRs & KPIs', description: 'Definição de objetivos e métricas de sucesso', icon: '📈', category: 'Produtos' },
+		{ name: 'Product Discovery', description: 'Validação de hipóteses e descoberta de oportunidades', icon: '🔍', category: 'Produtos' },
+		{ name: 'Product-Led Growth', description: 'Crescimento orientado pelo produto e experiência', icon: '🚀', category: 'Produtos' },
+		{ name: 'Market Research', description: 'Análise de mercado e identificação de tendências', icon: '📋', category: 'Produtos' },
+		{ name: 'Business Analysis', description: 'Análise de viabilidade e impacto nos negócios', icon: '💼', category: 'Produtos' },
+		{ name: 'Competitive Analysis', description: 'Estudo da concorrência e posicionamento', icon: '🔎', category: 'Produtos' },
+		{ name: 'User Research', description: 'Pesquisa com usuários e análise comportamental', icon: '👥', category: 'Produtos' },
+		{ name: 'A/B Testing', description: 'Testes comparativos e otimização de conversão', icon: '🧪', category: 'Produtos' },
 		
 		// Agile & Liderança
-		{ name: 'Scrum', level: 95, icon: '🏃', category: 'Agile & Liderança' },
-		{ name: 'Metodologias Ágeis', level: 95, icon: '⚡', category: 'Agile & Liderança' },
-		{ name: 'Gestão de Equipes', level: 90, icon: '👥', category: 'Agile & Liderança' },
-		{ name: 'Liderança Estratégica', level: 90, icon: '🎖️', category: 'Agile & Liderança' },
-		{ name: 'Histórias de Usuário', level: 85, icon: '📝', category: 'Agile & Liderança' },
-		{ name: 'Pensamento Estratégico', level: 85, icon: '🧠', category: 'Agile & Liderança' },
-		{ name: 'Comunicação Executiva', level: 80, icon: '🎤', category: 'Agile & Liderança' },
-		{ name: 'Gestão de Projetos', level: 80, icon: '📋', category: 'Agile & Liderança' },
+		{ name: 'Scrum', description: 'Framework ágil para desenvolvimento iterativo', icon: '🏃', category: 'Agile & Liderança' },
+		{ name: 'Metodologias Ágeis', description: 'Implementação de práticas ágeis e lean', icon: '⚡', category: 'Agile & Liderança' },
+		{ name: 'Gestão de Equipes', description: 'Liderança e desenvolvimento de equipes', icon: '👥', category: 'Agile & Liderança' },
+		{ name: 'Liderança Estratégica', description: 'Visão estratégica e tomada de decisões', icon: '🎖️', category: 'Agile & Liderança' },
+		{ name: 'Histórias de Usuário', description: 'Criação e refinamento de user stories', icon: '📝', category: 'Agile & Liderança' },
+		{ name: 'Pensamento Estratégico', description: 'Análise estratégica e planejamento', icon: '🧠', category: 'Agile & Liderança' },
+		{ name: 'Comunicação Executiva', description: 'Apresentações e comunicação com C-level', icon: '🎤', category: 'Agile & Liderança' },
+		{ name: 'Gestão de Projetos', description: 'Coordenação e entrega de projetos', icon: '📋', category: 'Agile & Liderança' },
 		
 		// Design & Desenvolvimento
-		{ name: 'Design Thinking', level: 95, icon: '💡', category: 'Design & Desenvolvimento' },
-		{ name: 'UX Foundations', level: 90, icon: '🎯', category: 'Design & Desenvolvimento' },
-		{ name: 'Design Sprint', level: 90, icon: '⚡', category: 'Design & Desenvolvimento' },
-		{ name: 'Python', level: 85, icon: '🐍', category: 'Design & Desenvolvimento' },
-		{ name: 'JavaScript', level: 80, icon: '💻', category: 'Design & Desenvolvimento' },
-		{ name: 'Go Language', level: 75, icon: '🔷', category: 'Design & Desenvolvimento' },
-		{ name: 'Data Science', level: 75, icon: '🔬', category: 'Design & Desenvolvimento' },
-		{ name: 'AWS', level: 70, icon: '☁️', category: 'Design & Desenvolvimento' },
-		{ name: 'SQL', level: 70, icon: '🗄️', category: 'Design & Desenvolvimento' },
+		{ name: 'Design Thinking', description: 'Metodologia centrada no usuário para inovação', icon: '💡', category: 'Design & Desenvolvimento' },
+		{ name: 'UX Foundations', description: 'Fundamentos de experiência do usuário', icon: '🎯', category: 'Design & Desenvolvimento' },
+		{ name: 'Design Sprint', description: 'Processo rápido de validação de ideias', icon: '⚡', category: 'Design & Desenvolvimento' },
+		{ name: 'Python', description: 'Programação para análise de dados e automação', icon: '🐍', category: 'Design & Desenvolvimento' },
+		{ name: 'JavaScript', description: 'Desenvolvimento web e aplicações interativas', icon: '💻', category: 'Design & Desenvolvimento' },
+		{ name: 'Go Language', description: 'Linguagem de programação para sistemas', icon: '🔷', category: 'Design & Desenvolvimento' },
+		{ name: 'Data Science', description: 'Análise estatística e machine learning', icon: '🔬', category: 'Design & Desenvolvimento' },
+		{ name: 'AWS', description: 'Serviços de nuvem e infraestrutura', icon: '☁️', category: 'Design & Desenvolvimento' },
+		{ name: 'SQL', description: 'Consultas e análise de bancos de dados', icon: '🗄️', category: 'Design & Desenvolvimento' },
 		
 		// Ferramentas
-		{ name: 'Jira', level: 95, icon: '🎫', category: 'Ferramentas' },
-		{ name: 'Google Analytics', level: 90, icon: '📊', category: 'Ferramentas' },
-		{ name: 'Notion', level: 85, icon: '📝', category: 'Ferramentas' },
-		{ name: 'Figma', level: 85, icon: '🎨', category: 'Ferramentas' },
-		{ name: 'Miro', level: 80, icon: '🧩', category: 'Ferramentas' },
-		{ name: 'Mixpanel', level: 75, icon: '📈', category: 'Ferramentas' },
-		{ name: 'Slack', level: 90, icon: '💬', category: 'Ferramentas' },
-		{ name: 'Trello', level: 85, icon: '📋', category: 'Ferramentas' },
-		{ name: 'Confluence', level: 80, icon: '📚', category: 'Ferramentas' },
-		{ name: 'Hotjar', level: 75, icon: '🔥', category: 'Ferramentas' }
+		{ name: 'Jira', description: 'Gestão de projetos e tracking de issues', icon: '📋', category: 'Ferramentas' },
+		{ name: 'Slack', description: 'Comunicação e colaboração em equipe', icon: '💬', category: 'Ferramentas' },
+		{ name: 'Google Analytics', description: 'Análise de tráfego e comportamento web', icon: '📊', category: 'Ferramentas' },
+		{ name: 'Notion', description: 'Documentação e gestão de conhecimento', icon: '📝', category: 'Ferramentas' },
+		{ name: 'Figma', description: 'Design colaborativo e prototipação', icon: '🎨', category: 'Ferramentas' },
+		{ name: 'Trello', description: 'Organização visual de tarefas', icon: '📌', category: 'Ferramentas' },
+		{ name: 'Miro', description: 'Quadros colaborativos e brainstorming', icon: '🎯', category: 'Ferramentas' },
+		{ name: 'Confluence', description: 'Wiki corporativo e documentação', icon: '📚', category: 'Ferramentas' },
+		{ name: 'Mixpanel', description: 'Analytics de produto e eventos', icon: '📈', category: 'Ferramentas' },
+		{ name: 'Hotjar', description: 'Heatmaps e gravações de sessão', icon: '🔥', category: 'Ferramentas' }
 	];
 	
 	const categories = ['Produtos', 'Agile & Liderança', 'Design & Desenvolvimento', 'Ferramentas'];
@@ -121,15 +121,10 @@
 							<div class="skill-icon">{skill.icon}</div>
 							<div class="skill-info">
 								<h4>{skill.name}</h4>
-								<span class="skill-level">{skill.level}%</span>
 							</div>
 						</div>
-						<div class="progress-bar">
-							<div 
-								class="progress-fill" 
-								data-width={skill.level}
-								style="width: 0%"
-							></div>
+						<div class="skill-description">
+							{skill.description}
 						</div>
 					</div>
 				{/each}
@@ -279,46 +274,15 @@
 		font-size: 1.1rem;
 	}
 	
-	.skill-level {
-		color: var(--primary-color);
-		font-weight: 600;
+	.skill-description {
 		font-size: 0.9rem;
+		color: var(--text-secondary);
+		line-height: 1.5;
 	}
 	
-	.progress-bar {
-		height: 8px;
-		background: rgba(0, 0, 0, 0.1);
-		border-radius: 4px;
-		overflow: hidden;
-	}
+
 	
-	.progress-fill {
-		height: 100%;
-		background: var(--primary-color);
-		border-radius: 4px;
-		transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-		position: relative;
-	}
-	
-	.progress-fill::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-		animation: shimmer 2s infinite;
-	}
-	
-	@keyframes shimmer {
-		0% {
-			transform: translateX(-100%);
-		}
-		100% {
-			transform: translateX(100%);
-		}
-	}
+
 	
 	.skills-summary {
 		display: grid;
