@@ -19,7 +19,11 @@
 			category: 'lideranca',
 			avatar: 'DR',
 			testimonial: 'Muito dedicado na organização de Backlog, Roadmap de Produto e entregas, está sempre procurando atualizar os conhecimentos que já tem e aprender novos, incluindo lógica de programação, UX/UI e Product Discovery. Também é um cara que joga junto, se empolga em trazer bons resultados, incentiva pessoas, independentemente do time, a expor ideias e pensamentos. É analítico e prático, sem ficar dando voltas em explicações, mas sempre disposto a explicar quantas vezes for necessário. Acima de tudo, mantém a resiliência como uma das principais palavras do dia a dia.',
-			highlights: ['Organização', 'Aprendizado Contínuo', 'Resiliência']
+			highlights: [
+				{ text: 'Organização', icon: '📋' },
+				{ text: 'Aprendizado Contínuo', icon: '📚' },
+				{ text: 'Resiliência', icon: '💪' }
+			]
 		},
 		{
 			id: 2,
@@ -30,7 +34,11 @@
 			category: 'lideranca',
 			avatar: 'GT',
 			testimonial: 'Antes de falar das competências do Gino, acredito que devo primeiro dizer as características que fazem dele um profissional capaz de guiar qualquer time: Prioriza com calma e clareza as prioridades da squad; Sabe se comunicar com as pessoas e intermediar comunicação. Como PO é organizado, sabe lidar com situações caóticas, sempre em busca de conhecimento técnico para entender melhor os requisitos. Um amigo de confiança e amado por toda empresa.',
-			highlights: ['Comunicação', 'Organização', 'Liderança']
+			highlights: [
+				{ text: 'Comunicação', icon: '💬' },
+				{ text: 'Organização', icon: '📋' },
+				{ text: 'Liderança', icon: '👑' }
+			]
 		},
 		{
 			id: 3,
@@ -41,7 +49,11 @@
 			category: 'inovacao',
 			avatar: 'ST',
 			testimonial: 'Ginaldo é um excelente profissional, o qual tive a honra de trabalhar, nos projetos de consultorias, onde o seu brilhantismo e expertise em Gestão Ágil de Projetos trouxe inovação nos processos, melhorando a entrega de resultados, e reinventando toda a maneira com a qual a empresa trabalhava.',
-			highlights: ['Gestão Ágil', 'Inovação', 'Resultados']
+			highlights: [
+				{ text: 'Gestão Ágil', icon: '⚡' },
+				{ text: 'Inovação', icon: '💡' },
+				{ text: 'Resultados', icon: '🎯' }
+			]
 		},
 		{
 			id: 4,
@@ -52,7 +64,11 @@
 			category: 'equipe',
 			avatar: 'LA',
 			testimonial: 'Gino é um profissional maravilhoso. Sempre atento às necessidades do time e super disposto a ajudar a qualquer momento. Além de ótimo profissional é um excelente colega, divertido e atencioso.',
-			highlights: ['Colaboração', 'Atenção', 'Disponibilidade']
+			highlights: [
+				{ text: 'Colaboração', icon: '🤝' },
+				{ text: 'Atenção', icon: '👁️' },
+				{ text: 'Disponibilidade', icon: '🕐' }
+			]
 		},
 		{
 			id: 5,
@@ -63,7 +79,11 @@
 			category: 'equipe',
 			avatar: 'RV',
 			testimonial: 'Excelente profissional e companheiro de equipe, estando sempre pronto para ajudar seus colegas e inovar seus produtos.',
-			highlights: ['Companheirismo', 'Inovação', 'Colaboração']
+			highlights: [
+				{ text: 'Companheirismo', icon: '🤗' },
+				{ text: 'Inovação', icon: '💡' },
+				{ text: 'Colaboração', icon: '🤝' }
+			]
 		},
 		{
 			id: 6,
@@ -74,7 +94,11 @@
 			category: 'negocios',
 			avatar: 'IC',
 			testimonial: 'O Gino é uma pessoa super receptiva e acessível sobre a frente do negócio! Sempre disposto a ajudar, trazer melhorias e proativo em demandas diversas, seja aquela que está sob seu controle ou não. Sempre traz a necessidade do negócio para compartilhar junto ao time e discute sobre para identificar pontos do qual precisam de sua atuação. Indico o Gino de olhos fechados!',
-			highlights: ['Proatividade', 'Visão de Negócio', 'Melhorias']
+			highlights: [
+				{ text: 'Proatividade', icon: '🚀' },
+				{ text: 'Visão de Negócio', icon: '📈' },
+				{ text: 'Melhorias', icon: '⬆️' }
+			]
 		},
 		{
 			id: 7,
@@ -85,7 +109,11 @@
 			category: 'academica',
 			avatar: 'MH',
 			testimonial: 'Tive a oportunidade de estudar com Ginaldo e ele sempre se mostrou uma pessoa dedicada, esforçada e acima de tudo muito bom no que faz, sempre contribuindo com conhecimento em sala de aula, além disso é uma pessoa que se dá muito bem em trabalhos em equipe e do pouco tempo que tive a oportunidade de estudar com ele se mostrou um grande líder. Ginaldo se mostra um profissional com excelentes qualidades.',
-			highlights: ['Dedicação', 'Conhecimento', 'Liderança Acadêmica']
+			highlights: [
+				{ text: 'Dedicação', icon: '🎯' },
+				{ text: 'Conhecimento', icon: '🧠' },
+				{ text: 'Liderança Acadêmica', icon: '🎓' }
+			]
 		}
 	];
 
@@ -292,7 +320,10 @@
 							<div class="card-footer">
 								<div class="highlights">
 									{#each testimonial.highlights as highlight}
-										<span class="highlight-tag">{highlight}</span>
+										<span class="highlight-tag">
+											<span class="highlight-icon">{highlight.icon}</span>
+											<span class="highlight-text">{highlight.text}</span>
+										</span>
 									{/each}
 								</div>
 							</div>
@@ -605,6 +636,11 @@
 		margin-right: 2rem;
 		opacity: 1;
 		transform: translateY(0);
+		display: flex;
+		flex-direction: column;
+		height: auto;
+		min-height: 400px;
+		max-height: 600px;
 	}
 
 	.testimonial-card::before {
@@ -702,6 +738,10 @@
 
 	.card-content {
 		margin-bottom: 1.5rem;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
 	}
 
 	.testimonial-text {
@@ -710,27 +750,81 @@
 		font-size: 1.05rem;
 		margin: 0;
 		font-style: italic;
+		display: -webkit-box;
+		-webkit-line-clamp: 6;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-height: 10.2em;
 	}
 
 	.card-footer {
 		border-top: 1px solid var(--border-light);
 		padding-top: 1rem;
+		margin-top: auto;
 	}
 
 	.highlights {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: 0.625rem;
+		animation: fadeInUp 0.6s ease-out;
+		animation-delay: 0.3s;
+		animation-fill-mode: both;
 	}
 
 	.highlight-tag {
-		background: var(--bg-gray-light);
-		color: var(--text-tertiary);
-		padding: 0.25rem 0.75rem;
-		border-radius: var(--border-radius-small);
+		background: linear-gradient(135deg, var(--bg-gray-light) 0%, var(--bg-white) 100%);
+		color: var(--text-secondary);
+		padding: 0.5rem 0.875rem;
+		border-radius: var(--border-radius);
 		font-size: 0.85rem;
-		font-weight: 500;
+		font-weight: 600;
 		border: 1px solid var(--border-light);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		transition: var(--transition);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.highlight-tag::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+		transition: var(--transition);
+	}
+
+	.highlight-tag:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		border-color: var(--primary-color);
+		color: var(--primary-color);
+	}
+
+	.highlight-tag:hover::before {
+		left: 100%;
+	}
+
+	.highlight-icon {
+		font-size: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+	}
+
+	.highlight-text {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 120px;
 	}
 
 	.stats-section {
@@ -785,6 +879,26 @@
 		}
 	}
 
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(15px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes shimmer {
+		0% {
+			transform: translateX(-100%);
+		}
+		100% {
+			transform: translateX(100%);
+		}
+	}
+
 	/* Responsividade */
 	@media (max-width: 768px) {
 		.testimonials-section {
@@ -824,6 +938,8 @@
 
 		.testimonial-card {
 			padding: 1.5rem;
+			min-height: 350px;
+			max-height: 500px;
 		}
 
 		.card-header {
@@ -839,6 +955,20 @@
 		.quote-mark {
 			position: static;
 			margin-bottom: 1rem;
+		}
+
+		.testimonial-text {
+			-webkit-line-clamp: 5;
+			max-height: 8.5em;
+			font-size: 1rem;
+		}
+
+		.highlight-text {
+			max-width: 100px;
+		}
+
+		.highlights {
+			justify-content: center;
 		}
 
 		.stats-grid {
