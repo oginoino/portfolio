@@ -110,7 +110,15 @@
 	];
 
 	// Update progress when section changes
-	$: progress.set((currentSection / (sections.length - 1)) * 100);
+	$: {
+		const progressValue = (currentSection / (sections.length - 1)) * 100;
+		progress.set(progressValue);
+		
+		// Update CSS custom property for mobile timeline progress
+		if (typeof document !== 'undefined') {
+			document.documentElement.style.setProperty('--progress-width', `${progressValue}%`);
+		}
+	}
 
 	onMount(() => {
 		// Observer for section visibility and progress bar control
@@ -164,6 +172,16 @@
 			});
 		}, 100);
 
+		// Handle window resize for timeline sync
+		const handleResize = () => {
+			// Re-sync timeline scroll when window is resized
+			setTimeout(() => {
+				syncTimelineScroll(currentSection);
+			}, 100);
+		};
+
+		window.addEventListener('resize', handleResize);
+
 		return () => {
 			if (timelineRef) {
 				visibilityObserver.unobserve(timelineRef);
@@ -171,6 +189,7 @@
 			storyCards.forEach(card => {
 				if (card) cardObserver.unobserve(card);
 			});
+			window.removeEventListener('resize', handleResize);
 		};
 	});
 
@@ -194,10 +213,41 @@
 				inline: 'nearest'
 			});
 			
+			// Sync timeline scroll on mobile
+			syncTimelineScroll(index);
+			
 			// Reset scrolling flag after animation completes
 			scrollTimeout = setTimeout(() => {
 				isScrolling = false;
 			}, 1000);
+		}
+	}
+
+	// Sync timeline scroll with active section
+	function syncTimelineScroll(index) {
+		const timelineNav = document.querySelector('.timeline-nav');
+		const timelineDots = document.querySelectorAll('.timeline-dot');
+		
+		if (timelineNav && timelineDots[index]) {
+			// Check if we're on mobile (timeline is horizontal)
+			const isMobile = window.innerWidth <= 768;
+			
+			if (isMobile) {
+				// Scroll timeline horizontally to center the active dot
+				const dotElement = timelineDots[index];
+				const timelineRect = timelineNav.getBoundingClientRect();
+				const dotRect = dotElement.getBoundingClientRect();
+				
+				const scrollLeft = timelineNav.scrollLeft + 
+					(dotRect.left - timelineRect.left) - 
+					(timelineRect.width / 2) + 
+					(dotRect.width / 2);
+				
+				timelineNav.scrollTo({
+					left: scrollLeft,
+					behavior: 'smooth'
+				});
+			}
 		}
 	}
 
@@ -434,34 +484,34 @@
 			</div>
 		</div>
 
-		<div class="story-container" class:visible={isVisible}>
-			<!-- Enhanced Timeline Navigation -->
-			<div class="timeline-nav">
-				{#each sections as section, index}
-					<button 
-						class="timeline-dot" 
-						class:active={currentSection === index}
-						class:completed={index < currentSection}
-						class:next={index === currentSection + 1}
-						on:click={() => setCurrentSectionEnhanced(index, 'timeline')}
-						title={section.title}
-						aria-label="Ir para seção {index + 1}: {section.title}"
-					>
-						<span class="dot-year">{section.year.split('-')[0]}</span>
-						<span class="dot-icon">{section.icon}</span>
-						{#if index < currentSection}
-							<div class="completion-indicator">✓</div>
-						{/if}
-						{#if index === currentSection}
-							<div class="pulse-ring"></div>
-						{/if}
-					</button>
-				{/each}
-				<div class="timeline-line">
-					<div class="timeline-progress" style="height: {($progress / 100) * 100}%"></div>
-				</div>
+		<!-- Enhanced Timeline Navigation (Fixed Position) -->
+		<div class="timeline-nav" class:visible={isVisible}>
+			{#each sections as section, index}
+				<button 
+					class="timeline-dot" 
+					class:active={currentSection === index}
+					class:completed={index < currentSection}
+					class:next={index === currentSection + 1}
+					on:click={() => setCurrentSectionEnhanced(index, 'timeline')}
+					title={section.title}
+					aria-label="Ir para seção {index + 1}: {section.title}"
+				>
+					<span class="dot-year">{section.year.split('-')[0]}</span>
+					<span class="dot-icon">{section.icon}</span>
+					{#if index < currentSection}
+						<div class="completion-indicator">✓</div>
+					{/if}
+					{#if index === currentSection}
+						<div class="pulse-ring"></div>
+					{/if}
+				</button>
+			{/each}
+			<div class="timeline-line">
+				<div class="timeline-progress" style="height: {($progress / 100) * 100}%"></div>
 			</div>
+		</div>
 
+		<div class="story-container" class:visible={isVisible}>
 			<!-- Enhanced Story Content -->
 			<div class="story-content">
 				{#each sections as section, index}
@@ -785,13 +835,13 @@
 
 
 	.story-container {
-		display: grid;
-		grid-template-columns: 300px 1fr;
-		gap: 3rem;
-		align-items: start;
+		display: block;
+		margin-left: 200px;
+		padding-left: 2rem;
 		opacity: 0;
 		transform: translateY(30px);
 		transition: var(--transition-slow);
+		position: relative;
 	}
 
 	.story-container.visible {
@@ -800,12 +850,34 @@
 	}
 
 	.timeline-nav {
-		position: sticky;
-		top: 2rem;
+		position: fixed;
+		top: 50%;
+		left: 2rem;
+		transform: translateY(-50%);
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		position: relative;
+		z-index: 50;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		padding: 1rem;
+		border-radius: var(--border-radius-large);
+		box-shadow: var(--shadow-medium);
+		border: 1px solid var(--border-light);
+		max-height: 80vh;
+		overflow-y: auto;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+		opacity: 0;
+		transition: var(--transition-slow);
+	}
+
+	.timeline-nav::-webkit-scrollbar {
+		display: none;
+	}
+
+	.timeline-nav.visible {
+		opacity: 1;
 	}
 
 	.timeline-line {
@@ -1420,16 +1492,23 @@
 		}
 
 		.story-container {
-			grid-template-columns: 1fr;
+			margin-left: 0;
+			padding-left: 0;
 			gap: 2rem;
 		}
 
 		.timeline-nav {
 			position: static;
+			transform: none;
+			left: auto;
+			top: auto;
 			flex-direction: row;
 			overflow-x: auto;
-			padding: 1rem 0;
-			gap: 0.75rem;
+			overflow-y: hidden;
+			max-height: none;
+			margin-bottom: 2rem;
+			padding: 1rem;
+			gap: 1rem;
 			scroll-snap-type: x mandatory;
 			scrollbar-width: none;
 			-ms-overflow-style: none;
@@ -1449,11 +1528,24 @@
 			transform: translateY(-50%);
 		}
 
+		.timeline-progress {
+			height: 100%;
+			width: var(--progress-width, 0%);
+		}
+
 		.timeline-dot {
-			width: 70px;
-			height: 70px;
+			width: 60px;
+			height: 60px;
 			flex-shrink: 0;
 			scroll-snap-align: center;
+		}
+
+		.dot-year {
+			font-size: 0.65rem;
+		}
+
+		.dot-icon {
+			font-size: 1rem;
 		}
 
 		.story-card {
