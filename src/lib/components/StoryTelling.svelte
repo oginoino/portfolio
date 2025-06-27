@@ -219,7 +219,7 @@
 	}
 </script>
 
-<section class="storytelling-section" bind:this={timelineRef} on:keydown={handleKeydown} tabindex="0" role="region" aria-label="Timeline da jornada profissional">
+<section class="storytelling-section" bind:this={timelineRef} aria-label="Timeline da jornada profissional">
 	<div class="container">
 		<div class="section-header">
 			<h2 class="section-title">A Jornada de Ginaldo Laranjeiras</h2>
@@ -256,15 +256,13 @@
 			<!-- Story Content -->
 			<div class="story-content">
 				{#each sections as section, index}
-					<div 
+					<button 
 						class="story-card" 
 						class:active={currentSection === index}
 						class:visible={isVisible}
 						style="--delay: {index * 0.1}s"
 						bind:this={storyCards[index]}
 						on:click={() => setCurrentSection(index)}
-						tabindex="0"
-						role="button"
 						aria-label="Seção {index + 1}: {section.title}"
 					>
 						<div class="card-header">
@@ -286,7 +284,7 @@
 								<span class="quote-mark">"</span>
 							</blockquote>
 						</div>
-					</div>
+					</button>
 				{/each}
 			</div>
 		</div>
@@ -408,10 +406,7 @@
 		box-shadow: var(--shadow);
 	}
 
-	.filter-btn span {
-		position: relative;
-		z-index: 1;
-	}
+
 
 	.story-container {
 		display: grid;
@@ -510,6 +505,12 @@
 		overflow: hidden;
 		cursor: pointer;
 		scroll-margin-top: 2rem;
+		width: 100%;
+		text-align: left;
+		font-family: inherit;
+		font-size: inherit;
+		color: inherit;
+		display: block;
 	}
 
 	.story-card:focus {
@@ -703,10 +704,7 @@
 		}
 	}
 
-	/* Smooth scroll behavior */
-	html {
-		scroll-behavior: smooth;
-	}
+
 
 	/* Responsividade */
 	@media (max-width: 768px) {
