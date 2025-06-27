@@ -69,13 +69,14 @@
 		z-index: 1000;
 		background: rgba(255, 255, 255, 0.95);
 		backdrop-filter: blur(10px);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+		border-bottom: 1px solid var(--border-light);
 		transition: var(--transition);
 	}
 	
 	.header.scrolled {
 		background: rgba(255, 255, 255, 0.98);
 		box-shadow: var(--shadow);
+		border-bottom: 1px solid var(--border-medium);
 	}
 	
 	.nav {
@@ -99,10 +100,9 @@
 	}
 	
 	.logo-text {
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
+		color: var(--primary-color);
+		font-weight: 900;
+		letter-spacing: -0.02em;
 	}
 	
 	.nav-links {
@@ -126,7 +126,7 @@
 	
 	.nav-links button:hover {
 		color: var(--primary-color);
-		background: rgba(102, 126, 234, 0.1);
+		background: var(--bg-gray);
 		transform: translateY(-2px);
 	}
 	
@@ -143,7 +143,7 @@
 	
 	.menu-toggle:hover {
 		color: var(--primary-color);
-		background: rgba(102, 126, 234, 0.1);
+		background: var(--bg-gray);
 	}
 	
 	@media (max-width: 768px) {
@@ -156,11 +156,12 @@
 			top: 100%;
 			left: 0;
 			right: 0;
-			background: rgba(255, 255, 255, 0.98);
+			background: var(--bg-white);
 			backdrop-filter: blur(10px);
 			flex-direction: column;
 			padding: 2rem;
 			box-shadow: var(--shadow);
+			border-top: 1px solid var(--border-light);
 			transform: translateY(-100%);
 			opacity: 0;
 			visibility: hidden;

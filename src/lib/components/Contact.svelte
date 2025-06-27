@@ -265,7 +265,7 @@
 
 <style>
 	.contact {
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		color: white;
 		position: relative;
 		overflow: hidden;
@@ -279,8 +279,8 @@
 		right: 0;
 		bottom: 0;
 		background: 
-			radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-			radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+			radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+			radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
 		pointer-events: none;
 	}
 	

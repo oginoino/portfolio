@@ -155,8 +155,8 @@
 		right: 0;
 		bottom: 0;
 		background: 
-			radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.03) 0%, transparent 50%),
-			radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.03) 0%, transparent 50%);
+			radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.01) 0%, transparent 50%),
+			radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.02) 0%, transparent 50%);
 		pointer-events: none;
 	}
 	
@@ -192,7 +192,7 @@
 	}
 	
 	.category-tab.active {
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		color: white;
 		border-color: transparent;
 		box-shadow: var(--shadow);
@@ -211,7 +211,7 @@
 		border-radius: var(--border-radius);
 		box-shadow: var(--shadow);
 		transition: var(--transition);
-		border: 1px solid rgba(102, 126, 234, 0.1);
+		border: 1px solid var(--border-light);
 	}
 	
 	.skill-card:hover {
@@ -234,7 +234,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: rgba(102, 126, 234, 0.1);
+		background: rgba(0, 0, 0, 0.05);
 		border-radius: 50%;
 	}
 	
@@ -256,14 +256,14 @@
 	
 	.progress-bar {
 		height: 8px;
-		background: rgba(102, 126, 234, 0.1);
+		background: rgba(0, 0, 0, 0.1);
 		border-radius: 4px;
 		overflow: hidden;
 	}
 	
 	.progress-fill {
 		height: 100%;
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		border-radius: 4px;
 		transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 		position: relative;
@@ -300,7 +300,7 @@
 		padding: 2rem;
 		border-radius: var(--border-radius);
 		box-shadow: var(--shadow);
-		border: 1px solid rgba(102, 126, 234, 0.1);
+		border: 1px solid var(--border-light);
 	}
 	
 	.summary-card h3 {

@@ -112,9 +112,8 @@
 		right: 0;
 		bottom: 0;
 		background: 
-			radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-			radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-			radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+			radial-gradient(circle at 20% 80%, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
+			radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.03) 0%, transparent 50%);
 		pointer-events: none;
 	}
 	
@@ -141,11 +140,9 @@
 	
 	.name {
 		display: block;
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		animation: gradient-shift 3s ease-in-out infinite;
+		color: var(--primary-color);
+		font-weight: 900;
+		letter-spacing: -0.02em;
 	}
 	
 	@keyframes gradient-shift {
@@ -189,12 +186,12 @@
 		justify-content: center;
 		width: 50px;
 		height: 50px;
-		background: rgba(255, 255, 255, 0.1);
-		border: 2px solid rgba(255, 255, 255, 0.2);
+		background: var(--bg-white);
+		border: 2px solid var(--border-light);
 		border-radius: 50%;
 		color: var(--text-primary);
 		transition: var(--transition);
-		backdrop-filter: blur(10px);
+		box-shadow: var(--shadow);
 	}
 	
 	.social-links a:hover {
@@ -224,23 +221,23 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		border-radius: 50%;
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		padding: 4px;
-		animation: rotate 20s linear infinite;
+		box-shadow: var(--shadow-strong);
 	}
 	
 	.image-placeholder {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
-		background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+		background: var(--bg-white);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-size: 4rem;
-		font-weight: 700;
+		font-weight: 900;
 		color: var(--primary-color);
-		box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
+		border: 3px solid var(--bg-white);
 	}
 	
 	@keyframes rotate {
@@ -313,8 +310,9 @@
 	.scroll-arrow {
 		width: 2px;
 		height: 30px;
-		background: linear-gradient(to bottom, var(--primary-color), transparent);
+		background: var(--primary-color);
 		position: relative;
+		opacity: 0.7;
 	}
 	
 	.scroll-arrow::after {

@@ -119,8 +119,8 @@
 		right: 0;
 		bottom: 0;
 		background: 
-			radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
-			radial-gradient(circle at 20% 80%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
+			radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
+			radial-gradient(circle at 20% 80%, rgba(0, 0, 0, 0.01) 0%, transparent 50%);
 		pointer-events: none;
 	}
 	
@@ -159,6 +159,7 @@
 		background: var(--bg-white);
 		border-radius: var(--border-radius);
 		box-shadow: var(--shadow);
+		border: 1px solid var(--border-light);
 	}
 	
 	.stat-item {
@@ -167,12 +168,10 @@
 	
 	.stat-number {
 		font-size: 2.5rem;
-		font-weight: 700;
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
+		font-weight: 900;
+		color: var(--primary-color);
 		margin-bottom: 0.5rem;
+		letter-spacing: -0.02em;
 	}
 	
 	.stat-label {
@@ -194,7 +193,7 @@
 		box-shadow: var(--shadow);
 		transition: var(--transition);
 		text-align: center;
-		border: 1px solid rgba(102, 126, 234, 0.1);
+		border: 1px solid var(--border-light);
 	}
 	
 	.feature-card:hover {
@@ -207,7 +206,7 @@
 		width: 70px;
 		height: 70px;
 		margin: 0 auto 1.5rem;
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		border-radius: 50%;
 		display: flex;
 		align-items: center;

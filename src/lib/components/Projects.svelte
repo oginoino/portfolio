@@ -257,8 +257,8 @@
 		right: 0;
 		bottom: 0;
 		background: 
-			radial-gradient(circle at 80% 30%, rgba(102, 126, 234, 0.03) 0%, transparent 50%),
-			radial-gradient(circle at 20% 70%, rgba(118, 75, 162, 0.03) 0%, transparent 50%);
+			radial-gradient(circle at 80% 30%, rgba(0, 0, 0, 0.01) 0%, transparent 50%),
+			radial-gradient(circle at 20% 70%, rgba(0, 0, 0, 0.02) 0%, transparent 50%);
 		pointer-events: none;
 	}
 	
@@ -301,7 +301,7 @@
 	}
 	
 	.filter-btn.active {
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		color: white;
 		border-color: transparent;
 		box-shadow: var(--shadow);
@@ -366,7 +366,7 @@
 		overflow: hidden;
 		box-shadow: var(--shadow);
 		transition: var(--transition);
-		border: 1px solid rgba(102, 126, 234, 0.1);
+		border: 1px solid var(--border-light);
 		position: relative;
 	}
 	
@@ -405,7 +405,7 @@
 	.image-placeholder {
 		width: 100%;
 		height: 100%;
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -479,13 +479,14 @@
 	}
 	
 	.project-category {
-		background: rgba(102, 126, 234, 0.1);
+		background: rgba(0, 0, 0, 0.05);
 		color: var(--primary-color);
 		padding: 0.25rem 0.75rem;
 		border-radius: 20px;
 		font-size: 0.8rem;
 		font-weight: 500;
 		white-space: nowrap;
+		border: 1px solid var(--border-light);
 	}
 	
 	.project-description {
@@ -510,13 +511,13 @@
 	}
 	
 	.tech-tag {
-		background: rgba(102, 126, 234, 0.1);
+		background: rgba(0, 0, 0, 0.05);
 		color: var(--primary-color);
 		padding: 0.25rem 0.75rem;
 		border-radius: 20px;
 		font-size: 0.8rem;
 		font-weight: 500;
-		border: 1px solid rgba(102, 126, 234, 0.2);
+		border: 1px solid var(--border-light);
 	}
 	
 	.project-stats {

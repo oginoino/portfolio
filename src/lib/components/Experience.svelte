@@ -213,8 +213,8 @@
 		right: 0;
 		bottom: 0;
 		background: 
-			radial-gradient(circle at 70% 20%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
-			radial-gradient(circle at 30% 80%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
+			radial-gradient(circle at 70% 20%, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
+			radial-gradient(circle at 30% 80%, rgba(0, 0, 0, 0.01) 0%, transparent 50%);
 		pointer-events: none;
 	}
 	
@@ -253,7 +253,7 @@
 	}
 	
 	.filter-tab.active {
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		color: white;
 		border-color: transparent;
 		box-shadow: var(--shadow);
@@ -272,7 +272,7 @@
 		top: 0;
 		bottom: 0;
 		width: 4px;
-		background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		transform: translateX(-50%);
 		border-radius: 2px;
 	}
@@ -298,7 +298,7 @@
 	.marker-icon {
 		width: 60px;
 		height: 60px;
-		background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		background: var(--primary-color);
 		border-radius: 50%;
 		display: flex;
 		align-items: center;
@@ -326,7 +326,7 @@
 		border-radius: var(--border-radius);
 		box-shadow: var(--shadow);
 		transition: var(--transition);
-		border: 1px solid rgba(102, 126, 234, 0.1);
+		border: 1px solid var(--border-light);
 		position: relative;
 	}
 	
@@ -406,13 +406,13 @@
 	}
 	
 	.tech-tag {
-		background: rgba(102, 126, 234, 0.1);
+		background: rgba(0, 0, 0, 0.05);
 		color: var(--primary-color);
 		padding: 0.25rem 0.75rem;
 		border-radius: 20px;
 		font-size: 0.85rem;
 		font-weight: 500;
-		border: 1px solid rgba(102, 126, 234, 0.2);
+		border: 1px solid var(--border-light);
 	}
 	
 	.achievements ul {
