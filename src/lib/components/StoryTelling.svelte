@@ -1,5 +1,9 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
+	import { tweened } from 'svelte/motion';
+	import { cubicOut } from 'svelte/easing';
+
+	const dispatch = createEventDispatcher();
 
 	let currentSection = 0;
 	let isVisible = false;
@@ -7,6 +11,30 @@
 	let storyCards = [];
 	let isScrolling = false;
 	let scrollTimeout;
+	let isAutoPlaying = false;
+	let autoPlayInterval;
+	let progressBar;
+	let isHovering = false;
+	let touchStartY = 0;
+	let touchStartX = 0;
+
+	// Progress tracking with smooth animation
+	const progress = tweened(0, {
+		duration: 300,
+		easing: cubicOut
+	});
+
+	// Reading progress for current section
+	const readingProgress = tweened(0, {
+		duration: 100,
+		easing: cubicOut
+	});
+
+	// Auto-play progress
+	const autoPlayProgress = tweened(0, {
+		duration: 5000,
+		easing: (t) => t
+	});
 
 	const sections = [
 		{
@@ -81,6 +109,9 @@
 		}
 	];
 
+	// Update progress when section changes
+	$: progress.set((currentSection / (sections.length - 1)) * 100);
+
 	onMount(() => {
 		// Observer for section visibility
 		const visibilityObserver = new IntersectionObserver(
@@ -88,6 +119,7 @@
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
 						isVisible = true;
+						startReadingProgress();
 					}
 				});
 			},
@@ -188,9 +220,12 @@
 		}
 	}
 
-	// Keyboard navigation
+	// Keyboard navigation with enhanced UX
 	function handleKeydown(event) {
 		if (!isVisible) return;
+		
+		// Stop auto-play on user interaction
+		stopAutoPlay();
 		
 		switch (event.key) {
 			case 'ArrowUp':
@@ -198,6 +233,7 @@
 				event.preventDefault();
 				if (currentSection > 0) {
 					setCurrentSection(currentSection - 1);
+					provideHapticFeedback();
 				}
 				break;
 			case 'ArrowDown':
@@ -205,68 +241,258 @@
 				event.preventDefault();
 				if (currentSection < sections.length - 1) {
 					setCurrentSection(currentSection + 1);
+					provideHapticFeedback();
 				}
 				break;
 			case 'Home':
 				event.preventDefault();
 				setCurrentSection(0);
+				provideHapticFeedback();
 				break;
 			case 'End':
 				event.preventDefault();
 				setCurrentSection(sections.length - 1);
+				provideHapticFeedback();
 				break;
+			case ' ':
+			case 'Space':
+				event.preventDefault();
+				toggleAutoPlay();
+				break;
+		}
+	}
+
+	// Auto-play functionality
+	function startAutoPlay() {
+		if (isAutoPlaying) return;
+		
+		isAutoPlaying = true;
+		autoPlayProgress.set(0);
+		
+		autoPlayInterval = setInterval(() => {
+			if (currentSection < sections.length - 1) {
+				setCurrentSection(currentSection + 1);
+				autoPlayProgress.set(0);
+			} else {
+				stopAutoPlay();
+			}
+		}, 5000);
+		
+		autoPlayProgress.set(100);
+	}
+
+	function stopAutoPlay() {
+		isAutoPlaying = false;
+		if (autoPlayInterval) {
+			clearInterval(autoPlayInterval);
+			autoPlayInterval = null;
+		}
+		autoPlayProgress.set(0);
+	}
+
+	function toggleAutoPlay() {
+		if (isAutoPlaying) {
+			stopAutoPlay();
+		} else {
+			startAutoPlay();
+		}
+	}
+
+	// Reading progress simulation
+	function startReadingProgress() {
+		readingProgress.set(0);
+		setTimeout(() => readingProgress.set(100), 2000);
+	}
+
+	// Haptic feedback for supported devices
+	function provideHapticFeedback() {
+		if ('vibrate' in navigator) {
+			navigator.vibrate(50);
+		}
+	}
+
+	// Touch gesture handling
+	function handleTouchStart(event) {
+		touchStartY = event.touches[0].clientY;
+		touchStartX = event.touches[0].clientX;
+		stopAutoPlay();
+	}
+
+	function handleTouchEnd(event) {
+		const touchEndY = event.changedTouches[0].clientY;
+		const touchEndX = event.changedTouches[0].clientX;
+		const deltaY = touchStartY - touchEndY;
+		const deltaX = touchStartX - touchEndX;
+		const minSwipeDistance = 50;
+
+		// Vertical swipe detection
+		if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > minSwipeDistance) {
+			if (deltaY > 0 && currentSection < sections.length - 1) {
+				// Swipe up - next section
+				setCurrentSection(currentSection + 1);
+				provideHapticFeedback();
+			} else if (deltaY < 0 && currentSection > 0) {
+				// Swipe down - previous section
+				setCurrentSection(currentSection - 1);
+				provideHapticFeedback();
+			}
+		}
+	}
+
+	// Enhanced section change with analytics
+	function setCurrentSectionEnhanced(index, source = 'manual') {
+		const previousSection = currentSection;
+		currentSection = index;
+		scrollToSection(index);
+		startReadingProgress();
+		
+		// Dispatch analytics event
+		dispatch('sectionChange', {
+			from: previousSection,
+			to: index,
+			source,
+			section: sections[index]
+		});
+		
+		// Update progress
+		progress.set((index / (sections.length - 1)) * 100);
+	}
+
+	// Mouse enter/leave for auto-play pause
+	function handleMouseEnter() {
+		isHovering = true;
+		if (isAutoPlaying) {
+			autoPlayProgress.set($autoPlayProgress, { duration: 0 });
+		}
+	}
+
+	function handleMouseLeave() {
+		isHovering = false;
+		if (isAutoPlaying) {
+			autoPlayProgress.set(100);
 		}
 	}
 </script>
 
-<section class="storytelling-section" bind:this={timelineRef} aria-label="Timeline da jornada profissional">
+<section 
+	class="storytelling-section" 
+	bind:this={timelineRef} 
+	aria-label="Timeline da jornada profissional"
+	on:touchstart={handleTouchStart}
+	on:touchend={handleTouchEnd}
+	on:mouseenter={handleMouseEnter}
+	on:mouseleave={handleMouseLeave}
+>
 	<div class="container">
+		<!-- Progress Indicators -->
+		<div class="progress-container" class:visible={isVisible}>
+			<div class="overall-progress">
+				<div class="progress-bar" style="width: {$progress}%"></div>
+			</div>
+			<div class="progress-info">
+				<span class="progress-text">{currentSection + 1} de {sections.length}</span>
+				<div class="reading-progress">
+					<div class="reading-bar" style="width: {$readingProgress}%"></div>
+				</div>
+			</div>
+		</div>
+
 		<div class="section-header">
 			<h2 class="section-title">A Jornada de Ginaldo Laranjeiras</h2>
 			<p class="section-subtitle">Do Direito ao Product Management</p>
 			<div class="title-decoration"></div>
 			
-			<!-- Filter Controls -->
-			<div class="filter-controls" class:visible={isVisible}>
-				<button class="filter-btn active" on:click={() => currentSection = 0}>Todos</button>
-				<button class="filter-btn" on:click={() => setCurrentSection(0)}>Início</button>
-				<button class="filter-btn" on:click={() => setCurrentSection(3)}>Corporativo</button>
-				<button class="filter-btn" on:click={() => setCurrentSection(2)}>Empreendedor</button>
-				<button class="filter-btn" on:click={() => setCurrentSection(sections.length - 1)}>Atual</button>
+			<!-- Enhanced Controls -->
+			<div class="controls-container" class:visible={isVisible}>
+				<!-- Auto-play Controls -->
+				<div class="autoplay-controls">
+					<button 
+						class="autoplay-btn" 
+						class:active={isAutoPlaying}
+						on:click={toggleAutoPlay}
+						aria-label={isAutoPlaying ? 'Pausar reprodução automática' : 'Iniciar reprodução automática'}
+					>
+						<span class="autoplay-icon">{isAutoPlaying ? '⏸️' : '▶️'}</span>
+						<span class="autoplay-text">{isAutoPlaying ? 'Pausar' : 'Auto-play'}</span>
+						{#if isAutoPlaying}
+							<div class="autoplay-progress" style="width: {$autoPlayProgress}%"></div>
+						{/if}
+					</button>
+				</div>
+
+				<!-- Filter Controls -->
+				<div class="filter-controls">
+					<button class="filter-btn" class:active={currentSection === 0} on:click={() => setCurrentSectionEnhanced(0, 'filter')}>Início</button>
+					<button class="filter-btn" class:active={currentSection === 3} on:click={() => setCurrentSectionEnhanced(3, 'filter')}>Corporativo</button>
+					<button class="filter-btn" class:active={currentSection === 2} on:click={() => setCurrentSectionEnhanced(2, 'filter')}>Empreendedor</button>
+					<button class="filter-btn" class:active={currentSection === sections.length - 1} on:click={() => setCurrentSectionEnhanced(sections.length - 1, 'filter')}>Atual</button>
+				</div>
 			</div>
 		</div>
 
 		<div class="story-container" class:visible={isVisible}>
-			<!-- Timeline Navigation -->
+			<!-- Enhanced Timeline Navigation -->
 			<div class="timeline-nav">
 				{#each sections as section, index}
 					<button 
 						class="timeline-dot" 
 						class:active={currentSection === index}
-						on:click={() => setCurrentSection(index)}
+						class:completed={index < currentSection}
+						class:next={index === currentSection + 1}
+						on:click={() => setCurrentSectionEnhanced(index, 'timeline')}
 						title={section.title}
+						aria-label="Ir para seção {index + 1}: {section.title}"
 					>
 						<span class="dot-year">{section.year.split('-')[0]}</span>
 						<span class="dot-icon">{section.icon}</span>
+						{#if index < currentSection}
+							<div class="completion-indicator">✓</div>
+						{/if}
+						{#if index === currentSection}
+							<div class="pulse-ring"></div>
+						{/if}
 					</button>
 				{/each}
-				<div class="timeline-line"></div>
+				<div class="timeline-line">
+					<div class="timeline-progress" style="height: {($progress / 100) * 100}%"></div>
+				</div>
 			</div>
 
-			<!-- Story Content -->
+			<!-- Enhanced Story Content -->
 			<div class="story-content">
 				{#each sections as section, index}
 					<button 
 						class="story-card" 
 						class:active={currentSection === index}
 						class:visible={isVisible}
+						class:completed={index < currentSection}
+						class:next={index === currentSection + 1}
+						class:reading={index === currentSection && $readingProgress > 0}
 						style="--delay: {index * 0.1}s"
 						bind:this={storyCards[index]}
-						on:click={() => setCurrentSection(index)}
+						on:click={() => setCurrentSectionEnhanced(index, 'card')}
 						aria-label="Seção {index + 1}: {section.title}"
 					>
+						<!-- Card Status Indicator -->
+						<div class="card-status">
+							{#if index < currentSection}
+								<span class="status-completed">✓</span>
+							{:else if index === currentSection}
+								<span class="status-current">👁️</span>
+							{:else if index === currentSection + 1}
+								<span class="status-next">→</span>
+							{/if}
+						</div>
+
+						<!-- Reading Progress Bar -->
+						{#if index === currentSection}
+							<div class="card-reading-progress">
+								<div class="reading-progress-bar" style="width: {$readingProgress}%"></div>
+							</div>
+						{/if}
+
 						<div class="card-header">
-							<div class="card-icon">{section.icon}</div>
+							<div class="card-icon" class:pulsing={index === currentSection}>{section.icon}</div>
 							<div class="card-meta">
 								<h3 class="card-title">{section.title}</h3>
 								<div class="card-details">
@@ -284,6 +510,13 @@
 								<span class="quote-mark">"</span>
 							</blockquote>
 						</div>
+
+						<!-- Interaction Hints -->
+						{#if index === currentSection + 1}
+							<div class="interaction-hint">
+								<span class="hint-text">Próxima →</span>
+							</div>
+						{/if}
 					</button>
 				{/each}
 			</div>
@@ -322,6 +555,77 @@
 		pointer-events: none;
 	}
 
+	/* Progress Indicators */
+	.progress-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		padding: 0.75rem 1rem;
+		border-bottom: 1px solid var(--border-light);
+		opacity: 0;
+		transform: translateY(-100%);
+		transition: var(--transition-slow);
+	}
+
+	.progress-container.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.overall-progress {
+		height: 4px;
+		background: var(--border-light);
+		border-radius: 2px;
+		overflow: hidden;
+		margin-bottom: 0.5rem;
+	}
+
+	.progress-bar {
+		height: 100%;
+		background: var(--gradient-dark);
+		border-radius: 2px;
+		transition: width 0.3s ease;
+		position: relative;
+	}
+
+	.progress-bar::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 20px;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+		animation: shimmer 2s infinite;
+	}
+
+	.progress-info {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 0.875rem;
+		color: var(--text-secondary);
+	}
+
+	.reading-progress {
+		width: 100px;
+		height: 2px;
+		background: var(--border-light);
+		border-radius: 1px;
+		overflow: hidden;
+	}
+
+	.reading-bar {
+		height: 100%;
+		background: var(--primary-color);
+		border-radius: 1px;
+		transition: width 0.1s ease;
+	}
+
 	.section-header {
 		text-align: center;
 		margin-bottom: 4rem;
@@ -351,10 +655,12 @@
 		border-radius: 2px;
 	}
 
-	.filter-controls {
+	/* Enhanced Controls Container */
+	.controls-container {
 		display: flex;
-		justify-content: center;
-		gap: 0.75rem;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
 		margin-top: 2rem;
 		opacity: 0;
 		transform: translateY(20px);
@@ -362,9 +668,73 @@
 		transition-delay: 0.3s;
 	}
 
-	.filter-controls.visible {
+	.controls-container.visible {
 		opacity: 1;
 		transform: translateY(0);
+	}
+
+	/* Auto-play Controls */
+	.autoplay-controls {
+		display: flex;
+		justify-content: center;
+	}
+
+	.autoplay-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.5rem;
+		border: 2px solid var(--border-medium);
+		background: var(--bg-white);
+		color: var(--text-secondary);
+		border-radius: var(--border-radius-large);
+		cursor: pointer;
+		transition: var(--transition);
+		font-size: 0.9rem;
+		font-weight: 600;
+		position: relative;
+		overflow: hidden;
+		box-shadow: var(--shadow-light);
+	}
+
+	.autoplay-btn:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow);
+		border-color: var(--primary-color);
+	}
+
+	.autoplay-btn.active {
+		background: var(--primary-color);
+		color: var(--text-white);
+		border-color: var(--primary-color);
+		box-shadow: var(--shadow-medium);
+	}
+
+	.autoplay-progress {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 3px;
+		background: rgba(255, 255, 255, 0.3);
+		transition: width 0.1s linear;
+		border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+	}
+
+	.autoplay-icon {
+		font-size: 1rem;
+		line-height: 1;
+	}
+
+	.autoplay-text {
+		font-size: 0.875rem;
+	}
+
+	/* Filter Controls */
+	.filter-controls {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+		flex-wrap: wrap;
 	}
 
 	.filter-btn {
@@ -441,6 +811,29 @@
 		background: var(--border-medium);
 		transform: translateX(-50%);
 		z-index: 0;
+		border-radius: 1px;
+	}
+
+	.timeline-progress {
+		width: 100%;
+		background: var(--gradient-dark);
+		border-radius: 1px;
+		transition: height 0.5s ease;
+		position: relative;
+	}
+
+	.timeline-progress::after {
+		content: '';
+		position: absolute;
+		top: -2px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 6px;
+		height: 6px;
+		background: var(--primary-color);
+		border-radius: 50%;
+		box-shadow: 0 0 10px var(--primary-color);
+		animation: pulse 2s infinite;
 	}
 
 	.timeline-dot {
@@ -473,6 +866,50 @@
 		color: var(--text-white);
 		box-shadow: var(--shadow-medium);
 		transform: scale(1.15);
+		animation: activeGlow 2s ease-in-out infinite;
+	}
+
+	.timeline-dot.completed {
+		border-color: var(--success-color, #10b981);
+		background: var(--success-color, #10b981);
+		color: var(--text-white);
+		transform: scale(1.05);
+	}
+
+	.timeline-dot.next {
+		border-color: var(--warning-color, #f59e0b);
+		background: rgba(245, 158, 11, 0.1);
+		animation: nextPulse 1.5s ease-in-out infinite;
+	}
+
+	.completion-indicator {
+		position: absolute;
+		top: -5px;
+		right: -5px;
+		width: 20px;
+		height: 20px;
+		background: var(--success-color, #10b981);
+		color: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.75rem;
+		font-weight: bold;
+		box-shadow: var(--shadow);
+		animation: completionBounce 0.5s ease-out;
+	}
+
+	.pulse-ring {
+		position: absolute;
+		top: -10px;
+		left: -10px;
+		right: -10px;
+		bottom: -10px;
+		border: 2px solid var(--primary-color);
+		border-radius: 50%;
+		opacity: 0;
+		animation: pulseRing 2s ease-out infinite;
 	}
 
 	.dot-year {
@@ -546,6 +983,90 @@
 		animation: pulseGlow 2s ease-in-out infinite;
 	}
 
+	.story-card.completed {
+		opacity: 0.8;
+		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(16, 185, 129, 0.05) 100%);
+		border-left: 4px solid var(--success-color, #10b981);
+	}
+
+	.story-card.next {
+		opacity: 0.7;
+		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(245, 158, 11, 0.05) 100%);
+		border-left: 4px solid var(--warning-color, #f59e0b);
+		animation: nextCardPulse 2s ease-in-out infinite;
+	}
+
+	.story-card.reading {
+		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(66, 66, 66, 0.02) 100%);
+	}
+
+	/* Card Status Indicators */
+	.card-status {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.875rem;
+		background: var(--bg-white);
+		box-shadow: var(--shadow-light);
+		border: 2px solid var(--border-light);
+		transition: var(--transition);
+	}
+
+	.status-completed {
+		color: var(--success-color, #10b981);
+		background: rgba(16, 185, 129, 0.1);
+		border-color: var(--success-color, #10b981);
+	}
+
+	.status-current {
+		color: var(--primary-color);
+		background: rgba(66, 66, 66, 0.1);
+		border-color: var(--primary-color);
+		animation: currentStatusPulse 1.5s ease-in-out infinite;
+	}
+
+	.status-next {
+		color: var(--warning-color, #f59e0b);
+		background: rgba(245, 158, 11, 0.1);
+		border-color: var(--warning-color, #f59e0b);
+	}
+
+	/* Reading Progress */
+	.card-reading-progress {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: var(--border-light);
+		border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+		overflow: hidden;
+	}
+
+	.reading-progress-bar {
+		height: 100%;
+		background: var(--gradient-dark);
+		transition: width 0.1s ease;
+		position: relative;
+	}
+
+	.reading-progress-bar::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 10px;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+		animation: shimmer 1s infinite;
+	}
+
 	@keyframes pulseGlow {
 		0%, 100% {
 			box-shadow: var(--shadow-medium);
@@ -576,6 +1097,36 @@
 		justify-content: center;
 		font-size: 1.5rem;
 		border: 2px solid var(--border-light);
+		transition: var(--transition);
+	}
+
+	.card-icon.pulsing {
+		animation: iconPulse 2s ease-in-out infinite;
+		background: linear-gradient(135deg, var(--bg-gray-light) 0%, rgba(66, 66, 66, 0.1) 100%);
+		border-color: var(--primary-color);
+		box-shadow: 0 0 20px rgba(66, 66, 66, 0.1);
+	}
+
+	/* Interaction Hints */
+	.interaction-hint {
+		position: absolute;
+		bottom: 1rem;
+		right: 1rem;
+		background: var(--warning-color, #f59e0b);
+		color: white;
+		padding: 0.25rem 0.75rem;
+		border-radius: var(--border-radius);
+		font-size: 0.75rem;
+		font-weight: 600;
+		box-shadow: var(--shadow);
+		animation: hintBounce 2s ease-in-out infinite;
+		pointer-events: none;
+	}
+
+	.hint-text {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
 	}
 
 	.card-meta {
@@ -704,18 +1255,156 @@
 		}
 	}
 
+	/* Enhanced UX Animations */
+	@keyframes shimmer {
+		0% {
+			transform: translateX(-100%);
+		}
+		100% {
+			transform: translateX(100%);
+		}
+	}
+
+	@keyframes pulse {
+		0%, 100% {
+			transform: translateX(-50%) scale(1);
+			opacity: 1;
+		}
+		50% {
+			transform: translateX(-50%) scale(1.2);
+			opacity: 0.7;
+		}
+	}
+
+	@keyframes activeGlow {
+		0%, 100% {
+			box-shadow: var(--shadow-medium);
+		}
+		50% {
+			box-shadow: 0 8px 32px rgba(66, 66, 66, 0.2), 0 0 0 3px rgba(66, 66, 66, 0.1);
+		}
+	}
+
+	@keyframes nextPulse {
+		0%, 100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		50% {
+			transform: scale(1.05);
+			opacity: 0.8;
+		}
+	}
+
+	@keyframes completionBounce {
+		0% {
+			transform: scale(0);
+			opacity: 0;
+		}
+		50% {
+			transform: scale(1.2);
+			opacity: 1;
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes pulseRing {
+		0% {
+			transform: scale(0.8);
+			opacity: 1;
+		}
+		100% {
+			transform: scale(1.4);
+			opacity: 0;
+		}
+	}
+
+	@keyframes nextCardPulse {
+		0%, 100% {
+			transform: translateX(0) scale(1);
+			box-shadow: var(--shadow-light);
+		}
+		50% {
+			transform: translateX(0) scale(1.01);
+			box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+		}
+	}
+
+	@keyframes currentStatusPulse {
+		0%, 100% {
+			transform: scale(1);
+			box-shadow: var(--shadow-light);
+		}
+		50% {
+			transform: scale(1.1);
+			box-shadow: 0 0 15px rgba(66, 66, 66, 0.3);
+		}
+	}
+
+	@keyframes iconPulse {
+		0%, 100% {
+			transform: scale(1);
+			box-shadow: 0 0 20px rgba(66, 66, 66, 0.1);
+		}
+		50% {
+			transform: scale(1.05);
+			box-shadow: 0 0 25px rgba(66, 66, 66, 0.2);
+		}
+	}
+
+	@keyframes hintBounce {
+		0%, 100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-3px);
+		}
+	}
 
 
-	/* Responsividade */
+
+	/* Enhanced Responsividade */
 	@media (max-width: 768px) {
 		.storytelling-section {
 			padding: 4rem 0;
+			padding-top: 6rem; /* Account for fixed progress bar */
+		}
+
+		.progress-container {
+			padding: 0.5rem 1rem;
+		}
+
+		.progress-info {
+			flex-direction: column;
+			gap: 0.5rem;
+			align-items: flex-start;
+		}
+
+		.reading-progress {
+			width: 100%;
+		}
+
+		.controls-container {
+			gap: 1rem;
+		}
+
+		.autoplay-controls {
+			order: 2;
+		}
+
+		.autoplay-btn {
+			padding: 0.5rem 1rem;
+			font-size: 0.8rem;
 		}
 
 		.filter-controls {
+			order: 1;
 			flex-wrap: wrap;
 			gap: 0.5rem;
-			margin-top: 1.5rem;
+			justify-content: center;
 		}
 
 		.filter-btn {
@@ -733,8 +1422,14 @@
 			flex-direction: row;
 			overflow-x: auto;
 			padding: 1rem 0;
-			gap: 1rem;
+			gap: 0.75rem;
 			scroll-snap-type: x mandatory;
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+		}
+
+		.timeline-nav::-webkit-scrollbar {
+			display: none;
 		}
 
 		.timeline-line {
@@ -769,19 +1464,102 @@
 			justify-content: center;
 		}
 
+		.card-status {
+			top: 0.5rem;
+			right: 0.5rem;
+			width: 20px;
+			height: 20px;
+			font-size: 0.7rem;
+		}
+
+		.card-reading-progress {
+			height: 2px;
+		}
+
+		.interaction-hint {
+			bottom: 0.5rem;
+			right: 0.5rem;
+			padding: 0.2rem 0.5rem;
+			font-size: 0.65rem;
+		}
+
 		.final-quote blockquote {
 			padding: 2rem;
 		}
 	}
 
-	/* Enhanced accessibility and interaction */
+	/* Enhanced Acessibilidade */
 	@media (prefers-reduced-motion: reduce) {
-		.story-card.active {
-			animation: none;
+		.story-card,
+		.timeline-dot,
+		.filter-btn,
+		.autoplay-btn,
+		.card-icon,
+		.card-status,
+		.progress-bar,
+		.reading-bar,
+		.timeline-progress,
+		.interaction-hint {
+			animation: none !important;
+			transition: opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 		}
-		
+
+		.pulse-ring,
+		.completion-indicator {
+			display: none;
+		}
+
 		.filter-btn::before {
 			transition: none;
+		}
+	}
+
+	/* Focus States for Accessibility */
+	.filter-btn:focus-visible,
+	.timeline-dot:focus-visible,
+	.autoplay-btn:focus-visible,
+	.story-card:focus-visible {
+		outline: 2px solid var(--primary-color);
+		outline-offset: 2px;
+		box-shadow: 0 0 0 4px rgba(66, 66, 66, 0.1);
+	}
+
+	/* High Contrast Mode Support */
+	@media (prefers-contrast: high) {
+		.progress-bar,
+		.reading-bar,
+		.timeline-progress {
+			background: var(--text-primary);
+		}
+
+		.story-card.active {
+			border: 3px solid var(--text-primary);
+		}
+
+		.timeline-dot.active {
+			background: var(--text-primary);
+			color: var(--bg-white);
+		}
+	}
+
+	/* Print Styles */
+	@media print {
+		.progress-container,
+		.controls-container,
+		.timeline-nav,
+		.interaction-hint {
+			display: none;
+		}
+
+		.story-content {
+			display: block;
+		}
+
+		.story-card {
+			break-inside: avoid;
+			margin-bottom: 2rem;
+			box-shadow: none;
+			border: 1px solid #ccc;
 		}
 	}
 
