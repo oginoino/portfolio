@@ -1,22 +1,33 @@
-<script>
+<script lang="ts">
 	import { onMount, createEventDispatcher } from 'svelte';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
 
 	const dispatch = createEventDispatcher();
 
-	let currentSection = 0;
-	let isVisible = false;
-	let timelineRef;
-	let storyCards = [];
-	let isScrolling = false;
-	let scrollTimeout;
-	let isAutoPlaying = false;
-	let autoPlayInterval;
-	let progressBar;
-	let isHovering = false;
-	let touchStartY = 0;
-	let touchStartX = 0;
+	interface Section {
+		id: string;
+		title: string;
+		year: string;
+		company: string;
+		role: string;
+		description: string;
+		insight: string;
+		icon: string;
+	}
+
+	let currentSection: number = 0;
+	let isVisible: boolean = false;
+	let timelineRef: HTMLElement;
+	let storyCards: HTMLElement[] = [];
+	let isScrolling: boolean = false;
+	let scrollTimeout: NodeJS.Timeout;
+	let isAutoPlaying: boolean = false;
+	let autoPlayInterval: NodeJS.Timeout;
+	let progressBar: HTMLElement;
+	let isHovering: boolean = false;
+	let touchStartY: number = 0;
+	let touchStartX: number = 0;
 
 	// Progress tracking with smooth animation
 	const progress = tweened(0, {
@@ -36,7 +47,7 @@
 		easing: (t) => t
 	});
 
-	const sections = [
+	const sections: Section[] = [
 		{
 			id: 'despertar',
 			title: 'O Despertar para a Tecnologia',
@@ -123,7 +134,7 @@
 	onMount(() => {
 		// Observer for section visibility and progress bar control
 		const visibilityObserver = new IntersectionObserver(
-			(entries) => {
+			(entries: IntersectionObserverEntry[]) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
 						isVisible = true;
@@ -140,12 +151,12 @@
 
 		// Observer for automatic section detection based on scroll
 		const cardObserver = new IntersectionObserver(
-			(entries) => {
+			(entries: IntersectionObserverEntry[]) => {
 				if (isScrolling) return;
 				
 				entries.forEach((entry) => {
 					if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-						const cardIndex = parseInt(entry.target.dataset.index);
+						const cardIndex = parseInt((entry.target as HTMLElement).dataset.index || '0');
 						if (cardIndex !== currentSection) {
 							currentSection = cardIndex;
 						}
@@ -163,19 +174,19 @@
 		}
 
 		// Observe all story cards for scroll-based selection
-		setTimeout(() => {
-			storyCards.forEach((card, index) => {
+		setTimeout((): void => {
+			storyCards.forEach((card: HTMLElement, index: number): void => {
 				if (card) {
-					card.dataset.index = index;
+					card.dataset.index = index.toString();
 					cardObserver.observe(card);
 				}
 			});
 		}, 100);
 
 		// Handle window resize for timeline sync
-		const handleResize = () => {
+		const handleResize = (): void => {
 			// Re-sync timeline scroll when window is resized
-			setTimeout(() => {
+			setTimeout((): void => {
 				syncTimelineScroll(currentSection);
 			}, 100);
 		};
@@ -193,12 +204,12 @@
 		};
 	});
 
-	function setCurrentSection(index) {
+	function setCurrentSection(index: number): void {
 		currentSection = index;
 		scrollToSection(index);
 	}
 
-	function scrollToSection(index) {
+	function scrollToSection(index: number): void {
 		if (storyCards[index]) {
 			isScrolling = true;
 			
@@ -217,16 +228,16 @@
 			syncTimelineScroll(index);
 			
 			// Reset scrolling flag after animation completes
-			scrollTimeout = setTimeout(() => {
+			scrollTimeout = setTimeout((): void => {
 				isScrolling = false;
 			}, 1000);
 		}
 	}
 
 	// Sync timeline scroll with active section
-	function syncTimelineScroll(index) {
-		const timelineNav = document.querySelector('.timeline-nav');
-		const timelineDots = document.querySelectorAll('.timeline-dot');
+	function syncTimelineScroll(index: number): void {
+		const timelineNav = document.querySelector('.timeline-nav') as HTMLElement | null;
+		const timelineDots = document.querySelectorAll('.timeline-dot') as NodeListOf<HTMLElement>;
 		
 		if (timelineNav && timelineDots[index]) {
 			// Check if we're on mobile (timeline is horizontal)
@@ -252,7 +263,7 @@
 	}
 
 	// Enhanced data filtering and selection
-	function getFilteredSections(filter = 'all') {
+	function getFilteredSections(filter: string = 'all'): Section[] {
 		switch (filter) {
 			case 'early':
 				return sections.filter((_, index) => index < 3);
@@ -275,7 +286,7 @@
 	}
 
 	// Keyboard navigation with enhanced UX
-	function handleKeydown(event) {
+	function handleKeydown(event: KeyboardEvent): void {
 		if (!isVisible) return;
 		
 		// Stop auto-play on user interaction
@@ -317,13 +328,13 @@
 	}
 
 	// Auto-play functionality
-	function startAutoPlay() {
+	function startAutoPlay(): void {
 		if (isAutoPlaying) return;
 		
 		isAutoPlaying = true;
 		autoPlayProgress.set(0);
 		
-		autoPlayInterval = setInterval(() => {
+		autoPlayInterval = setInterval((): void => {
 			if (currentSection < sections.length - 1) {
 				setCurrentSection(currentSection + 1);
 				autoPlayProgress.set(0);
@@ -335,7 +346,7 @@
 		autoPlayProgress.set(100);
 	}
 
-	function stopAutoPlay() {
+	function stopAutoPlay(): void {
 		isAutoPlaying = false;
 		if (autoPlayInterval) {
 			clearInterval(autoPlayInterval);
@@ -344,7 +355,7 @@
 		autoPlayProgress.set(0);
 	}
 
-	function toggleAutoPlay() {
+	function toggleAutoPlay(): void {
 		if (isAutoPlaying) {
 			stopAutoPlay();
 		} else {
@@ -353,26 +364,26 @@
 	}
 
 	// Reading progress simulation
-	function startReadingProgress() {
+	function startReadingProgress(): void {
 		readingProgress.set(0);
-		setTimeout(() => readingProgress.set(100), 2000);
+		setTimeout((): void => readingProgress.set(100), 2000);
 	}
 
 	// Haptic feedback for supported devices
-	function provideHapticFeedback() {
+	function provideHapticFeedback(): void {
 		if ('vibrate' in navigator) {
 			navigator.vibrate(50);
 		}
 	}
 
 	// Touch gesture handling
-	function handleTouchStart(event) {
+	function handleTouchStart(event: TouchEvent): void {
 		touchStartY = event.touches[0].clientY;
 		touchStartX = event.touches[0].clientX;
 		stopAutoPlay();
 	}
 
-	function handleTouchEnd(event) {
+	function handleTouchEnd(event: TouchEvent): void {
 		const touchEndY = event.changedTouches[0].clientY;
 		const touchEndX = event.changedTouches[0].clientX;
 		const deltaY = touchStartY - touchEndY;
@@ -394,7 +405,7 @@
 	}
 
 	// Enhanced section change with analytics
-	function setCurrentSectionEnhanced(index, source = 'manual') {
+	function setCurrentSectionEnhanced(index: number, source: string = 'manual'): void {
 		const previousSection = currentSection;
 		currentSection = index;
 		scrollToSection(index);
@@ -413,14 +424,14 @@
 	}
 
 	// Mouse enter/leave for auto-play pause
-	function handleMouseEnter() {
+	function handleMouseEnter(): void {
 		isHovering = true;
 		if (isAutoPlaying) {
 			autoPlayProgress.set($autoPlayProgress, { duration: 0 });
 		}
 	}
 
-	function handleMouseLeave() {
+	function handleMouseLeave(): void {
 		isHovering = false;
 		if (isAutoPlaying) {
 			autoPlayProgress.set(100);
