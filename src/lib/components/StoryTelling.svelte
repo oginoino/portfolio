@@ -4,6 +4,9 @@
 	let currentSection = 0;
 	let isVisible = false;
 	let timelineRef;
+	let storyCards = [];
+	let isScrolling = false;
+	let scrollTimeout;
 
 	const sections = [
 		{
@@ -79,7 +82,8 @@
 	];
 
 	onMount(() => {
-		const observer = new IntersectionObserver(
+		// Observer for section visibility
+		const visibilityObserver = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
@@ -90,28 +94,146 @@
 			{ threshold: 0.1 }
 		);
 
+		// Observer for automatic section detection based on scroll
+		const cardObserver = new IntersectionObserver(
+			(entries) => {
+				if (isScrolling) return;
+				
+				entries.forEach((entry) => {
+					if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+						const cardIndex = parseInt(entry.target.dataset.index);
+						if (cardIndex !== currentSection) {
+							currentSection = cardIndex;
+						}
+					}
+				});
+			},
+			{ 
+				threshold: [0.3, 0.5, 0.7],
+				rootMargin: '-20% 0px -20% 0px'
+			}
+		);
+
 		if (timelineRef) {
-			observer.observe(timelineRef);
+			visibilityObserver.observe(timelineRef);
 		}
+
+		// Observe all story cards for scroll-based selection
+		setTimeout(() => {
+			storyCards.forEach((card, index) => {
+				if (card) {
+					card.dataset.index = index;
+					cardObserver.observe(card);
+				}
+			});
+		}, 100);
 
 		return () => {
 			if (timelineRef) {
-				observer.unobserve(timelineRef);
+				visibilityObserver.unobserve(timelineRef);
 			}
+			storyCards.forEach(card => {
+				if (card) cardObserver.unobserve(card);
+			});
 		};
 	});
 
 	function setCurrentSection(index) {
 		currentSection = index;
+		scrollToSection(index);
+	}
+
+	function scrollToSection(index) {
+		if (storyCards[index]) {
+			isScrolling = true;
+			
+			// Clear any existing timeout
+			if (scrollTimeout) {
+				clearTimeout(scrollTimeout);
+			}
+			
+			storyCards[index].scrollIntoView({
+				behavior: 'smooth',
+				block: 'center',
+				inline: 'nearest'
+			});
+			
+			// Reset scrolling flag after animation completes
+			scrollTimeout = setTimeout(() => {
+				isScrolling = false;
+			}, 1000);
+		}
+	}
+
+	// Enhanced data filtering and selection
+	function getFilteredSections(filter = 'all') {
+		switch (filter) {
+			case 'early':
+				return sections.filter((_, index) => index < 3);
+			case 'corporate':
+				return sections.filter(section => 
+					section.company.includes('Accenture') || 
+					section.company.includes('FinanZero')
+				);
+			case 'entrepreneurial':
+				return sections.filter(section => 
+					section.role.includes('Co-fundador') || 
+					section.company.includes('CONNAT') ||
+					section.company.includes('Tá no Plano')
+				);
+			case 'recent':
+				return sections.filter((_, index) => index >= 4);
+			default:
+				return sections;
+		}
+	}
+
+	// Keyboard navigation
+	function handleKeydown(event) {
+		if (!isVisible) return;
+		
+		switch (event.key) {
+			case 'ArrowUp':
+			case 'ArrowLeft':
+				event.preventDefault();
+				if (currentSection > 0) {
+					setCurrentSection(currentSection - 1);
+				}
+				break;
+			case 'ArrowDown':
+			case 'ArrowRight':
+				event.preventDefault();
+				if (currentSection < sections.length - 1) {
+					setCurrentSection(currentSection + 1);
+				}
+				break;
+			case 'Home':
+				event.preventDefault();
+				setCurrentSection(0);
+				break;
+			case 'End':
+				event.preventDefault();
+				setCurrentSection(sections.length - 1);
+				break;
+		}
 	}
 </script>
 
-<section class="storytelling-section" bind:this={timelineRef}>
+<section class="storytelling-section" bind:this={timelineRef} on:keydown={handleKeydown} tabindex="0" role="region" aria-label="Timeline da jornada profissional">
 	<div class="container">
 		<div class="section-header">
 			<h2 class="section-title">A Jornada de Ginaldo Laranjeiras</h2>
 			<p class="section-subtitle">Do Direito ao Product Management</p>
 			<div class="title-decoration"></div>
+			
+			<!-- Filter Controls -->
+			<div class="filter-controls" class:visible={isVisible}>
+				<button class="filter-btn active" on:click={() => currentSection = 0}>Todos</button>
+				<button class="filter-btn" on:click={() => setCurrentSection(0)}>Início</button>
+				<button class="filter-btn" on:click={() => setCurrentSection(3)}>Corporativo</button>
+				<button class="filter-btn" on:click={() => setCurrentSection(2)}>Empreendedor</button>
+				<button class="filter-btn" on:click={() => setCurrentSection(sections.length - 1)}>Atual</button>
+			</div>
 		</div>
 
 		<div class="story-container" class:visible={isVisible}>
@@ -139,6 +261,11 @@
 						class:active={currentSection === index}
 						class:visible={isVisible}
 						style="--delay: {index * 0.1}s"
+						bind:this={storyCards[index]}
+						on:click={() => setCurrentSection(index)}
+						tabindex="0"
+						role="button"
+						aria-label="Seção {index + 1}: {section.title}"
 					>
 						<div class="card-header">
 							<div class="card-icon">{section.icon}</div>
@@ -224,6 +351,66 @@
 		background: var(--gradient-dark);
 		margin: 0 auto;
 		border-radius: 2px;
+	}
+
+	.filter-controls {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-top: 2rem;
+		opacity: 0;
+		transform: translateY(20px);
+		transition: var(--transition-slow);
+		transition-delay: 0.3s;
+	}
+
+	.filter-controls.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.filter-btn {
+		padding: 0.5rem 1rem;
+		border: 2px solid var(--border-light);
+		background: var(--bg-white);
+		color: var(--text-secondary);
+		border-radius: var(--border-radius);
+		cursor: pointer;
+		transition: var(--transition);
+		font-size: 0.875rem;
+		font-weight: 500;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.filter-btn::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: var(--gradient-dark);
+		transition: var(--transition);
+		z-index: 0;
+	}
+
+	.filter-btn:hover::before,
+	.filter-btn.active::before {
+		left: 0;
+	}
+
+	.filter-btn:hover,
+	.filter-btn.active {
+		color: var(--text-white);
+		border-color: var(--primary-color);
+		transform: translateY(-2px);
+		box-shadow: var(--shadow);
+	}
+
+	.filter-btn span {
+		position: relative;
+		z-index: 1;
 	}
 
 	.story-container {
@@ -321,6 +508,13 @@
 		transform: translateX(20px);
 		position: relative;
 		overflow: hidden;
+		cursor: pointer;
+		scroll-margin-top: 2rem;
+	}
+
+	.story-card:focus {
+		outline: 2px solid var(--primary-color);
+		outline-offset: 2px;
 	}
 
 	.story-card::before {
@@ -348,6 +542,16 @@
 		box-shadow: var(--shadow-medium);
 		border-color: var(--border-medium);
 		transform: translateX(0) scale(1.02);
+		animation: pulseGlow 2s ease-in-out infinite;
+	}
+
+	@keyframes pulseGlow {
+		0%, 100% {
+			box-shadow: var(--shadow-medium);
+		}
+		50% {
+			box-shadow: 0 8px 32px rgba(66, 66, 66, 0.15), 0 0 0 1px var(--primary-color);
+		}
 	}
 
 	.story-card.active::before {
