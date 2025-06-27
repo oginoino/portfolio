@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount, createEventDispatcher } from 'svelte';
-	import { tweened } from 'svelte/motion';
-	import { cubicOut } from 'svelte/easing';
+	import { onMount, createEventDispatcher } from "svelte";
+	import { tweened } from "svelte/motion";
+	import { cubicOut } from "svelte/easing";
 
 	const dispatch = createEventDispatcher();
 
@@ -32,102 +32,113 @@
 	// Progress tracking with smooth animation
 	const progress = tweened(0, {
 		duration: 300,
-		easing: cubicOut
+		easing: cubicOut,
 	});
 
 	// Reading progress for current section
 	const readingProgress = tweened(0, {
 		duration: 100,
-		easing: cubicOut
+		easing: cubicOut,
 	});
 
 	// Auto-play progress
 	const autoPlayProgress = tweened(0, {
 		duration: 5000,
-		easing: (t) => t
+		easing: (t) => t,
 	});
 
 	const sections: Section[] = [
 		{
-			id: 'despertar',
-			title: 'O Despertar para a Tecnologia',
-			year: '2011-2013',
-			company: 'Banco Banese',
-			role: 'Estagiário',
-			description: 'Nos corredores do Banco Banese, um jovem estudante de Administração descobriu que sua paixão estava na forma como a tecnologia poderia transformar a experiência das pessoas.',
+			id: "despertar",
+			title: "O Despertar para a Tecnologia",
+			year: "2011-2013",
+			company: "Banco Banese",
+			role: "Estagiário",
+			description:
+				"Nos corredores do Banco Banese, um jovem estudante de Administração descobriu que sua paixão estava na forma como a tecnologia poderia transformar a experiência das pessoas.",
 			insight: '"E se pudéssemos tornar isso mais simples?"',
-			icon: '🏦'
+			icon: "🏦",
 		},
 		{
-			id: 'alicerces',
-			title: 'A Construção dos Alicerces',
-			year: '2013-2015',
-			company: 'Megga Distribuidora',
-			role: 'Analista de Logística',
-			description: 'Transição audaciosa para logística, desenvolvendo visão sistêmica fundamental. Paralelamente, formação em Direito e experiência no Ministério Público de Sergipe.',
-			insight: 'Desenvolvendo habilidades analíticas e de resolução de problemas',
-			icon: '📚'
+			id: "alicerces",
+			title: "A Construção dos Alicerces",
+			year: "2013-2015",
+			company: "Megga Distribuidora",
+			role: "Analista de Logística",
+			description:
+				"Transição audaciosa para logística, desenvolvendo visão sistêmica fundamental. Paralelamente, formação em Direito e experiência no Ministério Público de Sergipe.",
+			insight:
+				"Desenvolvendo habilidades analíticas e de resolução de problemas",
+			icon: "📚",
 		},
 		{
-			id: 'primeiro-voo',
-			title: 'O Primeiro Voo Solo',
-			year: '2018',
-			company: 'CONNAT Soluções',
-			role: 'Co-fundador & CTO',
-			description: 'Co-fundação de startup de consultoria especializada em design thinking e transformação digital. Descoberta da verdadeira vocação na intersecção entre tecnologia, negócios e UX.',
-			insight: 'Laboratório de experimentação e cultura de inovação',
-			icon: '🚀'
+			id: "primeiro-voo",
+			title: "O Primeiro Voo Solo",
+			year: "2018",
+			company: "CONNAT Soluções",
+			role: "Co-fundador & CTO",
+			description:
+				"Co-fundação de startup de consultoria especializada em design thinking e transformação digital. Descoberta da verdadeira vocação na intersecção entre tecnologia, negócios e UX.",
+			insight: "Laboratório de experimentação e cultura de inovação",
+			icon: "🚀",
 		},
 		{
-			id: 'escalada',
-			title: 'A Escalada Corporativa',
-			year: '2019-2021',
-			company: 'Accenture',
-			role: 'Product Owner',
-			description: 'Liderança de projetos para grandes corporações como Itaú Cartões e Drogaria São Paulo. Consolidação da expertise em metodologias ágeis e gestão de equipes multidisciplinares.',
-			insight: 'Navegando pela complexidade mantendo foco no valor real',
-			icon: '🏢'
+			id: "escalada",
+			title: "A Escalada Corporativa",
+			year: "2019-2021",
+			company: "Accenture",
+			role: "Product Owner",
+			description:
+				"Liderança de projetos para grandes corporações como Itaú Cartões e Drogaria São Paulo. Consolidação da expertise em metodologias ágeis e gestão de equipes multidisciplinares.",
+			insight: "Navegando pela complexidade mantendo foco no valor real",
+			icon: "🏢",
 		},
 		{
-			id: 'transformacao',
-			title: 'O Momento da Transformação Digital',
-			year: '2021-2023',
-			company: 'FinanZero',
-			role: 'Product Manager',
-			description: 'Orquestração de crescimento impressionante: diversificação de portfólio, inteligência de ofertas, redesign de UX. Resultados: otimização de cross/up-selling e aumento drástico de conversão.',
-			insight: 'Sinfonia de crescimento e inovação',
-			icon: '💳'
+			id: "transformacao",
+			title: "O Momento da Transformação Digital",
+			year: "2021-2023",
+			company: "FinanZero",
+			role: "Product Manager",
+			description:
+				"Orquestração de crescimento impressionante: diversificação de portfólio, inteligência de ofertas, redesign de UX. Resultados: otimização de cross/up-selling e aumento drástico de conversão.",
+			insight: "Sinfonia de crescimento e inovação",
+			icon: "💳",
 		},
 		{
-			id: 'visao-empreendedora',
-			title: 'A Visão Empreendedora',
-			year: '2021-Presente',
-			company: 'Tá no Plano',
-			role: 'Product Manager',
-			description: 'Transformação de como micro e pequenas empresas desenvolvem estratégias. Liderança no desenvolvimento de plataforma SaaS inovadora adaptada ao cotidiano das PMEs.',
-			insight: 'Democratizando estratégias de negócio',
-			icon: '📊'
+			id: "visao-empreendedora",
+			title: "A Visão Empreendedora",
+			year: "2021-Presente",
+			company: "Tá no Plano",
+			role: "Product Manager",
+			description:
+				"Transformação de como micro e pequenas empresas desenvolvem estratégias. Liderança no desenvolvimento de plataforma SaaS inovadora adaptada ao cotidiano das PMEs.",
+			insight: "Democratizando estratégias de negócio",
+			icon: "📊",
 		},
 		{
-			id: 'profissional-hoje',
-			title: 'O Profissional de Hoje',
-			year: 'Presente',
-			company: 'Nova Geração',
-			role: 'Product Manager',
-			description: 'Representante de uma nova geração de PMs: compreensão profunda de tecnologia e negócios, navegação entre startups e corporações, usuário sempre no centro das decisões.',
-			insight: 'Arquiteto de transformações e tradutor entre mundos',
-			icon: '🎯'
-		}
+			id: "profissional-hoje",
+			title: "O Profissional de Hoje",
+			year: "Presente",
+			company: "Nova Geração",
+			role: "Product Manager",
+			description:
+				"Representante de uma nova geração de PMs: compreensão profunda de tecnologia e negócios, navegação entre startups e corporações, usuário sempre no centro das decisões.",
+			insight: "Arquiteto de transformações e tradutor entre mundos",
+			icon: "🎯",
+		},
 	];
 
 	// Update progress when section changes
 	$: {
 		const progressValue = (currentSection / (sections.length - 1)) * 100;
 		progress.set(progressValue);
-		
+
 		// Update CSS custom property for mobile timeline progress
-		if (typeof document !== 'undefined') {
-			document.documentElement.style.setProperty('--progress-width', `${progressValue}%`);
+		if (typeof document !== "undefined") {
+			document.documentElement.style.setProperty(
+				"--progress-width",
+				`${progressValue}%`
+			);
 		}
 	}
 
@@ -153,19 +164,21 @@
 		const cardObserver = new IntersectionObserver(
 			(entries: IntersectionObserverEntry[]) => {
 				if (isScrolling) return;
-				
+
 				entries.forEach((entry) => {
 					if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-						const cardIndex = parseInt((entry.target as HTMLElement).dataset.index || '0');
+						const cardIndex = parseInt(
+							(entry.target as HTMLElement).dataset.index || "0"
+						);
 						if (cardIndex !== currentSection) {
 							currentSection = cardIndex;
 						}
 					}
 				});
 			},
-			{ 
+			{
 				threshold: [0.3, 0.5, 0.7],
-				rootMargin: '-20% 0px -20% 0px'
+				rootMargin: "-20% 0px -20% 0px",
 			}
 		);
 
@@ -191,16 +204,16 @@
 			}, 100);
 		};
 
-		window.addEventListener('resize', handleResize);
+		window.addEventListener("resize", handleResize);
 
 		return () => {
 			if (timelineRef) {
 				visibilityObserver.unobserve(timelineRef);
 			}
-			storyCards.forEach(card => {
+			storyCards.forEach((card) => {
 				if (card) cardObserver.unobserve(card);
 			});
-			window.removeEventListener('resize', handleResize);
+			window.removeEventListener("resize", handleResize);
 		};
 	});
 
@@ -212,21 +225,21 @@
 	function scrollToSection(index: number): void {
 		if (storyCards[index]) {
 			isScrolling = true;
-			
+
 			// Clear any existing timeout
 			if (scrollTimeout) {
 				clearTimeout(scrollTimeout);
 			}
-			
+
 			storyCards[index].scrollIntoView({
-				behavior: 'smooth',
-				block: 'center',
-				inline: 'nearest'
+				behavior: "smooth",
+				block: "center",
+				inline: "nearest",
 			});
-			
+
 			// Sync timeline scroll on mobile
 			syncTimelineScroll(index);
-			
+
 			// Reset scrolling flag after animation completes
 			scrollTimeout = setTimeout((): void => {
 				isScrolling = false;
@@ -236,49 +249,56 @@
 
 	// Sync timeline scroll with active section
 	function syncTimelineScroll(index: number): void {
-		const timelineNav = document.querySelector('.timeline-nav') as HTMLElement | null;
-		const timelineDots = document.querySelectorAll('.timeline-dot') as NodeListOf<HTMLElement>;
-		
+		const timelineNav = document.querySelector(
+			".timeline-nav"
+		) as HTMLElement | null;
+		const timelineDots = document.querySelectorAll(
+			".timeline-dot"
+		) as NodeListOf<HTMLElement>;
+
 		if (timelineNav && timelineDots[index]) {
 			// Check if we're on mobile (timeline is horizontal)
 			const isMobile = window.innerWidth <= 768;
-			
+
 			if (isMobile) {
 				// Scroll timeline horizontally to center the active dot
 				const dotElement = timelineDots[index];
 				const timelineRect = timelineNav.getBoundingClientRect();
 				const dotRect = dotElement.getBoundingClientRect();
-				
-				const scrollLeft = timelineNav.scrollLeft + 
-					(dotRect.left - timelineRect.left) - 
-					(timelineRect.width / 2) + 
-					(dotRect.width / 2);
-				
+
+				const scrollLeft =
+					timelineNav.scrollLeft +
+					(dotRect.left - timelineRect.left) -
+					timelineRect.width / 2 +
+					dotRect.width / 2;
+
 				timelineNav.scrollTo({
 					left: scrollLeft,
-					behavior: 'smooth'
+					behavior: "smooth",
 				});
 			}
 		}
 	}
 
 	// Enhanced data filtering and selection
-	function getFilteredSections(filter: string = 'all'): Section[] {
+	function getFilteredSections(filter: string = "all"): Section[] {
 		switch (filter) {
-			case 'early':
+			case "early":
 				return sections.filter((_, index) => index < 3);
-			case 'corporate':
-				return sections.filter(section => 
-					section.company.includes('Accenture') || 
-					section.company.includes('FinanZero')
+			case "corporate":
+				return sections.filter(
+					(section) =>
+						section.company.includes("Accenture") ||
+						section.company.includes("FinanZero")
 				);
-			case 'entrepreneurial':
-				return sections.filter(section => 
-					section.role.includes('Co-fundador') || 
-					section.company.includes('CONNAT') ||
-					section.company.includes('Tá no Plano')
+			case "entrepreneurial":
+				return sections.filter(
+					(section) =>
+						section.role.includes("Co-fundador") ||
+						section.company.includes("CONNAT") ||
+						section.company.includes("Tá no Plano")
 				);
-			case 'recent':
+			case "recent":
 				return sections.filter((_, index) => index >= 4);
 			default:
 				return sections;
@@ -288,39 +308,39 @@
 	// Keyboard navigation with enhanced UX
 	function handleKeydown(event: KeyboardEvent): void {
 		if (!isVisible) return;
-		
+
 		// Stop auto-play on user interaction
 		stopAutoPlay();
-		
+
 		switch (event.key) {
-			case 'ArrowUp':
-			case 'ArrowLeft':
+			case "ArrowUp":
+			case "ArrowLeft":
 				event.preventDefault();
 				if (currentSection > 0) {
 					setCurrentSection(currentSection - 1);
 					provideHapticFeedback();
 				}
 				break;
-			case 'ArrowDown':
-			case 'ArrowRight':
+			case "ArrowDown":
+			case "ArrowRight":
 				event.preventDefault();
 				if (currentSection < sections.length - 1) {
 					setCurrentSection(currentSection + 1);
 					provideHapticFeedback();
 				}
 				break;
-			case 'Home':
+			case "Home":
 				event.preventDefault();
 				setCurrentSection(0);
 				provideHapticFeedback();
 				break;
-			case 'End':
+			case "End":
 				event.preventDefault();
 				setCurrentSection(sections.length - 1);
 				provideHapticFeedback();
 				break;
-			case ' ':
-			case 'Space':
+			case " ":
+			case "Space":
 				event.preventDefault();
 				toggleAutoPlay();
 				break;
@@ -330,10 +350,10 @@
 	// Auto-play functionality
 	function startAutoPlay(): void {
 		if (isAutoPlaying) return;
-		
+
 		isAutoPlaying = true;
 		autoPlayProgress.set(0);
-		
+
 		autoPlayInterval = setInterval((): void => {
 			if (currentSection < sections.length - 1) {
 				setCurrentSection(currentSection + 1);
@@ -342,7 +362,7 @@
 				stopAutoPlay();
 			}
 		}, 5000);
-		
+
 		autoPlayProgress.set(100);
 	}
 
@@ -371,7 +391,7 @@
 
 	// Haptic feedback for supported devices
 	function provideHapticFeedback(): void {
-		if ('vibrate' in navigator) {
+		if ("vibrate" in navigator) {
 			navigator.vibrate(50);
 		}
 	}
@@ -391,7 +411,10 @@
 		const minSwipeDistance = 50;
 
 		// Vertical swipe detection
-		if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > minSwipeDistance) {
+		if (
+			Math.abs(deltaY) > Math.abs(deltaX) &&
+			Math.abs(deltaY) > minSwipeDistance
+		) {
 			if (deltaY > 0 && currentSection < sections.length - 1) {
 				// Swipe up - next section
 				setCurrentSection(currentSection + 1);
@@ -405,20 +428,23 @@
 	}
 
 	// Enhanced section change with analytics
-	function setCurrentSectionEnhanced(index: number, source: string = 'manual'): void {
+	function setCurrentSectionEnhanced(
+		index: number,
+		source: string = "manual"
+	): void {
 		const previousSection = currentSection;
 		currentSection = index;
 		scrollToSection(index);
 		startReadingProgress();
-		
+
 		// Dispatch analytics event
-		dispatch('sectionChange', {
+		dispatch("sectionChange", {
 			from: previousSection,
 			to: index,
 			source,
-			section: sections[index]
+			section: sections[index],
 		});
-		
+
 		// Update progress
 		progress.set((index / (sections.length - 1)) * 100);
 	}
@@ -439,10 +465,10 @@
 	}
 </script>
 
-<section 
+<section
 	id="storytelling"
-	class="storytelling-section" 
-	bind:this={timelineRef} 
+	class="storytelling-section"
+	bind:this={timelineRef}
 	aria-label="Timeline da jornada profissional"
 	on:touchstart={handleTouchStart}
 	on:touchend={handleTouchEnd}
@@ -450,57 +476,87 @@
 	on:mouseleave={handleMouseLeave}
 >
 	<div class="container">
-
-
 		<div class="section-header">
 			<h2 class="section-title">A Jornada de Ginaldo Laranjeiras</h2>
 			<p class="section-subtitle">Do Direito ao Product Management</p>
-			<div class="title-decoration"></div>
-			
+			<div class="title-decoration" />
+
 			<!-- Enhanced Controls -->
 			<div class="controls-container" class:visible={isVisible}>
 				<!-- Auto-play Controls -->
 				<div class="autoplay-controls">
-					<button 
-						class="autoplay-btn" 
+					<button
+						class="autoplay-btn"
 						class:active={isAutoPlaying}
 						on:click={toggleAutoPlay}
-						aria-label={isAutoPlaying ? 'Pausar reprodução automática' : 'Iniciar reprodução automática'}
+						aria-label={isAutoPlaying
+							? "Pausar reprodução automática"
+							: "Iniciar reprodução automática"}
 					>
-						<span class="autoplay-icon">{isAutoPlaying ? '⏸️' : '▶️'}</span>
-						<span class="autoplay-text">{isAutoPlaying ? 'Pausar' : 'Auto-play'}</span>
+						<span class="autoplay-icon"
+							>{isAutoPlaying ? "⏸️" : "▶️"}</span
+						>
+						<span class="autoplay-text"
+							>{isAutoPlaying ? "Pausar" : "Auto-play"}</span
+						>
 						{#if isAutoPlaying}
-							<div class="autoplay-progress" style="width: {$autoPlayProgress}%"></div>
+							<div
+								class="autoplay-progress"
+								style="width: {$autoPlayProgress}%"
+							/>
 						{/if}
 					</button>
 				</div>
 
 				<!-- Filter Controls -->
 				<div class="filter-controls">
-					<button class="filter-btn" class:active={currentSection === 0} on:click={() => setCurrentSectionEnhanced(0, 'filter')}>Início</button>
-					<button class="filter-btn" class:active={currentSection === 3} on:click={() => setCurrentSectionEnhanced(3, 'filter')}>Corporativo</button>
-					<button class="filter-btn" class:active={currentSection === 2} on:click={() => setCurrentSectionEnhanced(2, 'filter')}>Empreendedor</button>
-					<button class="filter-btn" class:active={currentSection === sections.length - 1} on:click={() => setCurrentSectionEnhanced(sections.length - 1, 'filter')}>Atual</button>
+					<button
+						class="filter-btn"
+						class:active={currentSection === 0}
+						on:click={() => setCurrentSectionEnhanced(0, "filter")}
+						>Início</button
+					>
+					<button
+						class="filter-btn"
+						class:active={currentSection === 3}
+						on:click={() => setCurrentSectionEnhanced(3, "filter")}
+						>Corporativo</button
+					>
+					<button
+						class="filter-btn"
+						class:active={currentSection === 2}
+						on:click={() => setCurrentSectionEnhanced(2, "filter")}
+						>Empreendedor</button
+					>
+					<button
+						class="filter-btn"
+						class:active={currentSection === sections.length - 1}
+						on:click={() =>
+							setCurrentSectionEnhanced(
+								sections.length - 1,
+								"filter"
+							)}>Atual</button
+					>
 				</div>
 			</div>
 		</div>
-
-
 
 		<div class="story-container" class:visible={isVisible}>
 			<!-- Enhanced Story Content -->
 			<div class="story-content">
 				{#each sections as section, index}
-					<button 
-						class="story-card" 
+					<button
+						class="story-card"
 						class:active={currentSection === index}
 						class:visible={isVisible}
 						class:completed={index < currentSection}
 						class:next={index === currentSection + 1}
-						class:reading={index === currentSection && $readingProgress > 0}
+						class:reading={index === currentSection &&
+							$readingProgress > 0}
 						style="--delay: {index * 0.1}s"
 						bind:this={storyCards[index]}
-						on:click={() => setCurrentSectionEnhanced(index, 'card')}
+						on:click={() =>
+							setCurrentSectionEnhanced(index, "card")}
 						aria-label="Seção {index + 1}: {section.title}"
 					>
 						<!-- Card Status Indicator -->
@@ -517,23 +573,37 @@
 						<!-- Reading Progress Bar -->
 						{#if index === currentSection}
 							<div class="card-reading-progress">
-								<div class="reading-progress-bar" style="width: {$readingProgress}%"></div>
+								<div
+									class="reading-progress-bar"
+									style="width: {$readingProgress}%"
+								/>
 							</div>
 						{/if}
 
 						<div class="card-header">
-							<div class="card-icon" class:pulsing={index === currentSection}>{section.icon}</div>
+							<div
+								class="card-icon"
+								class:pulsing={index === currentSection}
+							>
+								{section.icon}
+							</div>
 							<div class="card-meta">
 								<h3 class="card-title">{section.title}</h3>
 								<div class="card-details">
-									<span class="card-year">{section.year}</span>
-									<span class="card-company">{section.company}</span>
-									<span class="card-role">{section.role}</span>
+									<span class="card-year">{section.year}</span
+									>
+									<span class="card-company"
+										>{section.company}</span
+									>
+									<span class="card-role">{section.role}</span
+									>
 								</div>
 							</div>
 						</div>
 						<div class="card-content">
-							<p class="card-description">{section.description}</p>
+							<p class="card-description">
+								{section.description}
+							</p>
 							<blockquote class="card-insight">
 								<span class="quote-mark">"</span>
 								{section.insight}
@@ -556,7 +626,8 @@
 		<div class="final-quote" class:visible={isVisible}>
 			<blockquote>
 				<span class="quote-large">"</span>
-				A verdadeira inovação acontece quando conseguimos ver conexões onde outros veem apenas diferenças.
+				A verdadeira inovação acontece quando conseguimos ver conexões onde
+				outros veem apenas diferenças.
 				<span class="quote-large">"</span>
 				<cite>— Ginaldo Laranjeiras Junior</cite>
 			</blockquote>
@@ -573,19 +644,24 @@
 	}
 
 	.storytelling-section::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: 
-			radial-gradient(circle at 20% 20%, rgba(66, 66, 66, 0.03) 0%, transparent 50%),
-			radial-gradient(circle at 80% 80%, rgba(66, 66, 66, 0.03) 0%, transparent 50%);
+		background: radial-gradient(
+				circle at 20% 20%,
+				rgba(66, 66, 66, 0.03) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 80% 80%,
+				rgba(66, 66, 66, 0.03) 0%,
+				transparent 50%
+			);
 		pointer-events: none;
 	}
-
-
 
 	.section-header {
 		text-align: center;
@@ -714,13 +790,17 @@
 	}
 
 	.filter-btn::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: -100%;
 		width: 100%;
 		height: 100%;
-		background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+		background: linear-gradient(
+			135deg,
+			var(--primary-color),
+			var(--accent-color)
+		);
 		transition: var(--transition);
 		z-index: 0;
 	}
@@ -738,13 +818,8 @@
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 		z-index: 1;
 		position: relative;
-		
 	}
 
-	.filter-btn:hover *,
-	.filter-btn.active *,
-	.filter-btn:hover span,
-	.filter-btn.active span,
 	.filter-btn:hover::after,
 	.filter-btn.active::after {
 		position: relative;
@@ -761,10 +836,12 @@
 
 	.filter-btn:hover::before,
 	.filter-btn.active::before {
-		background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(33, 33, 33, 0.9)) !important;
+		background: linear-gradient(
+			135deg,
+			rgba(0, 0, 0, 0.9),
+			rgba(33, 33, 33, 0.9)
+		) !important;
 	}
-
-
 
 	.story-container {
 		display: block;
@@ -781,50 +858,14 @@
 		transform: translateY(0);
 	}
 
-
-
-	.timeline-nav::-webkit-scrollbar {
-		display: none;
-	}
-
-
-
-
-
-
-
-
-
-
-
 	@keyframes progressShimmer {
-		0% { left: -100%; }
-		100% { left: 100%; }
+		0% {
+			left: -100%;
+		}
+		100% {
+			left: 100%;
+		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	.story-content {
 		display: flex;
@@ -859,7 +900,7 @@
 	}
 
 	.story-card::before {
-		content: '';
+		content: "";
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -888,19 +929,31 @@
 
 	.story-card.completed {
 		opacity: 0.8;
-		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(16, 185, 129, 0.05) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-white) 0%,
+			rgba(16, 185, 129, 0.05) 100%
+		);
 		border-left: 4px solid var(--success-color, #10b981);
 	}
 
 	.story-card.next {
 		opacity: 0.7;
-		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(245, 158, 11, 0.05) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-white) 0%,
+			rgba(245, 158, 11, 0.05) 100%
+		);
 		border-left: 4px solid var(--warning-color, #f59e0b);
 		animation: nextCardPulse 2s ease-in-out infinite;
 	}
 
 	.story-card.reading {
-		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(66, 66, 66, 0.02) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-white) 0%,
+			rgba(66, 66, 66, 0.02) 100%
+		);
 	}
 
 	/* Card Status Indicators */
@@ -960,22 +1013,28 @@
 	}
 
 	.reading-progress-bar::after {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		right: 0;
 		width: 10px;
 		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+		background: linear-gradient(
+			90deg,
+			transparent,
+			rgba(255, 255, 255, 0.5)
+		);
 		animation: shimmer 1s infinite;
 	}
 
 	@keyframes pulseGlow {
-		0%, 100% {
+		0%,
+		100% {
 			box-shadow: var(--shadow-medium);
 		}
 		50% {
-			box-shadow: 0 8px 32px rgba(66, 66, 66, 0.15), 0 0 0 1px var(--primary-color);
+			box-shadow: 0 8px 32px rgba(66, 66, 66, 0.15),
+				0 0 0 1px var(--primary-color);
 		}
 	}
 
@@ -1005,7 +1064,11 @@
 
 	.card-icon.pulsing {
 		animation: iconPulse 2s ease-in-out infinite;
-		background: linear-gradient(135deg, var(--bg-gray-light) 0%, rgba(66, 66, 66, 0.1) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-gray-light) 0%,
+			rgba(66, 66, 66, 0.1) 100%
+		);
 		border-color: var(--primary-color);
 		box-shadow: 0 0 20px rgba(66, 66, 66, 0.1);
 	}
@@ -1184,24 +1247,24 @@
 	}
 
 	@keyframes progressPulse {
-		0%, 100% {
+		0%,
+		100% {
 			transform: translateX(-50%) scale(1);
-			box-shadow: 
-				0 0 15px var(--primary-color),
+			box-shadow: 0 0 15px var(--primary-color),
 				0 0 25px rgba(66, 66, 66, 0.4),
 				inset 0 1px 0 rgba(255, 255, 255, 0.3);
 		}
 		50% {
 			transform: translateX(-50%) scale(1.3);
-			box-shadow: 
-				0 0 25px var(--primary-color),
+			box-shadow: 0 0 25px var(--primary-color),
 				0 0 40px rgba(66, 66, 66, 0.6),
 				inset 0 1px 0 rgba(255, 255, 255, 0.5);
 		}
 	}
 
 	@keyframes pulse {
-		0%, 100% {
+		0%,
+		100% {
 			transform: translateX(-50%) scale(1);
 			opacity: 1;
 		}
@@ -1210,8 +1273,6 @@
 			opacity: 0.7;
 		}
 	}
-
-
 
 	@keyframes rotateGlow {
 		0% {
@@ -1223,34 +1284,30 @@
 	}
 
 	@keyframes activeGlow {
-		0%, 100% {
-			box-shadow: 
-				0 16px 32px rgba(66, 66, 66, 0.15),
-				0 8px 16px rgba(66, 66, 66, 0.1),
-				0 0 0 1px var(--primary-color),
+		0%,
+		100% {
+			box-shadow: 0 16px 32px rgba(66, 66, 66, 0.15),
+				0 8px 16px rgba(66, 66, 66, 0.1), 0 0 0 1px var(--primary-color),
 				0 0 20px rgba(66, 66, 66, 0.2);
 			transform: scale(1.15) translateY(-3px);
 		}
 		50% {
-			box-shadow: 
-				0 20px 40px rgba(66, 66, 66, 0.2),
+			box-shadow: 0 20px 40px rgba(66, 66, 66, 0.2),
 				0 12px 24px rgba(66, 66, 66, 0.15),
-				0 0 0 2px var(--primary-color),
-				0 0 30px rgba(66, 66, 66, 0.3);
+				0 0 0 2px var(--primary-color), 0 0 30px rgba(66, 66, 66, 0.3);
 			transform: scale(1.18) translateY(-4px);
 		}
 	}
 
 	@keyframes completedPulse {
-		0%, 100% {
-			box-shadow: 
-				0 12px 24px rgba(16, 185, 129, 0.15),
+		0%,
+		100% {
+			box-shadow: 0 12px 24px rgba(16, 185, 129, 0.15),
 				0 6px 12px rgba(16, 185, 129, 0.1),
 				0 0 0 1px var(--success-color, #10b981);
 		}
 		50% {
-			box-shadow: 
-				0 16px 32px rgba(16, 185, 129, 0.2),
+			box-shadow: 0 16px 32px rgba(16, 185, 129, 0.2),
 				0 8px 16px rgba(16, 185, 129, 0.15),
 				0 0 0 1px var(--success-color, #10b981),
 				0 0 20px rgba(16, 185, 129, 0.25);
@@ -1258,17 +1315,16 @@
 	}
 
 	@keyframes nextPulse {
-		0%, 100% {
+		0%,
+		100% {
 			transform: scale(1);
-			box-shadow: 
-				0 8px 16px rgba(245, 158, 11, 0.1),
+			box-shadow: 0 8px 16px rgba(245, 158, 11, 0.1),
 				0 4px 8px rgba(245, 158, 11, 0.06),
 				0 0 0 1px rgba(245, 158, 11, 0.2);
 		}
 		50% {
 			transform: scale(1.03);
-			box-shadow: 
-				0 12px 24px rgba(245, 158, 11, 0.15),
+			box-shadow: 0 12px 24px rgba(245, 158, 11, 0.15),
 				0 6px 12px rgba(245, 158, 11, 0.1),
 				0 0 0 1px rgba(245, 158, 11, 0.3),
 				0 0 15px rgba(245, 158, 11, 0.2);
@@ -1279,15 +1335,12 @@
 		0% {
 			transform: scale(0) rotate(-180deg);
 			opacity: 0;
-			box-shadow: 
-				0 0 0 rgba(16, 185, 129, 0),
-				0 0 0 rgba(16, 185, 129, 0);
+			box-shadow: 0 0 0 rgba(16, 185, 129, 0), 0 0 0 rgba(16, 185, 129, 0);
 		}
 		50% {
 			transform: scale(1.3) rotate(-90deg);
 			opacity: 1;
-			box-shadow: 
-				0 6px 18px rgba(16, 185, 129, 0.4),
+			box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4),
 				0 3px 9px rgba(16, 185, 129, 0.3);
 		}
 		75% {
@@ -1296,16 +1349,14 @@
 		100% {
 			transform: scale(1) rotate(0deg);
 			opacity: 1;
-			box-shadow: 
-				0 4px 12px rgba(16, 185, 129, 0.3),
+			box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3),
 				0 2px 6px rgba(16, 185, 129, 0.2);
 		}
 	}
 
-
-
 	@keyframes nextCardPulse {
-		0%, 100% {
+		0%,
+		100% {
 			transform: translateX(0) scale(1);
 			box-shadow: var(--shadow-light);
 		}
@@ -1316,7 +1367,8 @@
 	}
 
 	@keyframes currentStatusPulse {
-		0%, 100% {
+		0%,
+		100% {
 			transform: scale(1);
 			box-shadow: var(--shadow-light);
 		}
@@ -1327,7 +1379,8 @@
 	}
 
 	@keyframes iconPulse {
-		0%, 100% {
+		0%,
+		100% {
 			transform: scale(1);
 			box-shadow: 0 0 20px rgba(66, 66, 66, 0.1);
 		}
@@ -1338,7 +1391,8 @@
 	}
 
 	@keyframes hintBounce {
-		0%, 100% {
+		0%,
+		100% {
 			transform: translateY(0);
 		}
 		50% {
@@ -1347,7 +1401,8 @@
 	}
 
 	@keyframes iconFloat {
-		0%, 100% {
+		0%,
+		100% {
 			transform: translateY(0) rotate(0deg);
 		}
 		33% {
@@ -1358,52 +1413,12 @@
 		}
 	}
 
-
-
-
-
-	/* Micro-interações sofisticadas */
-	.timeline-dot {
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		animation: dotSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-		animation-delay: calc(var(--dot-index, 0) * 0.1s);
-		opacity: 0;
-		transform: translateX(-20px) scale(0.8);
-	}
-
-	.timeline-dot:active {
-		transform: scale(1.05) translateY(-1px);
-		transition: all 0.1s ease-out;
-	}
-
-	.timeline-nav:hover .timeline-dot:not(:hover):not(.active) {
-		opacity: 0.6;
-		transform: scale(0.95);
-	}
-
-	.timeline-nav:hover .timeline-line {
-		box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
-	}
-
-	.timeline-nav:hover .timeline-progress {
-		box-shadow: 
-			0 0 15px rgba(66, 66, 66, 0.4),
-			inset 0 1px 0 rgba(255, 255, 255, 0.3);
-	}
-
-	.timeline-nav.visible .timeline-dot {
-		opacity: 1;
-		transform: translateX(0) scale(1);
-	}
-
 	/* Enhanced Responsividade */
 	@media (max-width: 768px) {
 		.storytelling-section {
 			padding: 4rem 0;
 			padding-top: 8rem; /* Account for navbar + progress bar */
 		}
-
-
 
 		.controls-container {
 			gap: 1rem;
@@ -1435,55 +1450,6 @@
 			padding-left: 0;
 			gap: 2rem;
 		}
-
-		.timeline-nav {
-			position: static;
-			transform: none;
-			left: auto;
-			top: auto;
-			flex-direction: row;
-			overflow-x: auto;
-			overflow-y: hidden;
-			max-height: none;
-			margin-bottom: 2rem;
-			padding: 1rem;
-			gap: 1rem;
-			scroll-snap-type: x mandatory;
-			scrollbar-width: none;
-			-ms-overflow-style: none;
-		}
-
-		.timeline-nav::-webkit-scrollbar {
-			display: none;
-		}
-
-		.timeline-line {
-			left: 0;
-			right: 0;
-			top: 50%;
-			bottom: auto;
-			height: 2px;
-			width: auto;
-			transform: translateY(-50%);
-		}
-
-		.timeline-progress {
-			height: 100%;
-			width: var(--progress-width, 0%);
-		}
-
-		.timeline-dot {
-			width: 60px;
-			height: 60px;
-			flex-shrink: 0;
-			scroll-snap-align: center;
-		}
-
-		.dot-year {
-			font-size: 0.65rem;
-		}
-
-
 
 		.story-card {
 			padding: 1.5rem;
@@ -1527,20 +1493,14 @@
 	/* Enhanced Acessibilidade */
 	@media (prefers-reduced-motion: reduce) {
 		.story-card,
-		.timeline-dot,
 		.filter-btn,
 		.autoplay-btn,
 		.card-icon,
 		.card-status,
-		.timeline-progress,
 		.interaction-hint {
 			animation: none !important;
-			transition: opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-		}
-
-		.pulse-ring,
-		.completion-indicator {
-			display: none;
+			transition: opacity 0.3s ease, background-color 0.3s ease,
+				color 0.3s ease;
 		}
 
 		.filter-btn::before {
@@ -1550,7 +1510,6 @@
 
 	/* Focus States for Accessibility */
 	.filter-btn:focus-visible,
-	.timeline-dot:focus-visible,
 	.autoplay-btn:focus-visible,
 	.story-card:focus-visible {
 		outline: 2px solid var(--primary-color);
@@ -1560,24 +1519,14 @@
 
 	/* High Contrast Mode Support */
 	@media (prefers-contrast: high) {
-		.timeline-progress {
-			background: var(--text-primary);
-		}
-
 		.story-card.active {
 			border: 3px solid var(--text-primary);
-		}
-
-		.timeline-dot.active {
-			background: var(--text-primary);
-			color: var(--bg-white);
 		}
 	}
 
 	/* Print Styles */
 	@media print {
 		.controls-container,
-		.timeline-nav,
 		.interaction-hint {
 			display: none;
 		}
