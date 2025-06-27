@@ -17,6 +17,8 @@
 					<li><a href="#skills">Habilidades</a></li>
 					<li><a href="#experience">Experiência</a></li>
 					<li><a href="#projects">Projetos</a></li>
+					<li><a href="#storytelling">História</a></li>
+					<li><a href="#testimonials">Depoimentos</a></li>
 				</ul>
 			</div>
 			

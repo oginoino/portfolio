@@ -46,6 +46,8 @@
 				<li><button on:click={() => scrollToSection('skills')}>Habilidades</button></li>
 				<li><button on:click={() => scrollToSection('experience')}>Experiência</button></li>
 				<li><button on:click={() => scrollToSection('projects')}>Projetos</button></li>
+				<li><button on:click={() => scrollToSection('storytelling')}>História</button></li>
+				<li><button on:click={() => scrollToSection('testimonials')}>Depoimentos</button></li>
 				<li><button on:click={() => scrollToSection('contact')}>Contato</button></li>
 			</ul>
 			

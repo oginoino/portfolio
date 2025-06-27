@@ -72,7 +72,7 @@
 		},
 		{
 			id: 5,
-			name: 'Rafael Vilarinho Raiol',
+			name: 'Rafael Vilarinho',
 			role: 'Software/DevOps Engineer',
 			company: 'FinanZero',
 			date: 'Junho de 2022',
@@ -232,7 +232,7 @@
 	}
 </script>
 
-<section class="testimonials-section" bind:this={testimonialsRef}>
+<section id="testimonials" class="testimonials-section" bind:this={testimonialsRef}>
 	<div class="container">
 		<div class="section-header">
 			<h2 class="section-title">Depoimentos dos Colegas</h2>

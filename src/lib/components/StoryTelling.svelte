@@ -429,6 +429,7 @@
 </script>
 
 <section 
+	id="storytelling"
 	class="storytelling-section" 
 	bind:this={timelineRef} 
 	aria-label="Timeline da jornada profissional"
