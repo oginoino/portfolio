@@ -703,10 +703,26 @@
 		}
 	}
 
+	/* Smooth scroll behavior */
+	html {
+		scroll-behavior: smooth;
+	}
+
 	/* Responsividade */
 	@media (max-width: 768px) {
 		.storytelling-section {
 			padding: 4rem 0;
+		}
+
+		.filter-controls {
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			margin-top: 1.5rem;
+		}
+
+		.filter-btn {
+			padding: 0.4rem 0.8rem;
+			font-size: 0.8rem;
 		}
 
 		.story-container {
@@ -720,6 +736,7 @@
 			overflow-x: auto;
 			padding: 1rem 0;
 			gap: 1rem;
+			scroll-snap-type: x mandatory;
 		}
 
 		.timeline-line {
@@ -736,10 +753,12 @@
 			width: 70px;
 			height: 70px;
 			flex-shrink: 0;
+			scroll-snap-align: center;
 		}
 
 		.story-card {
 			padding: 1.5rem;
+			scroll-margin-top: 1rem;
 		}
 
 		.card-header {
@@ -755,5 +774,26 @@
 		.final-quote blockquote {
 			padding: 2rem;
 		}
+	}
+
+	/* Enhanced accessibility and interaction */
+	@media (prefers-reduced-motion: reduce) {
+		.story-card.active {
+			animation: none;
+		}
+		
+		.filter-btn::before {
+			transition: none;
+		}
+	}
+
+	/* Focus management for keyboard navigation */
+	.storytelling-section:focus {
+		outline: none;
+	}
+
+	.storytelling-section:focus-visible {
+		outline: 2px solid var(--primary-color);
+		outline-offset: 4px;
 	}
 </style>
