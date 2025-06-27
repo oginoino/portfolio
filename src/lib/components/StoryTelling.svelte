@@ -487,9 +487,6 @@
 					style="--dot-index: {index}"
 				>
 					<span class="dot-year">{section.year.split('-')[0]}</span>
-					{#if index < currentSection}
-						<div class="completion-indicator">✓</div>
-					{/if}
 					{#if index === currentSection}
 						<div class="pulse-ring"></div>
 					{/if}
@@ -882,7 +879,7 @@
 		width: 48px;
 		height: 48px;
 		border-radius: 50%;
-		border: 2px solid var(--border-light);
+		border: none;
 		background: rgba(255, 255, 255, 0.8);
 		cursor: pointer;
 		transition: all 0.3s ease;
@@ -905,7 +902,6 @@
 	}
 
 	.timeline-dot.active {
-		border-color: var(--primary-color);
 		background: rgba(59, 130, 246, 0.9);
 		color: var(--text-white);
 		box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
@@ -913,14 +909,12 @@
 	}
 
 	.timeline-dot.completed {
-		border-color: #22c55e;
 		background: rgba(34, 197, 94, 0.8);
 		color: var(--text-white);
 		box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
 	}
 
 	.timeline-dot.next {
-		border-color: #a855f7;
 		background: rgba(168, 85, 247, 0.1);
 	}
 
