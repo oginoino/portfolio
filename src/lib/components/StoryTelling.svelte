@@ -690,14 +690,15 @@
 		padding: 0.5rem 1rem;
 		border: 2px solid var(--border-light);
 		background: var(--bg-white);
-		color: var(--text-secondary);
+		color: var(--text-dark);
 		border-radius: var(--border-radius);
 		cursor: pointer;
 		transition: var(--transition);
 		font-size: 0.875rem;
-		font-weight: 500;
+		font-weight: 600;
 		position: relative;
 		overflow: hidden;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	}
 
 	.filter-btn::before {
@@ -707,7 +708,7 @@
 		left: -100%;
 		width: 100%;
 		height: 100%;
-		background: var(--gradient-dark);
+		background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
 		transition: var(--transition);
 		z-index: 0;
 	}
@@ -719,10 +720,25 @@
 
 	.filter-btn:hover,
 	.filter-btn.active {
-		color: var(--text-white);
+		
+		color: #ffffff !important;
 		border-color: var(--primary-color);
 		transform: translateY(-2px);
-		box-shadow: var(--shadow);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+		position: relative;
+	}
+
+	.filter-btn:hover *,
+	.filter-btn.active *,
+	.filter-btn:hover span,
+	.filter-btn.active span,
+	.filter-btn:hover::after,
+	.filter-btn.active::after {
+		position: relative;
+		z-index: 2;
+		color: #ffffff !important;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 	}
 
 
