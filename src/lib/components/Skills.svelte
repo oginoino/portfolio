@@ -11,42 +11,47 @@
 	}
 	
 	const skills: Skill[] = [
-		// Estratégia & Negócios
-		{ name: 'Product Strategy', level: 95, icon: '🎯', category: 'Estratégia' },
-		{ name: 'Product Roadmap', level: 95, icon: '🗺️', category: 'Estratégia' },
-		{ name: 'OKRs & KPIs', level: 90, icon: '📈', category: 'Estratégia' },
-		{ name: 'Product Discovery', level: 90, icon: '🔍', category: 'Estratégia' },
-		{ name: 'Market Research', level: 85, icon: '📊', category: 'Estratégia' },
-		{ name: 'Business Analysis', level: 85, icon: '💼', category: 'Estratégia' },
-		{ name: 'Product-Led Growth', level: 85, icon: '🚀', category: 'Estratégia' },
-		{ name: 'Competitive Analysis', level: 80, icon: '🔎', category: 'Estratégia' },
+		// Produtos
+		{ name: 'Product Strategy', level: 95, icon: '🎯', category: 'Produtos' },
+		{ name: 'Product Roadmap', level: 95, icon: '🗺️', category: 'Produtos' },
+		{ name: 'Jira', level: 95, icon: '🎫', category: 'Produtos' },
+		{ name: 'OKRs & KPIs', level: 90, icon: '📈', category: 'Produtos' },
+		{ name: 'Product Discovery', level: 90, icon: '🔍', category: 'Produtos' },
+		{ name: 'Google Analytics', level: 90, icon: '📊', category: 'Produtos' },
+		{ name: 'Product-Led Growth', level: 85, icon: '🚀', category: 'Produtos' },
+		{ name: 'Market Research', level: 85, icon: '📋', category: 'Produtos' },
+		{ name: 'Notion', level: 85, icon: '📝', category: 'Produtos' },
+		{ name: 'Business Analysis', level: 85, icon: '💼', category: 'Produtos' },
+		{ name: 'Competitive Analysis', level: 80, icon: '🔎', category: 'Produtos' },
+		{ name: 'Miro', level: 80, icon: '🧩', category: 'Produtos' },
+		{ name: 'Mixpanel', level: 75, icon: '📈', category: 'Produtos' },
 		
-		// UX & Design
-		{ name: 'Design Thinking', level: 95, icon: '💡', category: 'UX & Design' },
-		{ name: 'User Research', level: 90, icon: '👥', category: 'UX & Design' },
-		{ name: 'Design Sprint', level: 90, icon: '⚡', category: 'UX & Design' },
-		{ name: 'UX Foundations', level: 90, icon: '🎯', category: 'UX & Design' },
-		{ name: 'User Journey Mapping', level: 85, icon: '🗺️', category: 'UX & Design' },
-		{ name: 'A/B Testing', level: 85, icon: '🧪', category: 'UX & Design' },
-		{ name: 'Wireframing', level: 80, icon: '📐', category: 'UX & Design' },
-		{ name: 'Prototyping', level: 75, icon: '🎨', category: 'UX & Design' },
+		// Agile & Liderança
+		{ name: 'Scrum', level: 95, icon: '🏃', category: 'Agile & Liderança' },
+		{ name: 'Metodologias Ágeis', level: 95, icon: '⚡', category: 'Agile & Liderança' },
+		{ name: 'Gestão de Equipes', level: 90, icon: '👥', category: 'Agile & Liderança' },
+		{ name: 'Liderança Estratégica', level: 90, icon: '🎖️', category: 'Agile & Liderança' },
+		{ name: 'Histórias de Usuário', level: 85, icon: '📝', category: 'Agile & Liderança' },
+		{ name: 'Pensamento Estratégico', level: 85, icon: '🧠', category: 'Agile & Liderança' },
+		{ name: 'Comunicação Executiva', level: 80, icon: '🎤', category: 'Agile & Liderança' },
+		{ name: 'Gestão de Projetos', level: 80, icon: '📋', category: 'Agile & Liderança' },
 		
-		// Dados & Ferramentas
-		{ name: 'Jira', level: 95, icon: '🎫', category: 'Dados & Ferramentas' },
-		{ name: 'Google Analytics', level: 90, icon: '📊', category: 'Dados & Ferramentas' },
-		{ name: 'Python', level: 85, icon: '🐍', category: 'Dados & Ferramentas' },
-		{ name: 'Figma', level: 85, icon: '🎨', category: 'Dados & Ferramentas' },
-		{ name: 'Notion', level: 85, icon: '📝', category: 'Dados & Ferramentas' },
-		{ name: 'Mixpanel', level: 80, icon: '📈', category: 'Dados & Ferramentas' },
-		{ name: 'Miro', level: 80, icon: '🧩', category: 'Dados & Ferramentas' },
-		{ name: 'Data Science', level: 75, icon: '🔬', category: 'Dados & Ferramentas' },
-		{ name: 'SQL', level: 75, icon: '🗄️', category: 'Dados & Ferramentas' },
-		{ name: 'AWS', level: 70, icon: '☁️', category: 'Dados & Ferramentas' }
+		// Design & Desenvolvimento
+		{ name: 'Design Thinking', level: 95, icon: '💡', category: 'Design & Desenvolvimento' },
+		{ name: 'UX Foundations', level: 90, icon: '🎯', category: 'Design & Desenvolvimento' },
+		{ name: 'Design Sprint', level: 90, icon: '⚡', category: 'Design & Desenvolvimento' },
+		{ name: 'Python', level: 85, icon: '🐍', category: 'Design & Desenvolvimento' },
+		{ name: 'Figma', level: 85, icon: '🎨', category: 'Design & Desenvolvimento' },
+		{ name: 'JavaScript', level: 80, icon: '💻', category: 'Design & Desenvolvimento' },
+		{ name: 'Go Language', level: 75, icon: '🔷', category: 'Design & Desenvolvimento' },
+		{ name: 'Data Science', level: 75, icon: '🔬', category: 'Design & Desenvolvimento' },
+		{ name: 'AWS', level: 70, icon: '☁️', category: 'Design & Desenvolvimento' },
+		{ name: 'SQL', level: 70, icon: '🗄️', category: 'Design & Desenvolvimento' }
 	];
 	
-	const categories = ['Estratégia', 'UX & Design', 'Dados & Ferramentas'];
+	const categories = ['Produtos', 'Agile & Liderança', 'Design & Desenvolvimento'];
 	
-	let activeCategory = 'Estratégia';
+	let activeCategory = 'Produtos';
 	
 	$: filteredSkills = skills.filter(skill => skill.category === activeCategory);
 	
