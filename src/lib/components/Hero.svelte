@@ -59,7 +59,7 @@
 				</div>
 				
 				<div class="social-links">
-					<a href="https://github.com/ginaldolaranjeiras" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+					<a href="https://github.com/oginoino" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
 						<Github size={24} />
 					</a>
 					<a href="https://www.linkedin.com/in/ginaldolaranjeiras" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">

@@ -56,16 +56,16 @@
 				
 				<div class="stats">
 					<div class="stat-item">
-						<div class="stat-number">5+</div>
+						<div class="stat-number">6+</div>
 						<div class="stat-label">Anos de Experiência</div>
 					</div>
 					<div class="stat-item">
-						<div class="stat-number">30+</div>
-						<div class="stat-label">Produtos Lançados</div>
+						<div class="stat-number">10+</div>
+						<div class="stat-label">Produtos lançadas</div>
 					</div>
 					<div class="stat-item">
-						<div class="stat-number">10+</div>
-						<div class="stat-label">Metodologias</div>
+						<div class="stat-number">30+</div>
+						<div class="stat-label">Competências</div>
 					</div>
 				</div>
 			</div>
