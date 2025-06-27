@@ -13,29 +13,35 @@
 	const skills: Skill[] = [
 		// Estratégia & Negócios
 		{ name: 'Product Strategy', level: 95, icon: '🎯', category: 'Estratégia' },
-		{ name: 'Market Research', level: 90, icon: '📊', category: 'Estratégia' },
+		{ name: 'Product Roadmap', level: 95, icon: '🗺️', category: 'Estratégia' },
+		{ name: 'OKRs & KPIs', level: 90, icon: '📈', category: 'Estratégia' },
+		{ name: 'Product Discovery', level: 90, icon: '🔍', category: 'Estratégia' },
+		{ name: 'Market Research', level: 85, icon: '📊', category: 'Estratégia' },
 		{ name: 'Business Analysis', level: 85, icon: '💼', category: 'Estratégia' },
-		{ name: 'Competitive Analysis', level: 80, icon: '🔍', category: 'Estratégia' },
-		{ name: 'Product Roadmap', level: 90, icon: '🗺️', category: 'Estratégia' },
-		{ name: 'OKRs & KPIs', level: 85, icon: '📈', category: 'Estratégia' },
+		{ name: 'Product-Led Growth', level: 85, icon: '🚀', category: 'Estratégia' },
+		{ name: 'Competitive Analysis', level: 80, icon: '🔎', category: 'Estratégia' },
 		
 		// UX & Design
+		{ name: 'Design Thinking', level: 95, icon: '💡', category: 'UX & Design' },
 		{ name: 'User Research', level: 90, icon: '👥', category: 'UX & Design' },
+		{ name: 'Design Sprint', level: 90, icon: '⚡', category: 'UX & Design' },
+		{ name: 'UX Foundations', level: 90, icon: '🎯', category: 'UX & Design' },
 		{ name: 'User Journey Mapping', level: 85, icon: '🗺️', category: 'UX & Design' },
+		{ name: 'A/B Testing', level: 85, icon: '🧪', category: 'UX & Design' },
 		{ name: 'Wireframing', level: 80, icon: '📐', category: 'UX & Design' },
 		{ name: 'Prototyping', level: 75, icon: '🎨', category: 'UX & Design' },
-		{ name: 'A/B Testing', level: 85, icon: '🧪', category: 'UX & Design' },
-		{ name: 'Design Thinking', level: 90, icon: '💡', category: 'UX & Design' },
 		
 		// Dados & Ferramentas
-		{ name: 'Google Analytics', level: 90, icon: '📊', category: 'Dados & Ferramentas' },
-		{ name: 'Mixpanel', level: 80, icon: '📈', category: 'Dados & Ferramentas' },
 		{ name: 'Jira', level: 95, icon: '🎫', category: 'Dados & Ferramentas' },
+		{ name: 'Google Analytics', level: 90, icon: '📊', category: 'Dados & Ferramentas' },
+		{ name: 'Python', level: 85, icon: '🐍', category: 'Dados & Ferramentas' },
 		{ name: 'Figma', level: 85, icon: '🎨', category: 'Dados & Ferramentas' },
+		{ name: 'Notion', level: 85, icon: '📝', category: 'Dados & Ferramentas' },
+		{ name: 'Mixpanel', level: 80, icon: '📈', category: 'Dados & Ferramentas' },
 		{ name: 'Miro', level: 80, icon: '🧩', category: 'Dados & Ferramentas' },
+		{ name: 'Data Science', level: 75, icon: '🔬', category: 'Dados & Ferramentas' },
 		{ name: 'SQL', level: 75, icon: '🗄️', category: 'Dados & Ferramentas' },
-		{ name: 'Power BI', level: 70, icon: '📊', category: 'Dados & Ferramentas' },
-		{ name: 'Notion', level: 85, icon: '📝', category: 'Dados & Ferramentas' }
+		{ name: 'AWS', level: 70, icon: '☁️', category: 'Dados & Ferramentas' }
 	];
 	
 	const categories = ['Estratégia', 'UX & Design', 'Dados & Ferramentas'];
@@ -120,26 +126,32 @@
 				<div class="summary-card">
 					<h3>Principais Competências</h3>
 					<ul>
-						<li>Gestão estratégica de produtos digitais</li>
-						<li>Análise de mercado e pesquisa de usuários</li>
-						<li>Definição de roadmaps e priorização</li>
+						<li>Product-Led Growth e Discovery</li>
+						<li>Construção de Product Roadmaps</li>
+						<li>OKRs e definição de metas ágeis</li>
+						<li>Design Thinking e Design Sprint</li>
 						<li>Metodologias Ágeis (Scrum, Kanban)</li>
-						<li>Design Thinking e UX Research</li>
-						<li>Análise de dados e métricas de produto</li>
-						<li>Liderança de equipes multidisciplinares</li>
+						<li>UX Research e Foundations</li>
+						<li>Análise de dados e ciência de dados</li>
+						<li>Liderança e gestão de equipes</li>
+						<li>Desenvolvimento técnico (Python, AWS)</li>
 					</ul>
 				</div>
 				
 				<div class="summary-card">
 					<h3>Certificações & Cursos</h3>
 					<ul>
-						<li>Product Management Fundamentals</li>
-						<li>Google Analytics Certified</li>
-						<li>Design Thinking Specialist</li>
-						<li>Agile Product Owner (CSPO)</li>
-						<li>Data Analysis for Product Managers</li>
-						<li>UX Research Methods</li>
-						<li>Digital Marketing Strategy</li>
+						<li>Jornada de Product Manager - Gama Academy</li>
+						<li>Product-led Certification - Pendo</li>
+						<li>Continuous Product Discovery Certification</li>
+						<li>Product Management: Building a Product Roadmap</li>
+						<li>OKR: Construindo Metas Ágeis - Alura</li>
+						<li>Foundations of User Experience (UX) Design - Coursera</li>
+						<li>Design Thinking: Viabilizando Soluções - Alura</li>
+						<li>Design Sprint 2.0 - Alura</li>
+						<li>Scrum Fundamentals Certified - SCRUMstudy</li>
+						<li>Agile Principles and Methodologies</li>
+						<li>Introdução à Ciência de Dados - LinkedIn Learning</li>
 					</ul>
 				</div>
 			</div>
