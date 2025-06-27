@@ -8,6 +8,9 @@
 	let autoplayInterval;
 	let isAutoplayPaused = false;
 	let carouselContainer;
+	let expandedCards = {};
+	let modalOpen = false;
+	let modalTestimonial = null;
 
 	const testimonials = [
 		{
@@ -230,6 +233,29 @@
 		const index = name.charCodeAt(0) % colors.length;
 		return colors[index];
 	}
+
+	function toggleExpanded(testimonialId) {
+		expandedCards = {
+			...expandedCards,
+			[testimonialId]: !expandedCards[testimonialId]
+		};
+	}
+
+	function openModal(testimonial) {
+		modalTestimonial = testimonial;
+		modalOpen = true;
+		document.body.style.overflow = 'hidden';
+	}
+
+	function closeModal() {
+		modalOpen = false;
+		modalTestimonial = null;
+		document.body.style.overflow = 'auto';
+	}
+
+	function isTextTruncated(text) {
+		return text.length > 200;
+	}
 </script>
 
 <section id="testimonials" class="testimonials-section" bind:this={testimonialsRef}>
@@ -312,10 +338,44 @@
 							</div>
 
 							<div class="card-content">
-								<blockquote class="testimonial-text">
+							<blockquote class="testimonial-text" class:expanded={expandedCards[testimonial.id]}>
+								{#if expandedCards[testimonial.id]}
 									{testimonial.testimonial}
-								</blockquote>
-							</div>
+								{:else}
+									{testimonial.testimonial.length > 200 ? testimonial.testimonial.substring(0, 200) + '...' : testimonial.testimonial}
+								{/if}
+							</blockquote>
+							
+							{#if isTextTruncated(testimonial.testimonial)}
+								<div class="read-more-controls">
+									<button 
+										class="read-more-btn"
+										on:click={() => toggleExpanded(testimonial.id)}
+									>
+										{expandedCards[testimonial.id] ? 'Ler menos' : 'Ler mais'}
+										<svg 
+											width="16" 
+											height="16" 
+											viewBox="0 0 24 24" 
+											fill="none"
+											class="read-more-icon"
+											class:rotated={expandedCards[testimonial.id]}
+										>
+											<path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+									<button 
+										class="expand-btn"
+										on:click={() => openModal(testimonial)}
+										title="Abrir em tela cheia"
+									>
+										<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+											<path d="M8 3H5C3.89543 3 3 3.89543 3 5V8M21 8V5C21 3.89543 20.1046 3 19 3H16M16 21H19C20.1046 21 21 20.1046 21 19V16M8 21H5C3.89543 21 3 20.1046 3 19V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+								</div>
+							{/if}
+						</div>
 
 							<div class="card-footer">
 								<div class="highlights">
@@ -392,6 +452,50 @@
 		</div>
 	</div>
 </section>
+
+<!-- Modal para visualização expandida -->
+{#if modalOpen && modalTestimonial}
+	<div class="modal-overlay" on:click={closeModal}>
+		<div class="modal-content" on:click|stopPropagation>
+			<button class="modal-close" on:click={closeModal}>
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</button>
+			
+			<div class="modal-header">
+				<div class="modal-avatar" style="background: {getAvatarColor(modalTestimonial.name)}">
+					{modalTestimonial.avatar}
+				</div>
+				<div class="modal-author-info">
+					<h3 class="modal-author-name">{modalTestimonial.name}</h3>
+					<p class="modal-author-role">{modalTestimonial.role}</p>
+					<div class="modal-author-meta">
+						<span class="modal-company">{modalTestimonial.company}</span>
+						<span class="modal-date">{modalTestimonial.date}</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal-body">
+				<blockquote class="modal-testimonial-text">
+					{modalTestimonial.testimonial}
+				</blockquote>
+			</div>
+			
+			<div class="modal-footer">
+				<div class="modal-highlights">
+					{#each modalTestimonial.highlights as highlight}
+						<span class="modal-highlight-tag">
+							<span class="highlight-icon">{highlight.icon}</span>
+							<span class="highlight-text">{highlight.text}</span>
+						</span>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}
 
 <style>
 	.testimonials-section {
@@ -750,12 +854,249 @@
 		font-size: 1.05rem;
 		margin: 0;
 		font-style: italic;
+		transition: var(--transition);
+		overflow: hidden;
+	}
+
+	.testimonial-text:not(.expanded) {
 		display: -webkit-box;
 		-webkit-line-clamp: 6;
 		-webkit-box-orient: vertical;
-		overflow: hidden;
 		text-overflow: ellipsis;
 		max-height: 10.2em;
+	}
+
+	.testimonial-text.expanded {
+		display: block;
+		max-height: none;
+		-webkit-line-clamp: unset;
+	}
+
+	.read-more-controls {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--border-light);
+	}
+
+	.read-more-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: none;
+		border: none;
+		color: var(--primary-color);
+		cursor: pointer;
+		font-size: 0.9rem;
+		font-weight: 600;
+		transition: var(--transition);
+		padding: 0.5rem;
+		border-radius: var(--border-radius);
+	}
+
+	.read-more-btn:hover {
+		background: var(--bg-gray-light);
+		color: var(--primary-dark);
+	}
+
+	.read-more-icon {
+		transition: transform 0.3s ease;
+	}
+
+	.read-more-icon.rotated {
+		transform: rotate(180deg);
+	}
+
+	.expand-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		background: var(--bg-white);
+		border: 2px solid var(--border-light);
+		border-radius: 50%;
+		color: var(--text-secondary);
+		cursor: pointer;
+		transition: var(--transition);
+	}
+
+	.expand-btn:hover {
+		background: var(--primary-color);
+		color: var(--text-white);
+		border-color: var(--primary-color);
+		transform: scale(1.1);
+	}
+
+	/* Modal Styles */
+	.modal-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.8);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
+		padding: 2rem;
+		backdrop-filter: blur(5px);
+		animation: fadeIn 0.3s ease-out;
+	}
+
+	.modal-content {
+		background: var(--bg-white);
+		border-radius: var(--border-radius-large);
+		max-width: 700px;
+		width: 100%;
+		max-height: 90vh;
+		overflow-y: auto;
+		position: relative;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+		animation: slideUp 0.3s ease-out;
+	}
+
+	.modal-close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background: var(--bg-white);
+		border: 2px solid var(--border-light);
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: var(--transition);
+		color: var(--text-secondary);
+		z-index: 10;
+	}
+
+	.modal-close:hover {
+		background: var(--accent-color);
+		color: var(--text-white);
+		border-color: var(--accent-color);
+		transform: scale(1.1);
+	}
+
+	.modal-header {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		padding: 2rem 2rem 1rem;
+		border-bottom: 1px solid var(--border-light);
+	}
+
+	.modal-avatar {
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		color: var(--text-white);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 700;
+		font-size: 1.5rem;
+		border: 4px solid var(--bg-white);
+		box-shadow: var(--shadow);
+		flex-shrink: 0;
+	}
+
+	.modal-author-info {
+		flex: 1;
+	}
+
+	.modal-author-name {
+		font-size: 1.5rem;
+		color: var(--text-primary);
+		margin-bottom: 0.5rem;
+		font-weight: 700;
+	}
+
+	.modal-author-role {
+		color: var(--text-secondary);
+		margin-bottom: 0.75rem;
+		font-weight: 500;
+		font-size: 1.1rem;
+	}
+
+	.modal-author-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.modal-company {
+		color: var(--text-tertiary);
+		font-size: 1rem;
+		font-weight: 500;
+	}
+
+	.modal-date {
+		color: var(--text-muted);
+		font-size: 0.9rem;
+	}
+
+	.modal-body {
+		padding: 2rem;
+	}
+
+	.modal-testimonial-text {
+		color: var(--text-secondary);
+		line-height: 1.8;
+		font-size: 1.1rem;
+		margin: 0;
+		font-style: italic;
+	}
+
+	.modal-footer {
+		padding: 1rem 2rem 2rem;
+		border-top: 1px solid var(--border-light);
+	}
+
+	.modal-highlights {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.modal-highlight-tag {
+		background: linear-gradient(135deg, var(--bg-gray-light) 0%, var(--bg-white) 100%);
+		color: var(--text-secondary);
+		padding: 0.75rem 1rem;
+		border-radius: var(--border-radius);
+		font-size: 0.9rem;
+		font-weight: 600;
+		border: 1px solid var(--border-light);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes slideUp {
+		from {
+			transform: translateY(30px);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
 	}
 
 	.card-footer {
