@@ -390,9 +390,7 @@
 			height: 200px;
 		}
 		
-		.image-placeholder {
-			font-size: 3rem;
-		}
+
 		
 		.hero-actions {
 			justify-content: center;
