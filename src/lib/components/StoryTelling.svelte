@@ -366,7 +366,7 @@
 	// Reading progress simulation
 	function startReadingProgress(): void {
 		readingProgress.set(0);
-		setTimeout((): void => readingProgress.set(100), 2000);
+		setTimeout(() => readingProgress.set(100), 2000);
 	}
 
 	// Haptic feedback for supported devices
