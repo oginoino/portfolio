@@ -14,17 +14,14 @@
 		// Produtos
 		{ name: 'Product Strategy', level: 95, icon: '🎯', category: 'Produtos' },
 		{ name: 'Product Roadmap', level: 95, icon: '🗺️', category: 'Produtos' },
-		{ name: 'Jira', level: 95, icon: '🎫', category: 'Produtos' },
 		{ name: 'OKRs & KPIs', level: 90, icon: '📈', category: 'Produtos' },
 		{ name: 'Product Discovery', level: 90, icon: '🔍', category: 'Produtos' },
-		{ name: 'Google Analytics', level: 90, icon: '📊', category: 'Produtos' },
 		{ name: 'Product-Led Growth', level: 85, icon: '🚀', category: 'Produtos' },
 		{ name: 'Market Research', level: 85, icon: '📋', category: 'Produtos' },
-		{ name: 'Notion', level: 85, icon: '📝', category: 'Produtos' },
 		{ name: 'Business Analysis', level: 85, icon: '💼', category: 'Produtos' },
 		{ name: 'Competitive Analysis', level: 80, icon: '🔎', category: 'Produtos' },
-		{ name: 'Miro', level: 80, icon: '🧩', category: 'Produtos' },
-		{ name: 'Mixpanel', level: 75, icon: '📈', category: 'Produtos' },
+		{ name: 'User Research', level: 80, icon: '👥', category: 'Produtos' },
+		{ name: 'A/B Testing', level: 75, icon: '🧪', category: 'Produtos' },
 		
 		// Agile & Liderança
 		{ name: 'Scrum', level: 95, icon: '🏃', category: 'Agile & Liderança' },
@@ -41,15 +38,26 @@
 		{ name: 'UX Foundations', level: 90, icon: '🎯', category: 'Design & Desenvolvimento' },
 		{ name: 'Design Sprint', level: 90, icon: '⚡', category: 'Design & Desenvolvimento' },
 		{ name: 'Python', level: 85, icon: '🐍', category: 'Design & Desenvolvimento' },
-		{ name: 'Figma', level: 85, icon: '🎨', category: 'Design & Desenvolvimento' },
 		{ name: 'JavaScript', level: 80, icon: '💻', category: 'Design & Desenvolvimento' },
 		{ name: 'Go Language', level: 75, icon: '🔷', category: 'Design & Desenvolvimento' },
 		{ name: 'Data Science', level: 75, icon: '🔬', category: 'Design & Desenvolvimento' },
 		{ name: 'AWS', level: 70, icon: '☁️', category: 'Design & Desenvolvimento' },
-		{ name: 'SQL', level: 70, icon: '🗄️', category: 'Design & Desenvolvimento' }
+		{ name: 'SQL', level: 70, icon: '🗄️', category: 'Design & Desenvolvimento' },
+		
+		// Ferramentas
+		{ name: 'Jira', level: 95, icon: '🎫', category: 'Ferramentas' },
+		{ name: 'Google Analytics', level: 90, icon: '📊', category: 'Ferramentas' },
+		{ name: 'Notion', level: 85, icon: '📝', category: 'Ferramentas' },
+		{ name: 'Figma', level: 85, icon: '🎨', category: 'Ferramentas' },
+		{ name: 'Miro', level: 80, icon: '🧩', category: 'Ferramentas' },
+		{ name: 'Mixpanel', level: 75, icon: '📈', category: 'Ferramentas' },
+		{ name: 'Slack', level: 90, icon: '💬', category: 'Ferramentas' },
+		{ name: 'Trello', level: 85, icon: '📋', category: 'Ferramentas' },
+		{ name: 'Confluence', level: 80, icon: '📚', category: 'Ferramentas' },
+		{ name: 'Hotjar', level: 75, icon: '🔥', category: 'Ferramentas' }
 	];
 	
-	const categories = ['Produtos', 'Agile & Liderança', 'Design & Desenvolvimento'];
+	const categories = ['Produtos', 'Agile & Liderança', 'Design & Desenvolvimento', 'Ferramentas'];
 	
 	let activeCategory = 'Produtos';
 	
