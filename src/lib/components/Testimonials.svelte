@@ -347,23 +347,7 @@
 							</blockquote>
 							
 							{#if isTextTruncated(testimonial.testimonial)}
-								<div class="read-more-controls">
-									<button 
-										class="read-more-btn"
-										on:click={() => toggleExpanded(testimonial.id)}
-									>
-										{expandedCards[testimonial.id] ? 'Ler menos' : 'Ler mais'}
-										<svg 
-											width="16" 
-											height="16" 
-											viewBox="0 0 24 24" 
-											fill="none"
-											class="read-more-icon"
-											class:rotated={expandedCards[testimonial.id]}
-										>
-											<path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</button>
+								<div class="read-more-controls">	
 									<button 
 										class="expand-btn"
 										on:click={() => openModal(testimonial)}
@@ -874,7 +858,7 @@
 
 	.read-more-controls {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: center;
 		margin-top: 1rem;
 		padding-top: 1rem;
@@ -884,6 +868,7 @@
 	.read-more-btn {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		gap: 0.5rem;
 		background: none;
 		border: none;
