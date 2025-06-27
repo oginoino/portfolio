@@ -2,6 +2,7 @@
 	import Hero from '$lib/components/Hero.svelte';
 	import About from '$lib/components/About.svelte';
 	import StoryTelling from '$lib/components/StoryTelling.svelte';
+	import Testimonials from '$lib/components/Testimonials.svelte';
 	import Skills from '$lib/components/Skills.svelte';
 	import Experience from '$lib/components/Experience.svelte';
 	import Projects from '$lib/components/Projects.svelte';
@@ -19,4 +20,5 @@
 <Experience />
 <Projects />
 <StoryTelling />
+<Testimonials />
 <Contact />
