@@ -74,8 +74,8 @@
 			<div class="hero-image">
 				<div class="image-container">
 					<div class="profile-image">
-					<img src="/Profile.jpg" alt="Ginaldo Laranjeiras Junior" class="profile-img" />
-				</div>
+						<img src="/Profile.jpg" alt="Ginaldo Laranjeiras Junior" class="profile-img" />
+					</div>
 					<div class="floating-elements">
 						<div class="floating-element element-1">💻</div>
 						<div class="floating-element element-2">🚀</div>
@@ -100,6 +100,7 @@
 		padding: 8rem 0 4rem;
 		position: relative;
 		overflow: hidden;
+		background: var(--bg-white);
 	}
 	
 	.hero::before {
@@ -110,8 +111,8 @@
 		right: 0;
 		bottom: 0;
 		background: 
-			radial-gradient(circle at 20% 80%, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
-			radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.03) 0%, transparent 50%);
+			radial-gradient(circle at 20% 80%, rgba(66, 66, 66, 0.02) 0%, transparent 50%),
+			radial-gradient(circle at 80% 20%, rgba(66, 66, 66, 0.03) 0%, transparent 50%);
 		pointer-events: none;
 	}
 	
@@ -219,9 +220,10 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		border-radius: 50%;
-		background: var(--primary-color);
+		background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
 		padding: 4px;
 		box-shadow: var(--shadow-strong);
+		transition: var(--transition);
 	}
 	
 	.profile-img {
@@ -230,6 +232,16 @@
 		border-radius: 50%;
 		object-fit: cover;
 		border: 3px solid var(--bg-white);
+		transition: var(--transition);
+	}
+	
+	.profile-image:hover {
+		transform: translate(-50%, -50%) scale(1.05);
+		box-shadow: var(--shadow-hover);
+	}
+	
+	.profile-image:hover .profile-img {
+		transform: scale(1.02);
 	}
 	
 	@keyframes rotate {
@@ -253,6 +265,16 @@
 		position: absolute;
 		font-size: 2rem;
 		animation: float 6s ease-in-out infinite;
+		background: var(--bg-white);
+		border-radius: 50%;
+		width: 60px;
+		height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: var(--shadow);
+		border: 2px solid var(--border-light);
+		transition: var(--transition);
 	}
 	
 	.element-1 {
@@ -277,6 +299,12 @@
 		bottom: 10%;
 		right: 15%;
 		animation-delay: 4.5s;
+	}
+	
+	.floating-element:hover {
+		transform: scale(1.1);
+		box-shadow: var(--shadow-hover);
+		border-color: var(--primary-color);
 	}
 	
 	@keyframes float {
