@@ -266,7 +266,7 @@
 <style>
 	.contact {
 		background: var(--primary-color);
-		color: white;
+		color: #F8F8F8;
 		position: relative;
 		overflow: hidden;
 	}
@@ -292,6 +292,14 @@
 		z-index: 1;
 	}
 	
+	.section-title h2 {
+		color: #F8F8F8;
+	}
+	
+	.section-title p {
+		color: #F8F8F8;
+	}
+	
 	.contact-info {
 		display: flex;
 		flex-direction: column;
@@ -299,13 +307,13 @@
 	}
 	
 	.info-header h3 {
-		color: white;
+		color: #F8F8F8;
 		margin-bottom: 1rem;
 		font-size: 1.8rem;
 	}
 	
 	.info-header p {
-		color: rgba(255, 255, 255, 0.9);
+		color: rgba(255, 255, 255, 0.95);
 		line-height: 1.6;
 		font-size: 1.1rem;
 	}
@@ -344,7 +352,7 @@
 		height: 50px;
 		background: rgba(255, 255, 255, 0.2);
 		border-radius: 50%;
-		color: white;
+		color: #F8F8F8;
 		flex-shrink: 0;
 	}
 	
@@ -356,18 +364,18 @@
 	
 	.info-label {
 		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.8);
+		color: rgba(255, 255, 255, 0.9);
 		font-weight: 500;
 	}
 	
 	.info-value {
 		font-size: 1.1rem;
-		color: white;
+		color: #F8F8F8;
 		font-weight: 600;
 	}
 	
 	.social-links h4 {
-		color: white;
+		color: #F8F8F8;
 		margin-bottom: 1rem;
 		font-size: 1.2rem;
 	}
@@ -387,7 +395,7 @@
 		border-radius: var(--border-radius);
 		transition: var(--transition);
 		text-decoration: none;
-		color: white;
+		color: #F8F8F8;
 		border: 1px solid rgba(255, 255, 255, 0.2);
 		font-weight: 500;
 	}
@@ -407,13 +415,13 @@
 	}
 	
 	.form-header h3 {
-		color: white;
+		color: #F8F8F8;
 		margin-bottom: 0.5rem;
 		font-size: 1.8rem;
 	}
 	
 	.form-header p {
-		color: rgba(255, 255, 255, 0.9);
+		color: rgba(255, 255, 255, 0.95);
 		margin-bottom: 2rem;
 		line-height: 1.6;
 	}
@@ -433,7 +441,7 @@
 	}
 	
 	.form-group label {
-		color: white;
+		color: #F8F8F8;
 		font-weight: 500;
 		font-size: 0.95rem;
 	}
@@ -444,7 +452,7 @@
 		border: 2px solid rgba(255, 255, 255, 0.2);
 		border-radius: var(--border-radius);
 		background: rgba(255, 255, 255, 0.1);
-		color: white;
+		color: #F8F8F8;
 		font-size: 1rem;
 		transition: var(--transition);
 		backdrop-filter: blur(10px);
@@ -452,7 +460,7 @@
 	
 	.form-group input::placeholder,
 	.form-group textarea::placeholder {
-		color: rgba(255, 255, 255, 0.6);
+		color: rgba(255, 255, 255, 0.75);
 	}
 	
 	.form-group input:focus,
@@ -492,7 +500,7 @@
 		width: 100%;
 		padding: 1.25rem 2rem;
 		background: rgba(255, 255, 255, 0.2);
-		color: white;
+		color: #F8F8F8;
 		border: 2px solid rgba(255, 255, 255, 0.3);
 		border-radius: var(--border-radius);
 		font-size: 1.1rem;
@@ -521,7 +529,7 @@
 		width: 20px;
 		height: 20px;
 		border: 2px solid rgba(255, 255, 255, 0.3);
-		border-top: 2px solid white;
+		border-top: 2px solid #F8F8F8;
 		border-radius: 50%;
 		animation: spin 1s linear infinite;
 	}
