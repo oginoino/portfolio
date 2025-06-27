@@ -720,7 +720,7 @@
 
 	.filter-btn:hover,
 	.filter-btn.active {
-		color: var(--bg-white);
+		color: #ffffff !important;
 		border-color: var(--primary-color);
 		transform: translateY(-2px);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -736,8 +736,19 @@
 	.filter-btn.active::after {
 		position: relative;
 		z-index: 2;
-		color: #f8f8f8 !important;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+		color: #ffffff !important;
+		text-shadow: none;
+	}
+
+	/* Garantir texto branco visível */
+	.filter-btn:hover,
+	.filter-btn.active {
+		background-color: rgba(0, 0, 0, 0.8) !important;
+	}
+
+	.filter-btn:hover::before,
+	.filter-btn.active::before {
+		background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(33, 33, 33, 0.9)) !important;
 	}
 
 
