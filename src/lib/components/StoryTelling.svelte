@@ -720,7 +720,7 @@
 
 	.filter-btn:hover,
 	.filter-btn.active {
-		color: #f8f8f8 !important;
+		color: var(--bg-white);
 		border-color: var(--primary-color);
 		transform: translateY(-2px);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
