@@ -57,7 +57,7 @@
 		},
 		{
 			id: 4,
-			name: 'Leonardo Assef Coelho',
+			name: 'Leonardo Assef',
 			role: 'Sênior Full Stack Developer',
 			company: 'FinanZero',
 			date: 'Novembro de 2022',
@@ -102,7 +102,7 @@
 		},
 		{
 			id: 7,
-			name: 'Marcelo Henrique Dória Figueiredo',
+			name: 'Marcelo Figueiredo',
 			role: 'Analista de Dados',
 			company: 'Universidade',
 			date: 'Agosto de 2021',
