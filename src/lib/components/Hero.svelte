@@ -37,12 +37,14 @@
 			<div class="hero-text">
 				<h1 class="hero-title">
 					Olá, eu sou
-					<span class="name">Ginaldo Laranjeiras Junior</span>
+					<a href="#about" class="name-link" on:click={() => scrollToSection('about')}>
+						<span class="name">Gino</span>
+					</a>
 				</h1>
-				<h2 class="hero-subtitle">Desenvolvedor Full Stack</h2>
+				<h2 class="hero-subtitle">Product Manager</h2>
 				<p class="hero-description">
-					Apaixonado por criar soluções inovadoras e experiências digitais excepcionais.
-					Especializado em TypeScript, React, Node.js e tecnologias modernas.
+					Especialista em gestão de produtos digitais com foco em inovação e experiência do usuário.
+					Combino visão estratégica, análise de dados e conhecimento técnico para criar produtos que geram valor real.
 				</p>
 				
 				<div class="hero-actions">
@@ -137,11 +139,32 @@
 		color: var(--text-primary);
 	}
 	
+	.name-link {
+		text-decoration: none;
+		display: block;
+		transition: var(--transition);
+		border-radius: 8px;
+		padding: 0.2rem 0.5rem;
+		margin: -0.2rem -0.5rem;
+	}
+	
+	.name-link:hover {
+		background: rgba(66, 66, 66, 0.05);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(66, 66, 66, 0.1);
+	}
+	
 	.name {
 		display: block;
 		color: var(--primary-color);
 		font-weight: 900;
 		letter-spacing: -0.02em;
+		transition: var(--transition);
+	}
+	
+	.name-link:hover .name {
+		color: var(--secondary-color);
+		transform: scale(1.02);
 	}
 	
 	@keyframes gradient-shift {

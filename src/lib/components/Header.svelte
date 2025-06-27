@@ -39,7 +39,7 @@
 		<nav class="nav">
 			<a href="/" class="logo" on:click={() => scrollToSection('hero')}>
 				<img src="/Profile.jpg" alt="Ginaldo" class="logo-avatar" />
-				<span class="logo-text">Ginaldo</span>
+				<span class="logo-text">Gino</span>
 			</a>
 			
 			<ul class="nav-links" class:open={isMenuOpen}>
