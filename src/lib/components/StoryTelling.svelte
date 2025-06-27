@@ -720,8 +720,7 @@
 
 	.filter-btn:hover,
 	.filter-btn.active {
-		
-		color: #ffffff !important;
+		color: #f8f8f8 !important;
 		border-color: var(--primary-color);
 		transform: translateY(-2px);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -737,7 +736,7 @@
 	.filter-btn.active::after {
 		position: relative;
 		z-index: 2;
-		color: #ffffff !important;
+		color: #f8f8f8 !important;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 	}
 
