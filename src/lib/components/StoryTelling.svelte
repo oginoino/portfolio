@@ -5,6 +5,12 @@
 
 	const dispatch = createEventDispatcher();
 
+	// Accessibility and UX improvements
+	let isReducedMotion = false;
+	let focusedCardIndex = -1;
+	let announceText = "";
+	let lastInteractionTime = 0;
+
 	interface Section {
 		id: string;
 		title: string;
@@ -143,6 +149,12 @@
 	}
 
 	onMount(() => {
+		// Check for reduced motion preference
+		isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		
+		// Add keyboard event listener
+		window.addEventListener('keydown', handleKeydown);
+		
 		// Observer for section visibility and progress bar control
 		const visibilityObserver = new IntersectionObserver(
 			(entries: IntersectionObserverEntry[]) => {
@@ -150,6 +162,7 @@
 					if (entry.isIntersecting) {
 						isVisible = true;
 						startReadingProgress();
+						announceToScreenReader('Timeline da jornada profissional carregada');
 					} else {
 						// Hide progress bar when section is not visible
 						isVisible = false;
@@ -214,12 +227,15 @@
 				if (card) cardObserver.unobserve(card);
 			});
 			window.removeEventListener("resize", handleResize);
+			window.removeEventListener('keydown', handleKeydown);
+			stopAutoPlay();
 		};
 	});
 
 	function setCurrentSection(index: number): void {
 		currentSection = index;
-		scrollToSection(index);
+		scrollToSectionEnhanced(index);
+		focusedCardIndex = index;
 	}
 
 	function scrollToSection(index: number): void {
@@ -434,8 +450,10 @@
 	): void {
 		const previousSection = currentSection;
 		currentSection = index;
-		scrollToSection(index);
+		scrollToSectionEnhanced(index);
 		startReadingProgress();
+		focusedCardIndex = index;
+		updateLastInteraction();
 
 		// Dispatch analytics event
 		dispatch("sectionChange", {
@@ -447,6 +465,9 @@
 
 		// Update progress
 		progress.set((index / (sections.length - 1)) * 100);
+		
+		// Provide haptic feedback
+		provideHapticFeedback();
 	}
 
 	// Mouse enter/leave for auto-play pause
@@ -461,6 +482,53 @@
 		isHovering = false;
 		if (isAutoPlaying) {
 			autoPlayProgress.set(100);
+		}
+	}
+
+	// Accessibility improvements
+	function announceToScreenReader(message: string): void {
+		announceText = message;
+		setTimeout(() => {
+			announceText = "";
+		}, 1000);
+	}
+
+	function updateLastInteraction(): void {
+		lastInteractionTime = Date.now();
+	}
+
+	function shouldReduceMotion(): boolean {
+		return isReducedMotion;
+	}
+
+	// Enhanced scroll behavior with reduced motion support
+	function scrollToSectionEnhanced(index: number): void {
+		if (storyCards[index]) {
+			isScrolling = true;
+			updateLastInteraction();
+
+			// Clear any existing timeout
+			if (scrollTimeout) {
+				clearTimeout(scrollTimeout);
+			}
+
+			storyCards[index].scrollIntoView({
+				behavior: shouldReduceMotion() ? "auto" : "smooth",
+				block: "center",
+				inline: "nearest",
+			});
+
+			// Sync timeline scroll on mobile
+			syncTimelineScroll(index);
+
+			// Announce section change
+			const section = sections[index];
+			announceToScreenReader(`Navegando para: ${section.title}, ${section.year}`);
+
+			// Reset scrolling flag after animation completes
+			scrollTimeout = setTimeout((): void => {
+				isScrolling = false;
+			}, shouldReduceMotion() ? 100 : 1000);
 		}
 	}
 </script>
@@ -486,14 +554,16 @@
 				<!-- Auto-play Controls -->
 				<div class="autoplay-controls">
 					<button
-						class="autoplay-btn"
-						class:active={isAutoPlaying}
+						class="btn autoplay-btn"
+						class:btn-primary={isAutoPlaying}
+						class:btn-outline={!isAutoPlaying}
 						on:click={toggleAutoPlay}
 						aria-label={isAutoPlaying
 							? "Pausar reprodução automática"
 							: "Iniciar reprodução automática"}
+						aria-pressed={isAutoPlaying}
 					>
-						<span class="autoplay-icon"
+						<span class="autoplay-icon" aria-hidden="true"
 							>{isAutoPlaying ? "⏸️" : "▶️"}</span
 						>
 						<span class="autoplay-text"
@@ -503,34 +573,55 @@
 							<div
 								class="autoplay-progress"
 								style="width: {$autoPlayProgress}%"
+								aria-hidden="true"
 							/>
 						{/if}
 					</button>
 				</div>
 
 				<!-- Filter Controls -->
-				<div class="filter-controls">
+				<div class="filter-controls" role="tablist" aria-label="Navegação rápida da timeline">
 					<button
-						class="filter-btn"
-						class:active={currentSection === 0}
+						class="btn filter-btn"
+						class:btn-primary={currentSection === 0}
+						class:btn-outline={currentSection !== 0}
+						role="tab"
+						aria-selected={currentSection === 0}
+						aria-controls="story-content"
+						tabindex={currentSection === 0 ? 0 : -1}
 						on:click={() => setCurrentSectionEnhanced(0, "filter")}
 						>Início</button
 					>
 					<button
-						class="filter-btn"
-						class:active={currentSection === 3}
+						class="btn filter-btn"
+						class:btn-primary={currentSection === 3}
+						class:btn-outline={currentSection !== 3}
+						role="tab"
+						aria-selected={currentSection === 3}
+						aria-controls="story-content"
+						tabindex={currentSection === 3 ? 0 : -1}
 						on:click={() => setCurrentSectionEnhanced(3, "filter")}
 						>Corporativo</button
 					>
 					<button
-						class="filter-btn"
-						class:active={currentSection === 2}
+						class="btn filter-btn"
+						class:btn-primary={currentSection === 2}
+						class:btn-outline={currentSection !== 2}
+						role="tab"
+						aria-selected={currentSection === 2}
+						aria-controls="story-content"
+						tabindex={currentSection === 2 ? 0 : -1}
 						on:click={() => setCurrentSectionEnhanced(2, "filter")}
 						>Empreendedor</button
 					>
 					<button
-						class="filter-btn"
-						class:active={currentSection === sections.length - 1}
+						class="btn filter-btn"
+						class:btn-primary={currentSection === sections.length - 1}
+						class:btn-outline={currentSection !== sections.length - 1}
+						role="tab"
+						aria-selected={currentSection === sections.length - 1}
+						aria-controls="story-content"
+						tabindex={currentSection === sections.length - 1 ? 0 : -1}
 						on:click={() =>
 							setCurrentSectionEnhanced(
 								sections.length - 1,
@@ -541,9 +632,14 @@
 			</div>
 		</div>
 
+		<!-- Screen Reader Announcements -->
+		<div class="sr-only" aria-live="polite" aria-atomic="true">
+			{announceText}
+		</div>
+
 		<div class="story-container" class:visible={isVisible}>
 			<!-- Enhanced Story Content -->
-			<div class="story-content">
+			<div class="story-content" id="story-content" role="tabpanel" aria-label="Conteúdo da timeline">
 				{#each sections as section, index}
 					<button
 						class="story-card"
@@ -553,11 +649,16 @@
 						class:next={index === currentSection + 1}
 						class:reading={index === currentSection &&
 							$readingProgress > 0}
-						style="--delay: {index * 0.1}s"
+						class:focused={focusedCardIndex === index}
+						style="--delay: {shouldReduceMotion() ? '0s' : index * 0.1 + 's'}"
 						bind:this={storyCards[index]}
 						on:click={() =>
 							setCurrentSectionEnhanced(index, "card")}
-						aria-label="Seção {index + 1}: {section.title}"
+						on:focus={() => focusedCardIndex = index}
+						on:blur={() => focusedCardIndex = -1}
+						aria-label="Seção {index + 1} de {sections.length}: {section.title}, {section.year}, {section.company}"
+						aria-current={currentSection === index ? 'step' : false}
+						tabindex={currentSection === index ? 0 : -1}
 					>
 						<!-- Card Status Indicator -->
 						<div class="card-status">
@@ -710,41 +811,45 @@
 		transform: translateY(0);
 	}
 
+	/* Accessibility */
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	/* Reduced motion support */
+	@media (prefers-reduced-motion: reduce) {
+		.story-card,
+		.controls-container,
+		.story-container {
+			transition: none;
+			animation: none;
+		}
+		
+		.story-card.visible {
+			animation: none;
+			transform: none;
+		}
+	}
+
 	/* Auto-play Controls */
 	.autoplay-controls {
 		display: flex;
 		justify-content: center;
 	}
 
+	/* Custom styles for autoplay button */
 	.autoplay-btn {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem 1.5rem;
-		border: 2px solid var(--border-medium);
-		background: var(--bg-white);
-		color: var(--text-secondary);
-		border-radius: var(--border-radius-large);
-		cursor: pointer;
-		transition: var(--transition);
 		font-size: 0.9rem;
-		font-weight: 600;
 		position: relative;
 		overflow: hidden;
-		box-shadow: var(--shadow-light);
-	}
-
-	.autoplay-btn:hover {
-		transform: translateY(-2px);
-		box-shadow: var(--shadow);
-		border-color: var(--primary-color);
-	}
-
-	.autoplay-btn.active {
-		background: var(--primary-color);
-		color: var(--text-white);
-		border-color: var(--primary-color);
-		box-shadow: var(--shadow-medium);
 	}
 
 	.autoplay-progress {
@@ -774,73 +879,10 @@
 		flex-wrap: wrap;
 	}
 
+	/* Custom styles for filter buttons */
 	.filter-btn {
-		padding: 0.5rem 1rem;
-		border: 2px solid var(--border-light);
-		background: var(--bg-white);
-		color: var(--text-dark);
-		border-radius: var(--border-radius);
-		cursor: pointer;
-		transition: var(--transition);
 		font-size: 0.875rem;
-		font-weight: 600;
-		position: relative;
-		overflow: hidden;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	}
-
-	.filter-btn::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(
-			135deg,
-			var(--primary-color),
-			var(--accent-color)
-		);
-		transition: var(--transition);
-		z-index: 0;
-	}
-
-	.filter-btn:hover::before,
-	.filter-btn.active::before {
-		left: 0;
-	}
-
-	.filter-btn:hover,
-	.filter-btn.active {
-		color: #ffffff !important;
-		border-color: var(--primary-color);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-		z-index: 1;
-		position: relative;
-	}
-
-	.filter-btn:hover::after,
-	.filter-btn.active::after {
-		position: relative;
-		z-index: 2;
-		color: #ffffff !important;
-		text-shadow: none;
-	}
-
-	/* Garantir texto branco visível */
-	.filter-btn:hover,
-	.filter-btn.active {
-		background-color: rgba(0, 0, 0, 0.8) !important;
-	}
-
-	.filter-btn:hover::before,
-	.filter-btn.active::before {
-		background: linear-gradient(
-			135deg,
-			rgba(0, 0, 0, 0.9),
-			rgba(33, 33, 33, 0.9)
-		) !important;
+		padding: 0.5rem 1rem;
 	}
 
 	.story-container {
@@ -925,6 +967,12 @@
 		border-color: var(--border-medium);
 		transform: translateX(0) scale(1.02);
 		animation: pulseGlow 2s ease-in-out infinite;
+	}
+
+	.story-card.focused {
+		outline: 3px solid var(--primary-color);
+		outline-offset: 2px;
+		box-shadow: var(--shadow-medium), 0 0 0 3px rgba(66, 66, 66, 0.1);
 	}
 
 	.story-card.completed {
