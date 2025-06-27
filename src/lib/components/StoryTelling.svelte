@@ -113,13 +113,17 @@
 	$: progress.set((currentSection / (sections.length - 1)) * 100);
 
 	onMount(() => {
-		// Observer for section visibility
+		// Observer for section visibility and progress bar control
 		const visibilityObserver = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
 						isVisible = true;
 						startReadingProgress();
+					} else {
+						// Hide progress bar when section is not visible
+						isVisible = false;
+						stopAutoPlay();
 					}
 				});
 			},
@@ -558,14 +562,16 @@
 	/* Progress Indicators */
 	.progress-container {
 		position: fixed;
-		top: 0;
+		top: 80px; /* Offset to avoid navbar */
 		left: 0;
 		right: 0;
-		z-index: 1000;
+		z-index: 100; /* Lower z-index than navbar */
 		background: rgba(255, 255, 255, 0.95);
 		backdrop-filter: blur(10px);
 		padding: 0.75rem 1rem;
 		border-bottom: 1px solid var(--border-light);
+		border-radius: 0 0 var(--border-radius) var(--border-radius);
+		box-shadow: var(--shadow-light);
 		opacity: 0;
 		transform: translateY(-100%);
 		transition: var(--transition-slow);
@@ -1370,11 +1376,12 @@
 	@media (max-width: 768px) {
 		.storytelling-section {
 			padding: 4rem 0;
-			padding-top: 6rem; /* Account for fixed progress bar */
+			padding-top: 8rem; /* Account for navbar + progress bar */
 		}
 
 		.progress-container {
 			padding: 0.5rem 1rem;
+			top: 60px; /* Smaller offset for mobile navbar */
 		}
 
 		.progress-info {
