@@ -39,43 +39,34 @@
 			title: 'Product Manager',
 			company: 'FinanZero',
 			location: 'São Paulo, SP',
-			period: 'Mar 2023 - Dez 2023',
-			description: 'Liderei a estratégia e desenvolvimento de produtos digitais no setor financeiro. Responsável por roadmaps de produto, análise de métricas e coordenação de equipes multidisciplinares para entregar soluções que impactam milhares de usuários.',
-			technologies: ['Product Analytics', 'OKRs', 'Scrum', 'Design Thinking', 'SQL', 'Python'],
+			period: 'Set 2021 - Jul 2023',
+			description: 'Gerenciamento de produtos de crédito online em fintech de destaque, focando em diversificação de portfólio e otimização de conversão.',
+			technologies: ['Google Analytics 4', 'OKRs', 'Scrum', 'Design Thinking', 'Design Sprint', 'Python', 'Product Discovery'],
 			achievements: [
-				'Certificação AML (Anti-Money Laundering) - Mar 2023',
-				'Implementou framework de OKRs para alinhamento estratégico',
-				'Liderou descoberta contínua de produtos com metodologias ágeis'
+				'Diversificação de portfólio: Expansão da linha de produtos de crédito',
+				'Aumento do ticket médio: Implementação de inteligência de relevância de ofertas',
+				'Melhoria de conversão: Nova tela de ofertas user-centric com resultados significativos',
+				'Cross/Up-selling: Otimização de fluxos com maior taxa de conversão',
+				'SEO Excellence: Posicionamento de destaque para landing pages e blog',
+				'Plataforma própria: Desenvolvimento de solução escalável para email marketing',
+				'UX/UI: Melhoria da usabilidade de formulários aumentando Lead-to-Contract (L2C)'
 			],
 			type: 'work'
 		},
 		{
 			id: 3,
-			title: 'Product Manager & Tech Lead',
+			title: 'Product Owner',
 			company: 'Accenture',
 			location: 'São Paulo, SP',
-			period: 'Set 2020 - Fev 2023',
-			description: 'Atuei como Product Manager e líder técnico em projetos de transformação digital para grandes clientes. Combinei visão de produto com expertise técnica para entregar soluções escaláveis e centradas no usuário.',
-			technologies: ['Product Management', 'Python', 'AWS', 'Agile', 'UX Design', 'Quality Assurance'],
+			period: 'Dez 2019 - Set 2021',
+			description: 'Consultor especializado em desenvolvimento de software para grandes corporações, com foco em soluções de infraestrutura em nuvem.',
+			technologies: ['Automação de processos', 'Python', 'AWS', 'Agile', 'Cloud Infrastructure', 'Quality Assurance'],
 			achievements: [
-				'Academia Accenture - Treinamento em QA (84h) - Nov 2020',
-				'Technical Support Fundamentals (Coursera) - Set 2020',
-				'Desenvolveu automação de infraestrutura com Python'
-			],
-			type: 'work'
-		},
-		{
-			id: 4,
-			title: 'Analista de Sistemas & Product Owner',
-			company: 'Startup de Tecnologia',
-			location: 'São Paulo, SP',
-			period: 'Jan 2019 - Ago 2020',
-			description: 'Início da transição para gestão de produtos, atuando como Product Owner e analista de sistemas. Foco em metodologias ágeis, experiência do usuário e desenvolvimento de funcionalidades orientadas por dados.',
-			technologies: ['Scrum', 'UX Foundations', 'Python', 'Design Sprint', 'Agile Methodologies'],
-			achievements: [
-				'Foundations of User Experience (UX) Design (Coursera) - Mai 2021',
-				'Design Sprint 2.0 (Alura) - Abr 2021',
-				'Fundamentos do Scrum (LinkedIn Learning) - Jan 2019'
+				'Itaú Cartões: Desenvolvimento de ecossistema cloud-ready',
+				'Drogaria São Paulo: Soluções de backoffice e PDV',
+				'Análise de requisitos e entrega de soluções técnicas',
+				'Garantia da qualidade',
+				'Automação',
 			],
 			type: 'work'
 		},
