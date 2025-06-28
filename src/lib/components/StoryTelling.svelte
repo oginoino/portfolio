@@ -49,7 +49,7 @@
 
 	// Auto-play progress
 	const autoPlayProgress = tweened(0, {
-		duration: 5000,
+		duration: 3000,
 		easing: (t) => t,
 	});
 
@@ -150,11 +150,13 @@
 
 	onMount(() => {
 		// Check for reduced motion preference
-		isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		
+		isReducedMotion = window.matchMedia(
+			"(prefers-reduced-motion: reduce)"
+		).matches;
+
 		// Add keyboard event listener
-		window.addEventListener('keydown', handleKeydown);
-		
+		window.addEventListener("keydown", handleKeydown);
+
 		// Observer for section visibility and progress bar control
 		const visibilityObserver = new IntersectionObserver(
 			(entries: IntersectionObserverEntry[]) => {
@@ -162,7 +164,9 @@
 					if (entry.isIntersecting) {
 						isVisible = true;
 						startReadingProgress();
-						announceToScreenReader('Timeline da jornada profissional carregada');
+						announceToScreenReader(
+							"Timeline da jornada profissional carregada"
+						);
 					} else {
 						// Hide progress bar when section is not visible
 						isVisible = false;
@@ -207,14 +211,14 @@
 					cardObserver.observe(card);
 				}
 			});
-		}, 100);
+		}, 50);
 
 		// Handle window resize for timeline sync
 		const handleResize = (): void => {
 			// Re-sync timeline scroll when window is resized
 			setTimeout((): void => {
 				syncTimelineScroll(currentSection);
-			}, 100);
+			}, 50);
 		};
 
 		window.addEventListener("resize", handleResize);
@@ -227,7 +231,7 @@
 				if (card) cardObserver.unobserve(card);
 			});
 			window.removeEventListener("resize", handleResize);
-			window.removeEventListener('keydown', handleKeydown);
+			window.removeEventListener("keydown", handleKeydown);
 			stopAutoPlay();
 		};
 	});
@@ -259,7 +263,7 @@
 			// Reset scrolling flag after animation completes
 			scrollTimeout = setTimeout((): void => {
 				isScrolling = false;
-			}, 1000);
+			}, 500);
 		}
 	}
 
@@ -377,7 +381,7 @@
 			} else {
 				stopAutoPlay();
 			}
-		}, 5000);
+		}, 3000);
 
 		autoPlayProgress.set(100);
 	}
@@ -402,7 +406,7 @@
 	// Reading progress simulation
 	function startReadingProgress(): void {
 		readingProgress.set(0);
-		setTimeout(() => readingProgress.set(100), 2000);
+		setTimeout(() => readingProgress.set(100), 1000);
 	}
 
 	// Haptic feedback for supported devices
@@ -465,7 +469,7 @@
 
 		// Update progress
 		progress.set((index / (sections.length - 1)) * 100);
-		
+
 		// Provide haptic feedback
 		provideHapticFeedback();
 	}
@@ -523,12 +527,17 @@
 
 			// Announce section change
 			const section = sections[index];
-			announceToScreenReader(`Navegando para: ${section.title}, ${section.year}`);
+			announceToScreenReader(
+				`Navegando para: ${section.title}, ${section.year}`
+			);
 
 			// Reset scrolling flag after animation completes
-			scrollTimeout = setTimeout((): void => {
-				isScrolling = false;
-			}, shouldReduceMotion() ? 100 : 1000);
+			scrollTimeout = setTimeout(
+				(): void => {
+					isScrolling = false;
+				},
+				shouldReduceMotion() ? 50 : 500
+			);
 		}
 	}
 </script>
@@ -580,7 +589,11 @@
 				</div>
 
 				<!-- Filter Controls -->
-				<div class="filter-controls" role="tablist" aria-label="Navegação rápida da timeline">
+				<div
+					class="filter-controls"
+					role="tablist"
+					aria-label="Navegação rápida da timeline"
+				>
 					<button
 						class="btn filter-btn"
 						class:btn-primary={currentSection === 0}
@@ -616,12 +629,16 @@
 					>
 					<button
 						class="btn filter-btn"
-						class:btn-primary={currentSection === sections.length - 1}
-						class:btn-outline={currentSection !== sections.length - 1}
+						class:btn-primary={currentSection ===
+							sections.length - 1}
+						class:btn-outline={currentSection !==
+							sections.length - 1}
 						role="tab"
 						aria-selected={currentSection === sections.length - 1}
 						aria-controls="story-content"
-						tabindex={currentSection === sections.length - 1 ? 0 : -1}
+						tabindex={currentSection === sections.length - 1
+							? 0
+							: -1}
 						on:click={() =>
 							setCurrentSectionEnhanced(
 								sections.length - 1,
@@ -639,7 +656,12 @@
 
 		<div class="story-container" class:visible={isVisible}>
 			<!-- Enhanced Story Content -->
-			<div class="story-content" id="story-content" role="tabpanel" aria-label="Conteúdo da timeline">
+			<div
+				class="story-content"
+				id="story-content"
+				role="tabpanel"
+				aria-label="Conteúdo da timeline"
+			>
 				{#each sections as section, index}
 					<button
 						class="story-card"
@@ -650,14 +672,17 @@
 						class:reading={index === currentSection &&
 							$readingProgress > 0}
 						class:focused={focusedCardIndex === index}
-						style="--delay: {shouldReduceMotion() ? '0s' : index * 0.1 + 's'}"
+						style="--delay: {shouldReduceMotion()
+							? '0s'
+							: index * 0.1 + 's'}"
 						bind:this={storyCards[index]}
 						on:click={() =>
 							setCurrentSectionEnhanced(index, "card")}
-						on:focus={() => focusedCardIndex = index}
-						on:blur={() => focusedCardIndex = -1}
-						aria-label="Seção {index + 1} de {sections.length}: {section.title}, {section.year}, {section.company}"
-						aria-current={currentSection === index ? 'step' : false}
+						on:focus={() => (focusedCardIndex = index)}
+						on:blur={() => (focusedCardIndex = -1)}
+						aria-label="Seção {index +
+							1} de {sections.length}: {section.title}, {section.year}, {section.company}"
+						aria-current={currentSection === index ? "step" : false}
 						tabindex={currentSection === index ? 0 : -1}
 					>
 						<!-- Card Status Indicator -->
@@ -722,7 +747,9 @@
 						<!-- Progress indicator for current section -->
 						{#if index === currentSection}
 							<div class="section-progress" aria-hidden="true">
-								<span class="progress-text">{index + 1} de {sections.length}</span>
+								<span class="progress-text"
+									>{index + 1} de {sections.length}</span
+								>
 							</div>
 						{/if}
 					</button>
@@ -753,14 +780,22 @@
 	}
 
 	.storytelling-section::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: radial-gradient(circle at 20% 80%, rgba(66, 66, 66, 0.05) 0%, transparent 50%),
-					radial-gradient(circle at 80% 20%, rgba(44, 44, 44, 0.05) 0%, transparent 50%);
+		background: radial-gradient(
+				circle at 20% 80%,
+				rgba(66, 66, 66, 0.05) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 80% 20%,
+				rgba(44, 44, 44, 0.05) 0%,
+				transparent 50%
+			);
 		pointer-events: none;
 	}
 
@@ -834,7 +869,7 @@
 			transition: none;
 			animation: none;
 		}
-		
+
 		.story-card.visible {
 			animation: none;
 			transform: none;
@@ -945,52 +980,13 @@
 	/* Timeline visual para desktop */
 	@media (min-width: 1024px) {
 		.story-container {
-			padding-left: 3rem;
 			position: relative;
-		}
-
-		.story-container::before {
-			content: '';
-			position: absolute;
-			left: 1.5rem;
-			top: 2rem;
-			bottom: 2rem;
-			width: 2px;
-			background: linear-gradient(180deg, var(--border-light) 0%, var(--primary-color) 50%, var(--border-light) 100%);
-			border-radius: 1px;
-			z-index: 1;
 		}
 
 		.story-card {
 			position: relative;
-			margin-left: 2rem;
 		}
 
-		.story-card::before {
-			content: '';
-			position: absolute;
-			left: -3.5rem;
-			top: 2rem;
-			width: 12px;
-			height: 12px;
-			border-radius: 50%;
-			background: var(--border-light);
-			border: 2px solid var(--bg-white);
-			box-shadow: var(--shadow-light);
-			transition: var(--transition);
-			z-index: 2;
-		}
-
-		.story-card.active::before {
-			background: var(--gradient-dark);
-			box-shadow: var(--shadow-medium), 0 0 0 4px var(--hover-overlay);
-			transform: scale(1.2);
-		}
-
-		.story-card.completed::before {
-			background: var(--gradient-dark);
-			box-shadow: var(--shadow-light);
-		}
 	}
 
 	.story-container.visible {
@@ -1035,18 +1031,7 @@
 		overflow: hidden;
 	}
 
-	.story-card:hover {
-		transform: translateY(-5px) scale(1.01);
-		box-shadow: var(--shadow-hover);
-		border-color: var(--border-medium);
-		opacity: 0.9;
-	}
-
-	.story-card:focus {
-		outline: 2px solid #3b82f6;
-		outline-offset: 4px;
-	}
-
+	
 	.story-card.visible {
 		opacity: 0.8;
 		transform: translateY(0);
@@ -1072,31 +1057,7 @@
 		background: var(--bg-white);
 	}
 
-	.story-card.active::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 4px;
-		height: 100%;
-		background: var(--gradient-dark);
-		border-radius: 0 2px 2px 0;
-	}
 
-	.story-card.focused {
-		outline: 2px solid var(--primary-color);
-		outline-offset: 2px;
-	}
-
-	.story-card.completed {
-		opacity: 0.5;
-		border-left: 3px solid var(--text-muted);
-	}
-
-	.story-card.next {
-		opacity: 0.8;
-		border-left: 3px solid var(--text-tertiary);
-	}
 
 	.story-card.reading {
 		background: var(--bg-light);
@@ -1137,7 +1098,8 @@
 	}
 
 	@keyframes statusPulse {
-		0%, 100% {
+		0%,
+		100% {
 			transform: scale(1);
 			box-shadow: var(--shadow-medium);
 		}
@@ -1169,8 +1131,6 @@
 		background: var(--primary-color);
 		transition: width 0.2s ease;
 	}
-
-
 
 	.card-header {
 		display: flex;
@@ -1204,25 +1164,32 @@
 	}
 
 	.card-icon.pulsing::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+		background: linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.1) 0%,
+			transparent 100%
+		);
 		border-radius: inherit;
 	}
 
 	@keyframes iconPulse {
 		0% {
-			box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3), 0 0 0 0 rgba(59, 130, 246, 0.4);
+			box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3),
+				0 0 0 0 rgba(59, 130, 246, 0.4);
 		}
 		50% {
-			box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4), 0 0 0 8px rgba(59, 130, 246, 0.1);
+			box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4),
+				0 0 0 8px rgba(59, 130, 246, 0.1);
 		}
 		100% {
-			box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3), 0 0 0 0 rgba(59, 130, 246, 0.4);
+			box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3),
+				0 0 0 0 rgba(59, 130, 246, 0.4);
 		}
 	}
 
@@ -1376,7 +1343,7 @@
 	}
 
 	.final-quote blockquote::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -1405,8 +1372,6 @@
 		font-weight: 600;
 		letter-spacing: 0.01em;
 	}
-
-
 
 	/* Responsividade */
 	@media (max-width: 1023px) {
