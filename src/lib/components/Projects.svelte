@@ -36,7 +36,7 @@
 				"Stripe",
 				"Docker",
 			],
-			image: "📈",
+			image: "static/Tá no Plano BG.png",
 			liveUrl: "https://tanoplano.com/",
 			category: "Estratégia & Crescimento",
 			featured: true,
@@ -56,7 +56,7 @@
 				"Analytics",
 				"UX/UI",
 			],
-			image: "🎨",
+			image: "static/Area do Cliente FinanZero.png",
 			liveUrl:
 				"https://docs.google.com/presentation/d/1HvkKkU-SvRRWZnQB9QnA7cmlme_JLPOu/edit?usp=sharing&ouid=117989704451329949275&rtpof=true&sd=true",
 
@@ -78,7 +78,7 @@
 				"WebStories",
 				"Core Web Vitals",
 			],
-			image: "🔍",
+			image: "static/SEO.jpg",
 			liveUrl: "https://finanzero.com.br",
 
 			category: "Experiência do Usuário",
@@ -262,9 +262,10 @@
 						{/if}
 
 						<div class="project-image">
-							<div class="image-placeholder">
-								<span class="project-icon">{project.image}</span
-								>
+							<div class="image-placeholder" style="{project.image.startsWith('static/') ? `background-image: url('/${project.image.replace('static/', '')}'); background-size: cover; background-position: center;` : ''}">
+								{#if !project.image.startsWith('static/')}
+									<span class="project-icon">{project.image}</span>
+								{/if}
 							</div>
 							<div class="project-overlay">
 								<div class="project-links">
@@ -518,6 +519,13 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	.image-placeholder[style*="background-image"] {
+		background: transparent;
 	}
 
 	.project-icon {
