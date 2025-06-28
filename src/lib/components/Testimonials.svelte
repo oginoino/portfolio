@@ -1442,6 +1442,8 @@
 			grid-template-columns: repeat(2, 1fr);
 			gap: 1rem;
 			padding: 1.5rem;
+			text-align: center;
+			justify-items: center;
 		}
 
 		.stat-number {
@@ -1498,6 +1500,21 @@
 			right: 0.75rem;
 			width: 44px;
 			height: 44px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.stats-grid {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+			padding: 2rem 1rem;
+			text-align: center;
+			justify-items: center;
+		}
+
+		.stat-item {
+			max-width: 200px;
+			margin: 0 auto;
 		}
 	}
 
