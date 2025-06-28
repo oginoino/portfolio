@@ -32,8 +32,8 @@
 		{
 			icon: Phone,
 			label: 'Telefone',
-			value: '+55 (11) 99999-9999',
-			link: 'tel:+5511999999999'
+			value: '+55 (11) 92089-7534',
+			link: 'tel:+5511920897534'
 		},
 		{
 			icon: MapPin,
@@ -47,7 +47,7 @@
 		{
 			icon: Github,
 			label: 'GitHub',
-			url: 'https://github.com/ginaldolaranjeiras',
+			url: 'https://github.com/oginoino',
 			color: '#333'
 		},
 		{
@@ -59,7 +59,7 @@
 		{
 			icon: MessageCircle,
 			label: 'WhatsApp',
-			url: 'https://wa.me/5511999999999',
+			url: 'https://wa.me/5511920897534',
 			color: '#25d366'
 		}
 	];
