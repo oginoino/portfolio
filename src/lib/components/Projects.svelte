@@ -41,7 +41,7 @@
 			liveUrl: "https://tanoplano.com/",
 			stars: 245,
 			forks: 78,
-			category: "Full Stack",
+			category: "Estratégia & Crescimento",
 			featured: true,
 		},
 		{
@@ -64,7 +64,7 @@
 				"https://docs.google.com/presentation/d/1HvkKkU-SvRRWZnQB9QnA7cmlme_JLPOu/edit?usp=sharing&ouid=117989704451329949275&rtpof=true&sd=true",
 			stars: 189,
 			forks: 45,
-			category: "Frontend",
+			category: "Experiência do Usuário",
 			featured: true,
 		},
 		{
@@ -86,7 +86,7 @@
 			liveUrl: "https://finanzero.com.br",
 			stars: 156,
 			forks: 43,
-			category: "Frontend",
+			category: "Experiência do Usuário",
 			featured: true,
 		},
 		{
@@ -108,7 +108,7 @@
 			liveUrl: "https://finanzero.com.br",
 			stars: 124,
 			forks: 32,
-			category: "Backend",
+			category: "Infraestrutura & Performance",
 			featured: true,
 		},
 		{
@@ -130,7 +130,7 @@
 			githubUrl: "https://finanzero.com.br/",
 			stars: 203,
 			forks: 67,
-			category: "Full Stack",
+			category: "Estratégia & Crescimento",
 			featured: true,
 		},
 
@@ -153,7 +153,7 @@
 			githubUrl: "https://github.com/ginaldolaranjeiras/bff-dory",
 			stars: 167,
 			forks: 38,
-			category: "Backend",
+			category: "Infraestrutura & Performance",
 			featured: false,
 		},
 		{
@@ -180,12 +180,12 @@
 				"https://drive.google.com/file/d/1VHFIKKGpALahZw59xJwJYwTswhGmmOzU/view?usp=sharing",
 			stars: 198,
 			forks: 52,
-			category: "Full Stack",
+			category: "Gestão de Produtos",
 			featured: true,
 		},
 	];
 
-	const categories = ["Todos", "Full Stack", "Frontend", "Backend"];
+	const categories = ["Todos", "Estratégia & Crescimento", "Experiência do Usuário", "Infraestrutura & Performance", "Gestão de Produtos"];
 
 	let activeCategory = "Todos";
 	let showFeaturedOnly = false;
