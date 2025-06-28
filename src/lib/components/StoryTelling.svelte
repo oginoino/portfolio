@@ -1104,7 +1104,7 @@
 		background: var(--gradient-dark);
 		color: var(--text-white);
 		border-color: var(--border-medium);
-		box-shadow: var(--shadow-medium), 0 0 0 0 rgba(59, 130, 246, 0.4);
+		box-shadow: var(--shadow-medium), 0 0 0 0 var(--accent-alpha);
 		animation: iconPulse 2s infinite;
 	}
 
