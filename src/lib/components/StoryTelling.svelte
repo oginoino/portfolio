@@ -685,17 +685,6 @@
 						aria-current={currentSection === index ? "step" : false}
 						tabindex={currentSection === index ? 0 : -1}
 					>
-						<!-- Card Status Indicator -->
-						<div class="card-status">
-							{#if index < currentSection}
-								<span class="status-completed">✓</span>
-							{:else if index === currentSection}
-								<span class="status-current">👁️</span>
-							{:else if index === currentSection + 1}
-								<span class="status-next">→</span>
-							{/if}
-						</div>
-
 						<!-- Reading Progress Bar -->
 						{#if index === currentSection}
 							<div class="card-reading-progress">
@@ -986,7 +975,6 @@
 		.story-card {
 			position: relative;
 		}
-
 	}
 
 	.story-container.visible {
@@ -1031,7 +1019,6 @@
 		overflow: hidden;
 	}
 
-	
 	.story-card.visible {
 		opacity: 0.8;
 		transform: translateY(0);
@@ -1057,44 +1044,8 @@
 		background: var(--bg-white);
 	}
 
-
-
 	.story-card.reading {
 		background: var(--bg-light);
-	}
-
-	/* Card Status Indicators */
-	.card-status {
-		position: absolute;
-		top: 1.25rem;
-		right: 1.25rem;
-		width: 28px;
-		height: 28px;
-		border-radius: 10px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 0.8rem;
-		background: var(--bg-white);
-		color: var(--text-tertiary);
-		border: 1px solid var(--border-light);
-		transition: var(--transition);
-		box-shadow: var(--shadow-light);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-	}
-
-	.status-completed {
-		background: var(--gradient-dark);
-		color: var(--text-white);
-		box-shadow: var(--shadow-medium);
-	}
-
-	.status-current {
-		background: var(--gradient-dark);
-		color: var(--text-white);
-		box-shadow: var(--shadow-medium);
-		animation: statusPulse 2s infinite;
 	}
 
 	@keyframes statusPulse {
@@ -1107,12 +1058,6 @@
 			transform: scale(1.1);
 			box-shadow: var(--shadow-hover);
 		}
-	}
-
-	.status-next {
-		background: var(--gradient-medium);
-		color: var(--text-primary);
-		box-shadow: var(--shadow-medium);
 	}
 
 	/* Reading Progress */
@@ -1420,14 +1365,6 @@
 			justify-content: center;
 		}
 
-		.card-status {
-			top: 1rem;
-			right: 1rem;
-			width: 24px;
-			height: 24px;
-			font-size: 0.7rem;
-		}
-
 		.card-icon {
 			width: 56px;
 			height: 56px;
@@ -1480,10 +1417,6 @@
 
 	@media (prefers-contrast: high) {
 		.story-card {
-			border: 2px solid var(--text-primary);
-		}
-
-		.card-status {
 			border: 2px solid var(--text-primary);
 		}
 	}
