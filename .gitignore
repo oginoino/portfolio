@@ -505,3 +505,5 @@ dist
 static/Cursos e Certificados - GINALDO LARANEIRAS JUNIOR - Certificados.csv
 static/Cursos e Certificados - GINALDO LARANEIRAS JUNIOR - Certificados.pdf
 .firebase/hosting.YnVpbGQ.cache
+.env.example
+ENV_SETUP.md
