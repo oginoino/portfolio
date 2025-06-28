@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 
 	interface Testimonial {
 		id: number;
@@ -13,7 +13,7 @@
 		highlights: Array<{ text: string; icon: string }>;
 	}
 
-	let currentCategory = 'all';
+	let currentCategory = "all";
 	let isVisible = false;
 	let testimonialsRef: HTMLElement;
 	let currentSlide = 0;
@@ -24,131 +24,149 @@
 	let modalOpen = false;
 	let modalTestimonial: Testimonial | null = null;
 
+	// Touch/Swipe variables
+	let touchStartX = 0;
+	let touchEndX = 0;
+	let isDragging = false;
+	let dragStartX = 0;
+	let currentTranslateX = 0;
+	let animationId = 0;
+
 	const testimonials = [
 		{
 			id: 1,
-			name: 'Daniel Renatino',
-			role: 'Product Designer',
-			company: 'FinanZero',
-			date: 'Julho de 2023',
-			category: 'lideranca',
-			avatar: 'DR',
-			testimonial: 'Muito dedicado na organização de Backlog, Roadmap de Produto e entregas, está sempre procurando atualizar os conhecimentos que já tem e aprender novos, incluindo lógica de programação, UX/UI e Product Discovery. Também é um cara que joga junto, se empolga em trazer bons resultados, incentiva pessoas, independentemente do time, a expor ideias e pensamentos. É analítico e prático, sem ficar dando voltas em explicações, mas sempre disposto a explicar quantas vezes for necessário. Acima de tudo, mantém a resiliência como uma das principais palavras do dia a dia.',
+			name: "Daniel Renatino",
+			role: "Product Designer",
+			company: "FinanZero",
+			date: "Julho de 2023",
+			category: "lideranca",
+			avatar: "DR",
+			testimonial:
+				"Muito dedicado na organização de Backlog, Roadmap de Produto e entregas, está sempre procurando atualizar os conhecimentos que já tem e aprender novos, incluindo lógica de programação, UX/UI e Product Discovery. Também é um cara que joga junto, se empolga em trazer bons resultados, incentiva pessoas, independentemente do time, a expor ideias e pensamentos. É analítico e prático, sem ficar dando voltas em explicações, mas sempre disposto a explicar quantas vezes for necessário. Acima de tudo, mantém a resiliência como uma das principais palavras do dia a dia.",
 			highlights: [
-				{ text: 'Organização', icon: '📋' },
-				{ text: 'Aprendizado Contínuo', icon: '📚' },
-				{ text: 'Resiliência', icon: '💪' }
-			]
+				{ text: "Organização", icon: "📋" },
+				{ text: "Aprendizado Contínuo", icon: "📚" },
+				{ text: "Resiliência", icon: "💪" },
+			],
 		},
 		{
 			id: 2,
-			name: 'Gabriel Toledo',
-			role: 'Sênior Software Frontend',
-			company: 'FinanZero',
-			date: 'Junho de 2022',
-			category: 'lideranca',
-			avatar: 'GT',
-			testimonial: 'Antes de falar das competências do Gino, acredito que devo primeiro dizer as características que fazem dele um profissional capaz de guiar qualquer time: Prioriza com calma e clareza as prioridades da squad; Sabe se comunicar com as pessoas e intermediar comunicação. Como PO é organizado, sabe lidar com situações caóticas, sempre em busca de conhecimento técnico para entender melhor os requisitos. Um amigo de confiança e amado por toda empresa.',
+			name: "Gabriel Toledo",
+			role: "Sênior Software Frontend",
+			company: "FinanZero",
+			date: "Junho de 2022",
+			category: "lideranca",
+			avatar: "GT",
+			testimonial:
+				"Antes de falar das competências do Gino, acredito que devo primeiro dizer as características que fazem dele um profissional capaz de guiar qualquer time: Prioriza com calma e clareza as prioridades da squad; Sabe se comunicar com as pessoas e intermediar comunicação. Como PO é organizado, sabe lidar com situações caóticas, sempre em busca de conhecimento técnico para entender melhor os requisitos. Um amigo de confiança e amado por toda empresa.",
 			highlights: [
-				{ text: 'Comunicação', icon: '💬' },
-				{ text: 'Organização', icon: '📋' },
-				{ text: 'Liderança', icon: '👑' }
-			]
+				{ text: "Comunicação", icon: "💬" },
+				{ text: "Organização", icon: "📋" },
+				{ text: "Liderança", icon: "👑" },
+			],
 		},
 		{
 			id: 3,
-			name: 'Simão Timóteo',
-			role: 'Consultor em Finanças e Negócios',
-			company: 'CONNAT Soluções',
-			date: 'Fevereiro de 2023',
-			category: 'inovacao',
-			avatar: 'ST',
-			testimonial: 'Ginaldo é um excelente profissional, o qual tive a honra de trabalhar, nos projetos de consultorias, onde o seu brilhantismo e expertise em Gestão Ágil de Projetos trouxe inovação nos processos, melhorando a entrega de resultados, e reinventando toda a maneira com a qual a empresa trabalhava.',
+			name: "Simão Timóteo",
+			role: "Consultor em Finanças e Negócios",
+			company: "CONNAT Soluções",
+			date: "Fevereiro de 2023",
+			category: "inovacao",
+			avatar: "ST",
+			testimonial:
+				"Ginaldo é um excelente profissional, o qual tive a honra de trabalhar, nos projetos de consultorias, onde o seu brilhantismo e expertise em Gestão Ágil de Projetos trouxe inovação nos processos, melhorando a entrega de resultados, e reinventando toda a maneira com a qual a empresa trabalhava.",
 			highlights: [
-				{ text: 'Gestão Ágil', icon: '⚡' },
-				{ text: 'Inovação', icon: '💡' },
-				{ text: 'Resultados', icon: '🎯' }
-			]
+				{ text: "Gestão Ágil", icon: "⚡" },
+				{ text: "Inovação", icon: "💡" },
+				{ text: "Resultados", icon: "🎯" },
+			],
 		},
 		{
 			id: 4,
-			name: 'Leonardo Assef',
-			role: 'Sênior Full Stack Developer',
-			company: 'FinanZero',
-			date: 'Novembro de 2022',
-			category: 'equipe',
-			avatar: 'LA',
-			testimonial: 'Gino é um profissional maravilhoso. Sempre atento às necessidades do time e super disposto a ajudar a qualquer momento. Além de ótimo profissional é um excelente colega, divertido e atencioso.',
+			name: "Leonardo Assef",
+			role: "Sênior Full Stack Developer",
+			company: "FinanZero",
+			date: "Novembro de 2022",
+			category: "equipe",
+			avatar: "LA",
+			testimonial:
+				"Gino é um profissional maravilhoso. Sempre atento às necessidades do time e super disposto a ajudar a qualquer momento. Além de ótimo profissional é um excelente colega, divertido e atencioso.",
 			highlights: [
-				{ text: 'Colaboração', icon: '🤝' },
-				{ text: 'Atenção', icon: '👁️' },
-				{ text: 'Disponibilidade', icon: '🕐' }
-			]
+				{ text: "Colaboração", icon: "🤝" },
+				{ text: "Atenção", icon: "👁️" },
+				{ text: "Disponibilidade", icon: "🕐" },
+			],
 		},
 		{
 			id: 5,
-			name: 'Rafael Vilarinho',
-			role: 'Software/DevOps Engineer',
-			company: 'FinanZero',
-			date: 'Junho de 2022',
-			category: 'equipe',
-			avatar: 'RV',
-			testimonial: 'Excelente profissional e companheiro de equipe, estando sempre pronto para ajudar seus colegas e inovar seus produtos.',
+			name: "Rafael Vilarinho",
+			role: "Software/DevOps Engineer",
+			company: "FinanZero",
+			date: "Junho de 2022",
+			category: "equipe",
+			avatar: "RV",
+			testimonial:
+				"Excelente profissional e companheiro de equipe, estando sempre pronto para ajudar seus colegas e inovar seus produtos.",
 			highlights: [
-				{ text: 'Companheirismo', icon: '🤗' },
-				{ text: 'Inovação', icon: '💡' },
-				{ text: 'Colaboração', icon: '🤝' }
-			]
+				{ text: "Companheirismo", icon: "🤗" },
+				{ text: "Inovação", icon: "💡" },
+				{ text: "Colaboração", icon: "🤝" },
+			],
 		},
 		{
 			id: 6,
-			name: 'Ingrid C.',
-			role: 'Especialista em Projetos e Metodologias Ágeis',
-			company: 'FinanZero',
-			date: 'Junho de 2022',
-			category: 'negocios',
-			avatar: 'IC',
-			testimonial: 'O Gino é uma pessoa super receptiva e acessível sobre a frente do negócio! Sempre disposto a ajudar, trazer melhorias e proativo em demandas diversas, seja aquela que está sob seu controle ou não. Sempre traz a necessidade do negócio para compartilhar junto ao time e discute sobre para identificar pontos do qual precisam de sua atuação. Indico o Gino de olhos fechados!',
+			name: "Ingrid C.",
+			role: "Especialista em Projetos e Metodologias Ágeis",
+			company: "FinanZero",
+			date: "Junho de 2022",
+			category: "negocios",
+			avatar: "IC",
+			testimonial:
+				"O Gino é uma pessoa super receptiva e acessível sobre a frente do negócio! Sempre disposto a ajudar, trazer melhorias e proativo em demandas diversas, seja aquela que está sob seu controle ou não. Sempre traz a necessidade do negócio para compartilhar junto ao time e discute sobre para identificar pontos do qual precisam de sua atuação. Indico o Gino de olhos fechados!",
 			highlights: [
-				{ text: 'Proatividade', icon: '🚀' },
-				{ text: 'Visão de Negócio', icon: '📈' },
-				{ text: 'Melhorias', icon: '⬆️' }
-			]
+				{ text: "Proatividade", icon: "🚀" },
+				{ text: "Visão de Negócio", icon: "📈" },
+				{ text: "Melhorias", icon: "⬆️" },
+			],
 		},
 		{
 			id: 7,
-			name: 'Marcelo Figueiredo',
-			role: 'Analista de Dados',
-			company: 'Universidade',
-			date: 'Agosto de 2021',
-			category: 'academica',
-			avatar: 'MH',
-			testimonial: 'Tive a oportunidade de estudar com Ginaldo e ele sempre se mostrou uma pessoa dedicada, esforçada e acima de tudo muito bom no que faz, sempre contribuindo com conhecimento em sala de aula, além disso é uma pessoa que se dá muito bem em trabalhos em equipe e do pouco tempo que tive a oportunidade de estudar com ele se mostrou um grande líder. Ginaldo se mostra um profissional com excelentes qualidades.',
+			name: "Marcelo Figueiredo",
+			role: "Analista de Dados",
+			company: "Universidade",
+			date: "Agosto de 2021",
+			category: "academica",
+			avatar: "MH",
+			testimonial:
+				"Tive a oportunidade de estudar com Ginaldo e ele sempre se mostrou uma pessoa dedicada, esforçada e acima de tudo muito bom no que faz, sempre contribuindo com conhecimento em sala de aula, além disso é uma pessoa que se dá muito bem em trabalhos em equipe e do pouco tempo que tive a oportunidade de estudar com ele se mostrou um grande líder. Ginaldo se mostra um profissional com excelentes qualidades.",
 			highlights: [
-				{ text: 'Dedicação', icon: '🎯' },
-				{ text: 'Conhecimento', icon: '🧠' },
-				{ text: 'Liderança Acadêmica', icon: '🎓' }
-			]
-		}
+				{ text: "Dedicação", icon: "🎯" },
+				{ text: "Conhecimento", icon: "🧠" },
+				{ text: "Liderança Acadêmica", icon: "🎓" },
+			],
+		},
 	];
 
 	const categories = [
-		{ id: 'all', name: 'Todos', icon: '👥' },
-		{ id: 'lideranca', name: 'Liderança', icon: '👑' },
-		{ id: 'inovacao', name: 'Inovação', icon: '💡' },
-		{ id: 'equipe', name: 'Trabalho em Equipe', icon: '🤝' },
-		{ id: 'negocios', name: 'Visão de Negócios', icon: '📈' },
-		{ id: 'academica', name: 'Liderança Acadêmica', icon: '🎓' }
+		{ id: "all", name: "Todos", icon: "👥" },
+		{ id: "lideranca", name: "Liderança", icon: "👑" },
+		{ id: "inovacao", name: "Inovação", icon: "💡" },
+		{ id: "equipe", name: "Trabalho em Equipe", icon: "🤝" },
+		{ id: "negocios", name: "Visão de Negócios", icon: "📈" },
+		{ id: "academica", name: "Liderança Acadêmica", icon: "🎓" },
 	];
 
-	$: filteredTestimonials = currentCategory === 'all' 
-		? testimonials 
-		: testimonials.filter(t => t.category === currentCategory);
+	$: filteredTestimonials =
+		currentCategory === "all"
+			? testimonials
+			: testimonials.filter((t) => t.category === currentCategory);
 
-	$: totalSlides = Math.ceil(filteredTestimonials.length / getItemsPerSlide());
+	$: totalSlides = Math.ceil(
+		filteredTestimonials.length / getItemsPerSlide()
+	);
 
 	function getItemsPerSlide() {
-		if (typeof window !== 'undefined') {
+		if (typeof window !== "undefined") {
 			if (window.innerWidth < 768) return 1;
 			if (window.innerWidth < 1024) return 2;
 			return 3;
@@ -182,14 +200,18 @@
 		const handleResize = () => {
 			currentSlide = 0;
 		};
-		window.addEventListener('resize', handleResize);
+		window.addEventListener("resize", handleResize);
+
+		// Setup touch events for swipe gestures
+		setupTouchEvents();
 
 		return () => {
 			if (testimonialsRef) {
 				observer.unobserve(testimonialsRef);
 			}
 			stopAutoplay();
-			window.removeEventListener('resize', handleResize);
+			window.removeEventListener("resize", handleResize);
+			cleanupTouchEvents();
 		};
 	});
 
@@ -236,11 +258,11 @@
 
 	function getAvatarColor(name: string): string {
 		const colors = [
-			'var(--primary-color)',
-			'var(--accent-color)',
-			'var(--primary-light)',
-			'var(--accent-light)',
-			'var(--primary-dark)'
+			"var(--primary-color)",
+			"var(--accent-color)",
+			"var(--primary-light)",
+			"var(--accent-light)",
+			"var(--primary-dark)",
 		];
 		const index = name.charCodeAt(0) % colors.length;
 		return colors[index];
@@ -249,80 +271,322 @@
 	function toggleExpanded(testimonialId: number): void {
 		expandedCards = {
 			...expandedCards,
-			[testimonialId]: !expandedCards[testimonialId]
+			[testimonialId]: !expandedCards[testimonialId],
 		};
 	}
 
 	function openModal(testimonial: Testimonial): void {
 		modalTestimonial = testimonial;
 		modalOpen = true;
-		document.body.style.overflow = 'hidden';
+		document.body.style.overflow = "hidden";
 	}
 
 	function closeModal(): void {
 		modalOpen = false;
 		modalTestimonial = null;
-		document.body.style.overflow = 'auto';
+		document.body.style.overflow = "auto";
 	}
 
 	function isTextTruncated(text: string): boolean {
 		// Verifica se o texto excede 200 caracteres
 		if (text.length <= 200) return false;
-		
+
 		// Verifica se há quebras de linha que podem afetar a apresentação
 		const lineBreaks = (text.match(/\n/g) || []).length;
 		if (lineBreaks > 3) return true;
-		
+
 		// Verifica se o texto truncado termina no meio de uma palavra
 		const truncatedText = text.substring(0, 200);
 		const lastChar = truncatedText[truncatedText.length - 1];
 		const nextChar = text[200];
-		
+
 		// Se o último caractere não é um espaço e o próximo não é um espaço ou pontuação,
 		// significa que estamos cortando no meio de uma palavra
-		if (lastChar !== ' ' && nextChar && nextChar !== ' ' && !/[.,!?;:]/.test(nextChar)) {
+		if (
+			lastChar !== " " &&
+			nextChar &&
+			nextChar !== " " &&
+			!/[.,!?;:]/.test(nextChar)
+		) {
 			return true;
 		}
-		
+
 		return text.length > 200;
 	}
 
 	function getTruncatedText(text: string): string {
 		if (text.length <= 200) return text;
-		
+
 		// Encontra o último espaço antes do limite de 200 caracteres
 		let truncateAt = 200;
 		const substring = text.substring(0, 200);
-		const lastSpaceIndex = substring.lastIndexOf(' ');
-		
+		const lastSpaceIndex = substring.lastIndexOf(" ");
+
 		// Se encontrou um espaço e não está muito próximo do início (pelo menos 150 chars)
 		if (lastSpaceIndex > 150) {
 			truncateAt = lastSpaceIndex;
 		}
-		
+
 		// Verifica se o próximo caractere é pontuação, se sim, inclui
 		const nextChar = text[truncateAt];
 		if (nextChar && /[.,!?;:]/.test(nextChar)) {
 			truncateAt++;
 		}
-		
-		return text.substring(0, truncateAt).trim() + '...';
+
+		return text.substring(0, truncateAt).trim() + "...";
+	}
+
+	// Touch/Swipe event handlers
+	function setupTouchEvents() {
+		if (!carouselContainer) return;
+
+		carouselContainer.addEventListener("touchstart", handleTouchStart, {
+			passive: false,
+		});
+		carouselContainer.addEventListener("touchmove", handleTouchMove, {
+			passive: false,
+		});
+		carouselContainer.addEventListener("touchend", handleTouchEnd, {
+			passive: false,
+		});
+
+		// Mouse events for desktop testing
+		carouselContainer.addEventListener("mousedown", handleMouseDown);
+		carouselContainer.addEventListener("mousemove", handleMouseMove);
+		carouselContainer.addEventListener("mouseup", handleMouseUp);
+		carouselContainer.addEventListener("mouseleave", handleMouseUp);
+	}
+
+	function cleanupTouchEvents() {
+		if (!carouselContainer) return;
+
+		carouselContainer.removeEventListener("touchstart", handleTouchStart);
+		carouselContainer.removeEventListener("touchmove", handleTouchMove);
+		carouselContainer.removeEventListener("touchend", handleTouchEnd);
+		carouselContainer.removeEventListener("mousedown", handleMouseDown);
+		carouselContainer.removeEventListener("mousemove", handleMouseMove);
+		carouselContainer.removeEventListener("mouseup", handleMouseUp);
+		carouselContainer.removeEventListener("mouseleave", handleMouseUp);
+	}
+
+	function handleTouchStart(e: TouchEvent) {
+		if (totalSlides <= 1) return;
+
+		// Check if the touch started on an interactive element
+		const target = e.target as HTMLElement;
+		if (isInteractiveElement(target)) {
+			return; // Don't start swipe if touching interactive elements
+		}
+
+		touchStartX = e.touches[0].clientX;
+		isDragging = true;
+		dragStartX = touchStartX;
+		currentTranslateX = -currentSlide * 100;
+
+		// Add dragging class for smooth transitions
+		const track = carouselContainer?.querySelector(
+			".testimonials-track"
+		) as HTMLElement;
+		if (track) {
+			track.classList.add("dragging");
+		}
+
+		pauseAutoplay();
+
+		// Prevent default to avoid scrolling
+		e.preventDefault();
+	}
+
+	function handleTouchMove(e: TouchEvent) {
+		if (!isDragging || totalSlides <= 1) return;
+
+		const currentX = e.touches[0].clientX;
+		const deltaX = currentX - dragStartX;
+		const containerWidth = carouselContainer.offsetWidth;
+		const movePercentage = (deltaX / containerWidth) * 100;
+
+		// Update transform with drag position
+		const newTranslateX = currentTranslateX + movePercentage;
+		updateCarouselTransform(newTranslateX);
+
+		e.preventDefault();
+	}
+
+	function handleTouchEnd(e: TouchEvent) {
+		if (!isDragging || totalSlides <= 1) return;
+
+		touchEndX = e.changedTouches[0].clientX;
+		const deltaX = touchEndX - touchStartX;
+		const threshold = 50; // Minimum swipe distance
+
+		// Remove dragging class to restore transitions
+		const track = carouselContainer?.querySelector(
+			".testimonials-track"
+		) as HTMLElement;
+		if (track) {
+			track.classList.remove("dragging");
+		}
+
+		if (Math.abs(deltaX) > threshold) {
+			if (deltaX > 0) {
+				// Swipe right - go to previous slide
+				prevSlide();
+			} else {
+				// Swipe left - go to next slide
+				nextSlide();
+			}
+		} else {
+			// Snap back to current slide
+			updateCarouselTransform(-currentSlide * 100);
+		}
+
+		isDragging = false;
+		resumeAutoplay();
+	}
+
+	function handleMouseDown(e: MouseEvent) {
+		if (totalSlides <= 1) return;
+
+		// Check if the mouse down started on an interactive element
+		const target = e.target as HTMLElement;
+		if (isInteractiveElement(target)) {
+			return; // Don't start drag if clicking interactive elements
+		}
+
+		touchStartX = e.clientX;
+		isDragging = true;
+		dragStartX = touchStartX;
+		currentTranslateX = -currentSlide * 100;
+
+		// Add dragging class for smooth transitions
+		const track = carouselContainer?.querySelector(
+			".testimonials-track"
+		) as HTMLElement;
+		if (track) {
+			track.classList.add("dragging");
+		}
+
+		pauseAutoplay();
+		e.preventDefault();
+	}
+
+	function handleMouseMove(e: MouseEvent) {
+		if (!isDragging || totalSlides <= 1) return;
+
+		const currentX = e.clientX;
+		const deltaX = currentX - dragStartX;
+		const containerWidth = carouselContainer.offsetWidth;
+		const movePercentage = (deltaX / containerWidth) * 100;
+
+		const newTranslateX = currentTranslateX + movePercentage;
+		updateCarouselTransform(newTranslateX);
+	}
+
+	function handleMouseUp(e: MouseEvent) {
+		if (!isDragging || totalSlides <= 1) return;
+
+		touchEndX = e.clientX;
+		const deltaX = touchEndX - touchStartX;
+		const threshold = 50;
+
+		// Remove dragging class to restore transitions
+		const track = carouselContainer?.querySelector(
+			".testimonials-track"
+		) as HTMLElement;
+		if (track) {
+			track.classList.remove("dragging");
+		}
+
+		if (Math.abs(deltaX) > threshold) {
+			if (deltaX > 0) {
+				prevSlide();
+			} else {
+				nextSlide();
+			}
+		} else {
+			updateCarouselTransform(-currentSlide * 100);
+		}
+
+		isDragging = false;
+		resumeAutoplay();
+	}
+
+	function updateCarouselTransform(translateX: number) {
+		if (carouselContainer) {
+			const track = carouselContainer.querySelector(
+				".testimonials-track"
+			) as HTMLElement;
+			if (track) {
+				track.style.transform = `translateX(${translateX}%)`;
+			}
+		}
+	}
+
+	// Helper function to check if an element is interactive
+	function isInteractiveElement(element: HTMLElement): boolean {
+		if (!element) return false;
+
+		// Check if the element itself is interactive
+		const interactiveTags = ["BUTTON", "A", "INPUT", "SELECT", "TEXTAREA"];
+		if (interactiveTags.includes(element.tagName)) {
+			return true;
+		}
+
+		// Check if the element has interactive classes
+		const interactiveClasses = [
+			"expand-btn",
+			"read-more-controls",
+			"highlight-tag",
+		];
+		if (
+			interactiveClasses.some((className) =>
+				element.classList.contains(className)
+			)
+		) {
+			return true;
+		}
+
+		// Check if the element is inside an interactive element
+		let parent = element.parentElement;
+		while (parent && parent !== carouselContainer) {
+			if (interactiveTags.includes(parent.tagName)) {
+				return true;
+			}
+			if (
+				parent &&
+				parent.classList &&
+				interactiveClasses.some((className) =>
+					parent?.classList.contains(className)
+				)
+			) {
+				return true;
+			}
+			parent = parent.parentElement;
+		}
+
+		return false;
 	}
 </script>
 
-<section id="testimonials" class="testimonials-section" bind:this={testimonialsRef}>
+<section
+	id="testimonials"
+	class="testimonials-section"
+	bind:this={testimonialsRef}
+>
 	<div class="container">
 		<div class="section-header">
 			<h2 class="section-title">Depoimentos dos Colegas</h2>
-			<p class="section-subtitle">O que dizem os profissionais que trabalharam comigo</p>
-			<div class="title-decoration"></div>
+			<p class="section-subtitle">
+				O que dizem os profissionais que trabalharam comigo
+			</p>
+			<div class="title-decoration" />
 		</div>
 
 		<!-- Category Filters -->
 		<div class="category-filters" class:visible={isVisible}>
 			{#each categories as category}
-				<button 
-					class="category-btn" 
+				<button
+					class="category-btn"
 					class:active={currentCategory === category.id}
 					on:click={() => setCategory(category.id)}
 				>
@@ -336,89 +600,135 @@
 		<div class="carousel-wrapper" class:visible={isVisible}>
 			<!-- Navigation Arrows -->
 			{#if totalSlides > 1}
-				<button 
-					class="carousel-nav prev" 
+				<button
+					class="carousel-nav prev"
 					on:click={prevSlide}
 					aria-label="Depoimento anterior"
 				>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-						<path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path
+							d="M15 18L9 12L15 6"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
 					</svg>
 				</button>
-				<button 
-					class="carousel-nav next" 
+				<button
+					class="carousel-nav next"
 					on:click={nextSlide}
 					aria-label="Próximo depoimento"
 				>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-						<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path
+							d="M9 18L15 12L9 6"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
 					</svg>
 				</button>
 			{/if}
 
 			<!-- Carousel Container -->
-			<div 
-				class="carousel-container" 
+			<div
+				class="carousel-container"
 				bind:this={carouselContainer}
 				on:mouseenter={pauseAutoplay}
 				on:mouseleave={resumeAutoplay}
 				role="region"
 				aria-label="Carrossel de depoimentos"
 			>
-				<div 
+				<div
 					class="testimonials-track"
 					style="transform: translateX(-{currentSlide * 100}%)"
 				>
 					{#each filteredTestimonials as testimonial, index (testimonial.id)}
-						<div 
+						<div
 							class="testimonial-card"
-							style="--delay: {index * 0.1}s; --avatar-color: {getAvatarColor(testimonial.name)}"
+							style="--delay: {index *
+								0.1}s; --avatar-color: {getAvatarColor(
+								testimonial.name
+							)}"
 						>
 							<div class="card-header">
 								<div class="avatar">
 									{testimonial.avatar}
 								</div>
 								<div class="author-info">
-									<h3 class="author-name">{testimonial.name}</h3>
-									<p class="author-role">{testimonial.role}</p>
+									<h3 class="author-name">
+										{testimonial.name}
+									</h3>
+									<p class="author-role">
+										{testimonial.role}
+									</p>
 									<div class="author-meta">
-										<span class="company">{testimonial.company}</span>
-										<span class="date">{testimonial.date}</span>
+										<span class="company"
+											>{testimonial.company}</span
+										>
+										<span class="date"
+											>{testimonial.date}</span
+										>
 									</div>
 								</div>
 								<div class="quote-mark">"</div>
 							</div>
 
 							<div class="card-content">
-							<blockquote class="testimonial-text" class:expanded={expandedCards[testimonial.id]}>
-								{#if expandedCards[testimonial.id]}
-									{testimonial.testimonial}
-								{:else}
-									{getTruncatedText(testimonial.testimonial)}
+								<blockquote
+									class="testimonial-text"
+									class:expanded={expandedCards[
+										testimonial.id
+									]}
+								>
+									{#if expandedCards[testimonial.id]}
+										{testimonial.testimonial}
+									{:else}
+										{getTruncatedText(
+											testimonial.testimonial
+										)}
+									{/if}
+								</blockquote>
+
+								{#if isTextTruncated(testimonial.testimonial)}
+									<div class="read-more-controls">
+										<button
+											class="expand-btn"
+											on:click={() =>
+												openModal(testimonial)}
+											title="Abrir em tela cheia"
+										>
+											<svg
+												width="16"
+												height="16"
+												viewBox="0 0 24 24"
+												fill="none"
+											>
+												<path
+													d="M8 3H5C3.89543 3 3 3.89543 3 5V8M21 8V5C21 3.89543 20.1046 3 19 3H16M16 21H19C20.1046 21 21 20.1046 21 19V16M8 21H5C3.89543 21 3 20.1046 3 19V16"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												/>
+											</svg>
+										</button>
+									</div>
 								{/if}
-							</blockquote>
-							
-							{#if isTextTruncated(testimonial.testimonial)}
-								<div class="read-more-controls">	
-									<button 
-										class="expand-btn"
-										on:click={() => openModal(testimonial)}
-										title="Abrir em tela cheia"
-									>
-										<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-											<path d="M8 3H5C3.89543 3 3 3.89543 3 5V8M21 8V5C21 3.89543 20.1046 3 19 3H16M16 21H19C20.1046 21 21 20.1046 21 19V16M8 21H5C3.89543 21 3 20.1046 3 19V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</button>
-								</div>
-							{/if}
-						</div>
+							</div>
 
 							<div class="card-footer">
 								<div class="highlights">
 									{#each testimonial.highlights as highlight}
 										<span class="highlight-tag">
-											<span class="highlight-icon">{highlight.icon}</span>
-											<span class="highlight-text">{highlight.text}</span>
+											<span class="highlight-icon"
+												>{highlight.icon}</span
+											>
+											<span class="highlight-text"
+												>{highlight.text}</span
+											>
 										</span>
 									{/each}
 								</div>
@@ -432,12 +742,12 @@
 			{#if totalSlides > 1}
 				<div class="carousel-indicators">
 					{#each Array(totalSlides) as _, index}
-						<button 
-							class="indicator" 
+						<button
+							class="indicator"
 							class:active={currentSlide === index}
 							on:click={() => goToSlide(index)}
 							aria-label="Ir para slide {index + 1}"
-						></button>
+						/>
 					{/each}
 				</div>
 			{/if}
@@ -445,25 +755,55 @@
 			<!-- Autoplay Control -->
 			{#if totalSlides > 1}
 				<div class="autoplay-control">
-					<button 
-						class="autoplay-btn" 
+					<button
+						class="autoplay-btn"
 						class:paused={isAutoplayPaused}
-						on:click={() => isAutoplayPaused ? resumeAutoplay() : pauseAutoplay()}
-						aria-label={isAutoplayPaused ? 'Retomar autoplay' : 'Pausar autoplay'}
+						on:click={() =>
+							isAutoplayPaused
+								? resumeAutoplay()
+								: pauseAutoplay()}
+						aria-label={isAutoplayPaused
+							? "Retomar autoplay"
+							: "Pausar autoplay"}
 					>
 						{#if isAutoplayPaused}
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-								<polygon points="5,3 19,12 5,21" fill="currentColor"/>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+							>
+								<polygon
+									points="5,3 19,12 5,21"
+									fill="currentColor"
+								/>
 							</svg>
 						{:else}
-							<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-								<rect x="6" y="4" width="4" height="16" fill="currentColor"/>
-								<rect x="14" y="4" width="4" height="16" fill="currentColor"/>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+							>
+								<rect
+									x="6"
+									y="4"
+									width="4"
+									height="16"
+									fill="currentColor"
+								/>
+								<rect
+									x="14"
+									y="4"
+									width="4"
+									height="16"
+									fill="currentColor"
+								/>
 							</svg>
 						{/if}
 					</button>
 					<span class="autoplay-text">
-						{isAutoplayPaused ? 'Pausado' : 'Autoplay'}
+						{isAutoplayPaused ? "Pausado" : "Autoplay"}
 					</span>
 				</div>
 			{/if}
@@ -491,34 +831,51 @@
 
 <!-- Modal para visualização expandida -->
 {#if modalOpen && modalTestimonial}
-	<div class="modal-overlay" on:click={closeModal} on:keydown={(e) => e.key === 'Escape' && closeModal()} role="button" tabindex="0">
+	<div
+		class="modal-overlay"
+		on:click={closeModal}
+		on:keydown={(e) => e.key === "Escape" && closeModal()}
+		role="button"
+		tabindex="0"
+	>
 		<div class="modal-content">
 			<button class="modal-close" on:click={closeModal}>
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-					<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					<path
+						d="M18 6L6 18M6 6L18 18"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
 				</svg>
 			</button>
-			
+
 			<div class="modal-header">
-				<div class="modal-avatar" style="background: {getAvatarColor(modalTestimonial.name)}">
+				<div
+					class="modal-avatar"
+					style="background: {getAvatarColor(modalTestimonial.name)}"
+				>
 					{modalTestimonial.avatar}
 				</div>
 				<div class="modal-author-info">
 					<h3 class="modal-author-name">{modalTestimonial.name}</h3>
 					<p class="modal-author-role">{modalTestimonial.role}</p>
 					<div class="modal-author-meta">
-						<span class="modal-company">{modalTestimonial.company}</span>
+						<span class="modal-company"
+							>{modalTestimonial.company}</span
+						>
 						<span class="modal-date">{modalTestimonial.date}</span>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="modal-body">
 				<blockquote class="modal-testimonial-text">
 					{modalTestimonial.testimonial}
 				</blockquote>
 			</div>
-			
+
 			<div class="modal-footer">
 				<div class="modal-highlights">
 					{#each modalTestimonial.highlights as highlight}
@@ -542,15 +899,22 @@
 	}
 
 	.testimonials-section::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: 
-			radial-gradient(circle at 30% 20%, rgba(66, 66, 66, 0.02) 0%, transparent 50%),
-			radial-gradient(circle at 70% 80%, rgba(66, 66, 66, 0.02) 0%, transparent 50%);
+		background: radial-gradient(
+				circle at 30% 20%,
+				rgba(66, 66, 66, 0.02) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 70% 80%,
+				rgba(66, 66, 66, 0.02) 0%,
+				transparent 50%
+			);
 		pointer-events: none;
 	}
 
@@ -652,12 +1016,19 @@
 		overflow: hidden;
 		border-radius: var(--border-radius-large);
 		position: relative;
+		touch-action: pan-y pinch-zoom;
+		cursor: grab;
+	}
+
+	.carousel-container:active {
+		cursor: grabbing;
 	}
 
 	.testimonials-track {
 		display: flex;
 		transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 		width: 100%;
+		will-change: transform;
 	}
 
 	.carousel-nav {
@@ -781,10 +1152,14 @@
 		height: auto;
 		min-height: 400px;
 		max-height: 600px;
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
 	}
 
 	.testimonial-card::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -803,7 +1178,11 @@
 	}
 
 	.testimonial-card:hover .card-header {
-		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(248, 250, 252, 1) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-white) 0%,
+			rgba(248, 250, 252, 1) 100%
+		);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 
@@ -824,7 +1203,11 @@
 		position: relative;
 		padding: 0.5rem;
 		border-radius: var(--border-radius);
-		background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg-gray-light) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-white) 0%,
+			var(--bg-gray-light) 100%
+		);
 		transition: var(--transition);
 	}
 
@@ -832,7 +1215,11 @@
 		width: 64px;
 		height: 64px;
 		border-radius: 50%;
-		background: linear-gradient(135deg, var(--avatar-color), color-mix(in srgb, var(--avatar-color) 80%, black));
+		background: linear-gradient(
+			135deg,
+			var(--avatar-color),
+			color-mix(in srgb, var(--avatar-color) 80%, black)
+		);
 		color: var(--text-white);
 		display: flex;
 		align-items: center;
@@ -894,7 +1281,7 @@
 	}
 
 	.company::before {
-		content: '🏢';
+		content: "🏢";
 		position: absolute;
 		left: 0;
 		top: 50%;
@@ -910,7 +1297,7 @@
 	}
 
 	.date::before {
-		content: '📅';
+		content: "📅";
 		position: absolute;
 		left: 0;
 		top: 50%;
@@ -950,7 +1337,11 @@
 		overflow: hidden;
 		padding: 1rem;
 		border-radius: var(--border-radius);
-		background: linear-gradient(135deg, var(--bg-white) 0%, rgba(248, 250, 252, 0.8) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-white) 0%,
+			rgba(248, 250, 252, 0.8) 100%
+		);
 		border: 1px solid var(--border-light);
 		position: relative;
 	}
@@ -967,7 +1358,7 @@
 	}
 
 	.testimonial-text:not(.expanded)::after {
-		content: '';
+		content: "";
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -1014,8 +1405,6 @@
 		padding-top: 1rem;
 		border-top: 1px solid var(--border-light);
 	}
-
-
 
 	.expand-btn {
 		display: flex;
@@ -1174,7 +1563,11 @@
 	}
 
 	.modal-highlight-tag {
-		background: linear-gradient(135deg, var(--bg-gray-light) 0%, var(--bg-white) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-gray-light) 0%,
+			var(--bg-white) 100%
+		);
 		color: var(--text-secondary);
 		padding: 0.75rem 1rem;
 		border-radius: var(--border-radius);
@@ -1223,7 +1616,11 @@
 	}
 
 	.highlight-tag {
-		background: linear-gradient(135deg, var(--bg-gray-light) 0%, var(--bg-white) 100%);
+		background: linear-gradient(
+			135deg,
+			var(--bg-gray-light) 0%,
+			var(--bg-white) 100%
+		);
 		color: var(--text-secondary);
 		padding: 0.5rem 0.875rem;
 		border-radius: var(--border-radius);
@@ -1240,13 +1637,18 @@
 	}
 
 	.highlight-tag::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: -100%;
 		width: 100%;
 		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+		background: linear-gradient(
+			90deg,
+			transparent,
+			rgba(255, 255, 255, 0.4),
+			transparent
+		);
 		transition: var(--transition);
 	}
 
@@ -1351,7 +1753,7 @@
 	/* Responsividade */
 	@media (max-width: 768px) {
 		.testimonials-section {
-			padding: 4rem 0;
+			padding: 4rem 0 0rem 0;
 		}
 
 		.category-filters {
@@ -1370,24 +1772,27 @@
 		}
 
 		.testimonial-card {
-			flex: 0 0 100%;
+			flex: 0 0 calc(100% - 2rem);
 			margin-right: 1rem;
+			margin-left: 1rem;
 			padding: 2rem 1.5rem;
 			min-height: 400px;
 			max-height: none;
+			box-sizing: border-box;
+		}
+
+		.carousel-container {
+			padding: 0 1rem;
+			margin: 0 -1rem;
+			touch-action: pan-y;
+		}
+
+		.testimonials-track {
+			padding: 0;
 		}
 
 		.carousel-nav {
-			width: 44px;
-			height: 44px;
-		}
-
-		.carousel-nav.prev {
-			left: -22px;
-		}
-
-		.carousel-nav.next {
-			right: -22px;
+			display: none;
 		}
 
 		.card-header {
@@ -1422,12 +1827,14 @@
 			margin-top: 0.5rem;
 		}
 
-		.company, .date {
+		.company,
+		.date {
 			font-size: 0.85rem;
 			padding-left: 1.2rem;
 		}
 
-		.company::before, .date::before {
+		.company::before,
+		.date::before {
 			font-size: 0.8rem;
 		}
 
