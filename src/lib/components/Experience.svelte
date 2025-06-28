@@ -104,8 +104,8 @@
 			id: 7,
 			title: 'Co-founder',
 			company: 'CONNAT Soluções',
-			location: 'São Paulo, SP',
-			period: 'Jan 2024 - Jul 2024',
+			location: 'Propriá, SE',
+			period: 'Jan 2019 - Dez 2019',
 			description: 'Co-fundei uma startup de soluções tecnológicas para pequenas e médias empresas. Responsável pela estratégia de produto, desenvolvimento de MVP e validação de mercado. Liderou equipe técnica e definiu arquitetura de soluções.',
 			technologies: ['MVP Development', 'Market Validation', 'Team Leadership', 'Business Strategy', 'Python', 'React'],
 			achievements: [
