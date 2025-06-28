@@ -10,8 +10,8 @@
 </script>
 
 <svelte:head>
-	<title>Ginaldo Laranjeiras Junior - Desenvolvedor Full Stack</title>
-	<meta name="description" content="Portfólio de Ginaldo Laranjeiras Junior - Desenvolvedor Full Stack especializado em TypeScript, React, Node.js e tecnologias modernas." />
+	<title>Ginaldo Laranjeiras Junior - Product Manager</title>
+	<meta name="description" content="Portfólio de Ginaldo (Gino) Laranjeiras Junior - Product Manager | Especialista em Gestão Ágil de Projetos, Resolução de Problemas e Desenvolvimento de Software." />
 </svelte:head>
 
 <Hero />
