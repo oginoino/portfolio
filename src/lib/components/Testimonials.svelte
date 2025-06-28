@@ -1,16 +1,28 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
+
+	interface Testimonial {
+		id: number;
+		name: string;
+		role: string;
+		company: string;
+		date: string;
+		category: string;
+		avatar: string;
+		testimonial: string;
+		highlights: Array<{ text: string; icon: string }>;
+	}
 
 	let currentCategory = 'all';
 	let isVisible = false;
-	let testimonialsRef;
+	let testimonialsRef: HTMLElement;
 	let currentSlide = 0;
-	let autoplayInterval;
+	let autoplayInterval: NodeJS.Timeout | null = null;
 	let isAutoplayPaused = false;
-	let carouselContainer;
-	let expandedCards = {};
+	let carouselContainer: HTMLElement;
+	let expandedCards: Record<number, boolean> = {};
 	let modalOpen = false;
-	let modalTestimonial = null;
+	let modalTestimonial: Testimonial | null = null;
 
 	const testimonials = [
 		{
@@ -181,7 +193,7 @@
 		};
 	});
 
-	function setCategory(categoryId) {
+	function setCategory(categoryId: string): void {
 		currentCategory = categoryId;
 		currentSlide = 0;
 	}
@@ -218,11 +230,11 @@
 		currentSlide = currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
 	}
 
-	function goToSlide(index) {
+	function goToSlide(index: number): void {
 		currentSlide = index;
 	}
 
-	function getAvatarColor(name) {
+	function getAvatarColor(name: string): string {
 		const colors = [
 			'var(--primary-color)',
 			'var(--accent-color)',
@@ -234,26 +246,26 @@
 		return colors[index];
 	}
 
-	function toggleExpanded(testimonialId) {
+	function toggleExpanded(testimonialId: number): void {
 		expandedCards = {
 			...expandedCards,
 			[testimonialId]: !expandedCards[testimonialId]
 		};
 	}
 
-	function openModal(testimonial) {
+	function openModal(testimonial: Testimonial): void {
 		modalTestimonial = testimonial;
 		modalOpen = true;
 		document.body.style.overflow = 'hidden';
 	}
 
-	function closeModal() {
+	function closeModal(): void {
 		modalOpen = false;
 		modalTestimonial = null;
 		document.body.style.overflow = 'auto';
 	}
 
-	function isTextTruncated(text) {
+	function isTextTruncated(text: string): boolean {
 		return text.length > 200;
 	}
 </script>
