@@ -19,6 +19,6 @@
 <Skills />
 <Experience />
 <Projects />
-<StoryTelling />
 <Testimonials />
+<StoryTelling />
 <Contact />
