@@ -266,7 +266,47 @@
 	}
 
 	function isTextTruncated(text: string): boolean {
+		// Verifica se o texto excede 200 caracteres
+		if (text.length <= 200) return false;
+		
+		// Verifica se há quebras de linha que podem afetar a apresentação
+		const lineBreaks = (text.match(/\n/g) || []).length;
+		if (lineBreaks > 3) return true;
+		
+		// Verifica se o texto truncado termina no meio de uma palavra
+		const truncatedText = text.substring(0, 200);
+		const lastChar = truncatedText[truncatedText.length - 1];
+		const nextChar = text[200];
+		
+		// Se o último caractere não é um espaço e o próximo não é um espaço ou pontuação,
+		// significa que estamos cortando no meio de uma palavra
+		if (lastChar !== ' ' && nextChar && nextChar !== ' ' && !/[.,!?;:]/.test(nextChar)) {
+			return true;
+		}
+		
 		return text.length > 200;
+	}
+
+	function getTruncatedText(text: string): string {
+		if (text.length <= 200) return text;
+		
+		// Encontra o último espaço antes do limite de 200 caracteres
+		let truncateAt = 200;
+		const substring = text.substring(0, 200);
+		const lastSpaceIndex = substring.lastIndexOf(' ');
+		
+		// Se encontrou um espaço e não está muito próximo do início (pelo menos 150 chars)
+		if (lastSpaceIndex > 150) {
+			truncateAt = lastSpaceIndex;
+		}
+		
+		// Verifica se o próximo caractere é pontuação, se sim, inclui
+		const nextChar = text[truncateAt];
+		if (nextChar && /[.,!?;:]/.test(nextChar)) {
+			truncateAt++;
+		}
+		
+		return text.substring(0, truncateAt).trim() + '...';
 	}
 </script>
 
@@ -354,7 +394,7 @@
 								{#if expandedCards[testimonial.id]}
 									{testimonial.testimonial}
 								{:else}
-									{testimonial.testimonial.length > 200 ? testimonial.testimonial.substring(0, 200) + '...' : testimonial.testimonial}
+									{getTruncatedText(testimonial.testimonial)}
 								{/if}
 							</blockquote>
 							
@@ -917,10 +957,10 @@
 
 	.testimonial-text:not(.expanded) {
 		display: -webkit-box;
-		-webkit-line-clamp: 5;
+		-webkit-line-clamp: 6;
 		-webkit-box-orient: vertical;
 		text-overflow: ellipsis;
-		max-height: 8.5em;
+		max-height: 16em;
 		overflow-y: hidden;
 		position: relative;
 	}
@@ -1399,8 +1439,8 @@
 		}
 
 		.testimonial-text {
-			-webkit-line-clamp: 4;
-			max-height: 7em;
+			-webkit-line-clamp: 5;
+			max-height: 8.5em;
 			font-size: 1rem;
 			line-height: 1.6;
 			padding: 0.75rem;
