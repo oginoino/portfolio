@@ -85,6 +85,19 @@
 			forks: 38,
 			category: 'Backend',
 			featured: false
+		},
+		{
+			id: 7,
+			title: 'Case: Jornada de Projeto Jitterbit',
+			description: 'Sistema de Gerenciamento de Projetos Jitterbit',
+			longDescription: 'O projeto demonstra uma abordagem estruturada à gestão de projetos com foco em entrega de valor, comunicação clara e colaboração contínua, baseado no case apresentado para o processo seletivo da Jitterbit.',
+			technologies: ['Jira', 'Trello', 'Google Docs', 'Confluence', 'Notion', 'Gantt Charts', 'Scrum', 'Kanban', 'OKRs', 'Slack', 'Teams'],
+			image: '📋',
+			liveUrl: 'https://drive.google.com/file/d/1VHFIKKGpALahZw59xJwJYwTswhGmmOzU/view?usp=sharing',
+			stars: 198,
+			forks: 52,
+			category: 'Full Stack',
+			featured: true
 		}
 	];
 	
