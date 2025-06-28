@@ -7,7 +7,7 @@
 		<div class="footer-content">
 			<div class="footer-section">
 				<h3>Ginaldo Laranjeiras Junior</h3>
-				<p>Desenvolvedor Full Stack apaixonado por criar soluções inovadoras e experiências digitais excepcionais.</p>
+				<p>Especialista em gestão de produtos digitais com foco em inovação e experiência do usuário. Combino visão estratégica, análise de dados e conhecimento técnico para criar produtos que geram valor real.</p>
 			</div>
 			
 			<div class="footer-section">
@@ -77,6 +77,7 @@
 	.footer-section p {
 		color: #bdc3c7;
 		line-height: 1.6;
+		font-size: 1.08rem;
 	}
 	
 	.footer-section ul {
