@@ -25,13 +25,13 @@
 			<div class="footer-section">
 				<h4>Contato</h4>
 				<div class="social-links">
-					<a href="https://github.com/ginaldolaranjeiras" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+					<a href="https://github.com/oginoino" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
 						<Github size={20} />
 					</a>
 					<a href="https://www.linkedin.com/in/ginaldolaranjeiras" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
 						<Linkedin size={20} />
 					</a>
-					<a href="mailto:ginaldo@example.com" aria-label="Email">
+					<a href="mailto:ginaldolaranjeiras@gmail.com" aria-label="Email">
 						<Mail size={20} />
 					</a>
 				</div>

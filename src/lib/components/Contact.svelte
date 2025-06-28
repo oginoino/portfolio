@@ -26,8 +26,8 @@
 		{
 			icon: Mail,
 			label: 'Email',
-			value: 'ginaldo.laranjeiras@email.com',
-			link: 'mailto:ginaldo.laranjeiras@email.com'
+			value: 'ginaldolaranjeiras@gmail.com',
+			link: 'mailto:ginaldolaranjeiras@gmail.com'
 		},
 		{
 			icon: Phone,
