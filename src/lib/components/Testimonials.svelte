@@ -491,8 +491,8 @@
 
 <!-- Modal para visualização expandida -->
 {#if modalOpen && modalTestimonial}
-	<div class="modal-overlay" on:click={closeModal}>
-		<div class="modal-content" on:click|stopPropagation>
+	<div class="modal-overlay" on:click={closeModal} on:keydown={(e) => e.key === 'Escape' && closeModal()} role="button" tabindex="0">
+		<div class="modal-content">
 			<button class="modal-close" on:click={closeModal}>
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
 					<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -958,6 +958,7 @@
 	.testimonial-text:not(.expanded) {
 		display: -webkit-box;
 		-webkit-line-clamp: 6;
+		line-clamp: 6;
 		-webkit-box-orient: vertical;
 		text-overflow: ellipsis;
 		max-height: 16em;
@@ -980,6 +981,7 @@
 		display: block;
 		max-height: 300px;
 		-webkit-line-clamp: unset;
+		line-clamp: unset;
 		overflow-y: auto;
 		scrollbar-width: thin;
 		scrollbar-color: var(--primary-color) var(--bg-gray-light);
@@ -1440,6 +1442,7 @@
 
 		.testimonial-text {
 			-webkit-line-clamp: 5;
+			line-clamp: 5;
 			max-height: 8.5em;
 			font-size: 1rem;
 			line-height: 1.6;
@@ -1448,6 +1451,7 @@
 
 		.testimonial-text.expanded {
 			-webkit-line-clamp: unset;
+			line-clamp: unset;
 			max-height: 250px;
 			overflow-y: auto;
 		}
