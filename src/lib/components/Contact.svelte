@@ -88,28 +88,43 @@
 		submitMessage = '';
 		
 		try {
-			// Simular envio do formulário
-			await new Promise(resolve => setTimeout(resolve, 2000));
+			// Integração com Web3Forms
+			const response = await fetch('https://api.web3forms.com/submit', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json'
+				},
+				body: JSON.stringify({
+					access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
+					name: formData.name,
+					email: formData.email,
+					subject: formData.subject || 'Contato via Portfolio',
+					message: formData.message,
+					from_name: formData.name,
+					reply_to: formData.email
+				})
+			});
 			
-			// Em um projeto real, aqui você faria a requisição para sua API
-			// const response = await fetch('/api/contact', {
-			//   method: 'POST',
-			//   headers: { 'Content-Type': 'application/json' },
-			//   body: JSON.stringify(formData)
-			// });
+			const result = await response.json();
 			
-			submitMessage = 'Mensagem enviada com sucesso! Entrarei em contato em breve.';
-			submitType = 'success';
-			
-			// Limpar formulário
-			formData = {
-				name: '',
-				email: '',
-				subject: '',
-				message: ''
-			};
+			if (result.success) {
+				submitMessage = 'Mensagem enviada com sucesso! Entrarei em contato em breve.';
+				submitType = 'success';
+				
+				// Limpar formulário
+				formData = {
+					name: '',
+					email: '',
+					subject: '',
+					message: ''
+				};
+			} else {
+				throw new Error(result.message || 'Erro no envio');
+			}
 			
 		} catch (error) {
+			console.error('Erro ao enviar formulário:', error);
 			submitMessage = 'Erro ao enviar mensagem. Tente novamente mais tarde.';
 			submitType = 'error';
 		} finally {
