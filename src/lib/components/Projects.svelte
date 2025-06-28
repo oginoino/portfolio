@@ -22,7 +22,7 @@
 	const projects: Project[] = [
 		{
 			id: 8,
-			title: "Tá no Plano - Plataforma de Estratégia Empresarial",
+			title: "Tá no Plano Plataforma de Estratégia Empresarial",
 			description:
 				"Plataforma completa para planejamento estratégico de pequenas empresas",
 			longDescription:
@@ -34,13 +34,10 @@
 				"NextJS",
 				"Google Cloud Platform",
 				"Stripe",
-				"PostgreSQL",
 				"Docker",
 			],
 			image: "📈",
 			liveUrl: "https://tanoplano.com/",
-			stars: 245,
-			forks: 78,
 			category: "Estratégia & Crescimento",
 			featured: true,
 		},
@@ -62,8 +59,7 @@
 			image: "🎨",
 			liveUrl:
 				"https://docs.google.com/presentation/d/1HvkKkU-SvRRWZnQB9QnA7cmlme_JLPOu/edit?usp=sharing&ouid=117989704451329949275&rtpof=true&sd=true",
-			stars: 189,
-			forks: 45,
+
 			category: "Experiência do Usuário",
 			featured: true,
 		},
@@ -84,8 +80,7 @@
 			],
 			image: "🔍",
 			liveUrl: "https://finanzero.com.br",
-			stars: 156,
-			forks: 43,
+
 			category: "Experiência do Usuário",
 			featured: true,
 		},
@@ -106,8 +101,7 @@
 			],
 			image: "📧",
 			liveUrl: "https://finanzero.com.br",
-			stars: 124,
-			forks: 32,
+
 			category: "Infraestrutura & Performance",
 			featured: true,
 		},
@@ -121,15 +115,14 @@
 			technologies: [
 				"Microservices",
 				"API Gateway",
-				"PostgreSQL",
+				"Amazon SQS",
 				"Redis",
 				"Docker",
 				"Kubernetes",
 			],
 			image: "💰",
 			githubUrl: "https://finanzero.com.br/",
-			stars: 203,
-			forks: 67,
+
 			category: "Estratégia & Crescimento",
 			featured: true,
 		},
@@ -151,8 +144,7 @@
 			],
 			image: "⚡",
 			githubUrl: "https://github.com/ginaldolaranjeiras/bff-dory",
-			stars: 167,
-			forks: 38,
+
 			category: "Infraestrutura & Performance",
 			featured: false,
 		},
@@ -178,14 +170,19 @@
 			image: "📋",
 			liveUrl:
 				"https://drive.google.com/file/d/1VHFIKKGpALahZw59xJwJYwTswhGmmOzU/view?usp=sharing",
-			stars: 198,
-			forks: 52,
+
 			category: "Gestão de Produtos",
 			featured: true,
 		},
 	];
 
-	const categories = ["Todos", "Estratégia & Crescimento", "Experiência do Usuário", "Infraestrutura & Performance", "Gestão de Produtos"];
+	const categories = [
+		"Todos",
+		"Estratégia & Crescimento",
+		"Experiência do Usuário",
+		"Infraestrutura & Performance",
+		"Gestão de Produtos",
+	];
 
 	let activeCategory = "Todos";
 	let showFeaturedOnly = false;
