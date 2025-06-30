@@ -76,12 +76,10 @@
 				"Machine Learning",
 				"LGPD Compliance",
 				"API Integration",
-				"Real-time Notifications",
 				"Data Analytics",
 				"UX/UI Design",
 				"Privacy by Design",
-				"Figma",
-				"Whimsical",
+				"Figma"
 			],
 			image: "🤖",
 			liveUrl: "https://drive.google.com/drive/folders/1CSP_DppIebeQwigykYrrtE8vCAKEWhSC?usp=sharing",
