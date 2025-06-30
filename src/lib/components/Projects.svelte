@@ -21,7 +21,7 @@
 
 	const projects: Project[] = [
 		{
-			id: 8,
+			id: 1,
 			title: "Tá no Plano Plataforma de Estratégia Empresarial",
 			description:
 				"Plataforma completa para planejamento estratégico de pequenas empresas",
@@ -42,7 +42,7 @@
 			featured: true,
 		},
 		{
-			id: 4,
+			id: 2,
 			title: "Melhoria da Experiência do Usuário (UX/UI)",
 			description:
 				"Redesign completo da interface com foco na experiência user-centric",
@@ -64,7 +64,7 @@
 			featured: true,
 		},
 		{
-			id: 8,
+			id: 3,
 			title: "HUMA Solução Humanizada de Talentos",
 			description: "Plataforma de recrutamento que une IA à empatia humana para transformar processos seletivos • Powered by IA",
 			longDescription:
@@ -87,7 +87,7 @@
 			featured: true,
 		},
 		{
-			id: 1,
+			id: 4,
 			title: "Otimização de SEO e Conteúdo Orgânico",
 			description:
 				"Modernização tecnológica para melhorar ranking nos mecanismos de pesquisa",
@@ -108,7 +108,7 @@
 			featured: true,
 		},
 		{
-			id: 2,
+			id: 5,
 			title: "Plataforma de E-mail Marketing",
 			description:
 				"Modernização da infraestrutura de e-mail marketing com alta disponibilidade",
@@ -129,7 +129,7 @@
 			featured: true,
 		},
 		{
-			id: 3,
+			id: 6,
 			title: "Diversificação do Portfólio de Produtos",
 			description:
 				"Sistema escalável para criação e gestão de múltiplos produtos financeiros",
@@ -151,7 +151,7 @@
 		},
 
 		{
-			id: 5,
+			id: 7,
 			title: "BFF (Backend for Frontend)",
 			description:
 				"Implementação de camada BFF para personalização e otimização de performance",
@@ -172,7 +172,7 @@
 			featured: false,
 		},
 		{
-			id: 7,
+			id: 8,
 			title: "Case: Jornada de Projeto Jitterbit",
 			description: "Sistema de Gerenciamento de Projetos Jitterbit",
 			longDescription:
