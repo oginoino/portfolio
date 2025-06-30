@@ -64,6 +64,31 @@
 			featured: true,
 		},
 		{
+			id: 8,
+			title: "HUMA Solução Humanizada de Talentos",
+			description: "Plataforma de recrutamento que une IA à empatia humana para transformar processos seletivos",
+			longDescription:
+				"Plataforma inovadora que revoluciona o recrutamento tornando-o mais humano, transparente e eficiente. Combina inteligência artificial com design centrado no usuário para criar experiências dignas tanto para candidatos quanto para empresas. Inclui coleta ética de dados com LGPD compliance, feedback humanizado em todas as etapas, e dashboard de acompanhamento em tempo real.",
+			technologies: [
+				"React",
+				"Node.js",
+				"Python",
+				"Machine Learning",
+				"LGPD Compliance",
+				"API Integration",
+				"Real-time Notifications",
+				"Data Analytics",
+				"UX/UI Design",
+				"Privacy by Design",
+				"Figma",
+				"Whimsical",
+			],
+			image: "🤖",
+			liveUrl: "https://drive.google.com/drive/folders/1CSP_DppIebeQwigykYrrtE8vCAKEWhSC?usp=sharing",
+			category: "Experiência do Usuário",
+			featured: true,
+		},
+		{
 			id: 1,
 			title: "Otimização de SEO e Conteúdo Orgânico",
 			description:
