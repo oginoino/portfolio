@@ -99,7 +99,7 @@
 		min-height: 100vh;
 		display: flex;
 		align-items: center;
-		padding: 8rem 0 4rem;
+		padding: var(--spacing-4xl) 0 var(--spacing-3xl);
 		position: relative;
 		overflow: hidden;
 		background: var(--bg-white);
@@ -121,7 +121,7 @@
 	.hero-content {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 4rem;
+		gap: var(--spacing-3xl);
 		align-items: center;
 		position: relative;
 		z-index: 1;
@@ -135,7 +135,7 @@
 		font-size: clamp(2.5rem, 5vw, 4rem);
 		font-weight: 700;
 		line-height: 1.1;
-		margin-bottom: 1rem;
+		margin-bottom: var(--spacing-md);
 		color: var(--text-primary);
 	}
 	
@@ -143,14 +143,14 @@
 		text-decoration: none;
 		display: block;
 		transition: var(--transition);
-		border-radius: 8px;
-		padding: 0.2rem 0.5rem;
-		margin: -0.2rem -0.5rem;
+		border-radius: var(--border-radius);
+		padding: var(--spacing-xs) var(--spacing-sm);
+		margin: calc(-1 * var(--spacing-xs)) calc(-1 * var(--spacing-sm));
 	}
 	
 	.name-link:hover {
 		background: rgba(66, 66, 66, 0.05);
-		transform: translateY(-2px);
+		transform: var(--transform-hover-lift);
 		box-shadow: 0 4px 12px rgba(66, 66, 66, 0.1);
 	}
 	
@@ -180,26 +180,26 @@
 		font-size: clamp(1.5rem, 3vw, 2rem);
 		font-weight: 600;
 		color: var(--text-secondary);
-		margin-bottom: 1.5rem;
+		margin-bottom: var(--spacing-lg);
 	}
 	
 	.hero-description {
-		font-size: 1.2rem;
+		font-size: var(--font-size-lg);
 		color: var(--text-secondary);
 		line-height: 1.6;
-		margin-bottom: 2rem;
+		margin-bottom: var(--spacing-xl);
 	}
 	
 	.hero-actions {
 		display: flex;
-		gap: 1rem;
-		margin-bottom: 2rem;
+		gap: var(--spacing-md);
+		margin-bottom: var(--spacing-xl);
 		flex-wrap: wrap;
 	}
 	
 	.social-links {
 		display: flex;
-		gap: 1rem;
+		gap: var(--spacing-md);
 	}
 	
 	.social-links a {
@@ -220,7 +220,7 @@
 		background: var(--primary-color);
 		border-color: var(--primary-color);
 		color: white;
-		transform: translateY(-3px) scale(1.1);
+		transform: var(--transform-hover-lift-lg) scale(1.1);
 	}
 	
 	.hero-image {
@@ -244,7 +244,7 @@
 		transform: translate(-50%, -50%);
 		border-radius: 50%;
 		background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-		padding: 4px;
+		padding: var(--spacing-xs);
 		box-shadow: var(--shadow-strong);
 		transition: var(--transition);
 	}
@@ -286,7 +286,7 @@
 	
 	.floating-element {
 		position: absolute;
-		font-size: 2rem;
+		font-size: var(--font-size-2xl);
 		animation: float 6s ease-in-out infinite;
 		background: var(--bg-white);
 		border-radius: 50%;
@@ -385,13 +385,13 @@
 	
 	@media (max-width: 768px) {
 		.hero {
-			padding: 6rem 0 2rem;
+			padding: var(--spacing-3xl) 0 var(--spacing-xl);
 			min-height: 90vh;
 		}
 		
 		.hero-content {
 			grid-template-columns: 1fr;
-			gap: 2rem;
+			gap: var(--spacing-xl);
 			text-align: center;
 		}
 		
@@ -412,8 +412,6 @@
 			width: 200px;
 			height: 200px;
 		}
-		
-
 		
 		.hero-actions {
 			justify-content: center;

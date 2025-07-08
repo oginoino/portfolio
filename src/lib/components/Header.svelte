@@ -70,14 +70,14 @@
 		left: 0;
 		right: 0;
 		z-index: 1000;
-		background: rgba(255, 255, 255, 0.95);
+		background: rgba(248, 248, 248, 0.95);
 		backdrop-filter: blur(10px);
 		border-bottom: 1px solid var(--border-light);
 		transition: var(--transition);
 	}
 	
 	.header.scrolled {
-		background: rgba(255, 255, 255, 0.98);
+		background: rgba(248, 248, 248, 0.98);
 		box-shadow: var(--shadow);
 		border-bottom: 1px solid var(--border-medium);
 	}
@@ -86,18 +86,18 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 1rem 0;
+		padding: var(--spacing-md) 0;
 	}
 	
 	.logo {
-		font-size: 1.5rem;
+		font-size: var(--font-size-2xl);
 		font-weight: 700;
 		color: var(--primary-color);
 		text-decoration: none;
 		transition: var(--transition);
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: var(--spacing-sm);
 	}
 
 	.logo-avatar {
@@ -128,7 +128,7 @@
 	.nav-links {
 		display: flex;
 		list-style: none;
-		gap: 2rem;
+		gap: var(--spacing-xl);
 		align-items: center;
 	}
 	
@@ -138,16 +138,16 @@
 		color: var(--text-primary);
 		font-weight: 500;
 		cursor: pointer;
-		padding: 0.5rem 1rem;
+		padding: var(--spacing-sm) var(--spacing-md);
 		border-radius: var(--border-radius);
 		transition: var(--transition);
-		font-size: 1rem;
+		font-size: var(--font-size-base);
 	}
 	
 	.nav-links button:hover {
 		color: var(--primary-color);
 		background: var(--bg-gray);
-		transform: translateY(-2px);
+		transform: var(--transform-hover-lift);
 	}
 	
 	.menu-toggle {
@@ -156,7 +156,7 @@
 		border: none;
 		color: var(--text-primary);
 		cursor: pointer;
-		padding: 0.5rem;
+		padding: var(--spacing-sm);
 		border-radius: var(--border-radius);
 		transition: var(--transition);
 	}
@@ -173,7 +173,7 @@
 		}
 
 		.logo {
-			gap: 0.5rem;
+			gap: var(--spacing-sm);
 		}
 
 		.menu-toggle {
@@ -188,14 +188,14 @@
 			background: var(--bg-white);
 			backdrop-filter: blur(10px);
 			flex-direction: column;
-			padding: 2rem;
+			padding: var(--spacing-xl);
 			box-shadow: var(--shadow);
 			border-top: 1px solid var(--border-light);
 			transform: translateY(-100%);
 			opacity: 0;
 			visibility: hidden;
 			transition: var(--transition);
-			gap: 1rem;
+			gap: var(--spacing-md);
 		}
 		
 		.nav-links.open {
@@ -207,8 +207,8 @@
 		.nav-links button {
 			width: 100%;
 			text-align: center;
-			padding: 1rem;
-			font-size: 1.1rem;
+			padding: var(--spacing-md);
+			font-size: var(--font-size-lg);
 		}
 	}
 </style>

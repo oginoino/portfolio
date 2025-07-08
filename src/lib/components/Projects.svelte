@@ -416,7 +416,7 @@
 	}
 
 	.filter-btn {
-		padding: 0.75rem 1.5rem;
+		padding: var(--spacing-sm) var(--spacing-lg);
 		border: 2px solid var(--primary-color);
 		background: transparent;
 		color: var(--primary-color);
@@ -424,13 +424,13 @@
 		font-weight: 500;
 		cursor: pointer;
 		transition: var(--transition);
-		font-size: 0.9rem;
+		font-size: var(--font-size-sm);
 	}
 
 	.filter-btn:hover {
 		background: var(--primary-color);
 		color: white;
-		transform: translateY(-2px);
+		transform: var(--transform-hover-lift);
 	}
 
 	.filter-btn.active {
@@ -490,7 +490,7 @@
 	.projects-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-		gap: 2rem;
+		gap: var(--spacing-xl);
 	}
 
 	.project-card {
@@ -504,7 +504,7 @@
 	}
 
 	.project-card:hover {
-		transform: translateY(-8px);
+		transform: var(--transform-hover-lift-lg);
 		box-shadow: var(--shadow-hover);
 		border-color: var(--primary-color);
 	}
@@ -515,17 +515,17 @@
 
 	.featured-badge {
 		position: absolute;
-		top: 1rem;
-		right: 1rem;
+		top: var(--spacing-md);
+		right: var(--spacing-md);
 		background: var(--accent-color);
 		color: white;
-		padding: 0.5rem 1rem;
-		border-radius: 20px;
-		font-size: 0.8rem;
+		padding: var(--spacing-sm) var(--spacing-md);
+		border-radius: var(--border-radius-pill);
+		font-size: var(--font-size-xs);
 		font-weight: 600;
 		display: flex;
 		align-items: center;
-		gap: 0.25rem;
+		gap: var(--spacing-xs);
 		z-index: 2;
 	}
 
@@ -576,7 +576,7 @@
 
 	.project-links {
 		display: flex;
-		gap: 1rem;
+		gap: var(--spacing-md);
 	}
 
 	.project-link {
@@ -600,30 +600,30 @@
 	}
 
 	.project-content {
-		padding: 2rem;
+		padding: var(--spacing-xl);
 	}
 
 	.project-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
-		margin-bottom: 1rem;
-		gap: 1rem;
+		margin-bottom: var(--spacing-md);
+		gap: var(--spacing-md);
 	}
 
 	.project-header h3 {
 		color: var(--primary-color);
 		margin: 0;
-		font-size: 1.3rem;
+		font-size: var(--font-size-xl);
 		flex: 1;
 	}
 
 	.project-category {
 		background: rgba(0, 0, 0, 0.05);
 		color: var(--primary-color);
-		padding: 0.25rem 0.75rem;
-		border-radius: 20px;
-		font-size: 0.8rem;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border-radius: var(--border-radius-pill);
+		font-size: var(--font-size-xs);
 		font-weight: 500;
 		white-space: nowrap;
 		border: 1px solid var(--border-light);
@@ -632,59 +632,59 @@
 	.project-description {
 		color: var(--text-primary);
 		font-weight: 600;
-		margin-bottom: 0.5rem;
+		margin-bottom: var(--spacing-sm);
 		line-height: 1.5;
 	}
 
 	.project-long-description {
 		color: var(--text-secondary);
 		line-height: 1.6;
-		margin-bottom: 1.5rem;
-		font-size: 0.95rem;
+		margin-bottom: var(--spacing-lg);
+		font-size: var(--font-size-sm);
 	}
 
 	.project-technologies {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
-		margin-bottom: 1.5rem;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-lg);
 	}
 
 	.tech-tag {
 		background: rgba(0, 0, 0, 0.05);
 		color: var(--primary-color);
-		padding: 0.25rem 0.75rem;
-		border-radius: 20px;
-		font-size: 0.8rem;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border-radius: var(--border-radius-pill);
+		font-size: var(--font-size-xs);
 		font-weight: 500;
 		border: 1px solid var(--border-light);
 	}
 
 	.project-stats {
 		display: flex;
-		gap: 1rem;
+		gap: var(--spacing-md);
 	}
 
 	.stat {
 		display: flex;
 		align-items: center;
-		gap: 0.25rem;
+		gap: var(--spacing-xs);
 		color: var(--text-light);
-		font-size: 0.9rem;
+		font-size: var(--font-size-sm);
 	}
 
 	.no-projects {
 		text-align: center;
-		padding: 3rem;
+		padding: var(--spacing-2xl);
 		color: var(--text-secondary);
-		font-size: 1.1rem;
+		font-size: var(--font-size-lg);
 	}
 
 	@media (max-width: 768px) {
 		.filters {
 			flex-direction: column;
 			align-items: stretch;
-			gap: 1rem;
+			gap: var(--spacing-md);
 		}
 
 		.category-filters {
@@ -692,8 +692,8 @@
 		}
 
 		.filter-btn {
-			padding: 0.6rem 1.2rem;
-			font-size: 0.85rem;
+			padding: var(--spacing-sm) var(--spacing-lg);
+			font-size: var(--font-size-xs);
 		}
 
 		.toggle-filter {
@@ -702,17 +702,17 @@
 
 		.projects-grid {
 			grid-template-columns: 1fr;
-			gap: 1.5rem;
+			gap: var(--spacing-lg);
 		}
 
 		.project-content {
-			padding: 1.5rem;
+			padding: var(--spacing-lg);
 		}
 
 		.project-header {
 			flex-direction: column;
 			align-items: flex-start;
-			gap: 0.5rem;
+			gap: var(--spacing-sm);
 		}
 
 		.project-category {
