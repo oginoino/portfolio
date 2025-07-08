@@ -502,8 +502,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-static/Cursos e Certificados - GINALDO LARANEIRAS JUNIOR - Certificados.csv
-static/Cursos e Certificados - GINALDO LARANEIRAS JUNIOR - Certificados.pdf
-.firebase/hosting.YnVpbGQ.cache
 .env.example
-ENV_SETUP.md
+.firebase/hosting.YnVpbGQ.cache
