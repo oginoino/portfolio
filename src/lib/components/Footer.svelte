@@ -13,6 +13,7 @@
 			<div class="footer-section">
 				<h4>Links Rápidos</h4>
 				<ul>
+					<li><a href="#top">Início</a></li>
 					<li><a href="#about">Sobre</a></li>
 					<li><a href="#skills">Habilidades</a></li>
 					<li><a href="#experience">Experiência</a></li>
